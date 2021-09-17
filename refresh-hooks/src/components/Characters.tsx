@@ -1,6 +1,11 @@
-import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from "react"
+import { useCallback, useMemo, useReducer, useRef, useState } from "react"
+
 import { Search } from "./Search";
-import type { Character, CharacterResponse } from '../types/character';
+import { useCharacter } from "../hooks/useCharacter";
+
+import type { Character } from '../types/character';
+
+const API = 'https://rickandmortyapi.com/api/character'
 
 type FavoriteProps = {
   favorites: Character[]
@@ -27,21 +32,13 @@ const favoriteReducer = (state: FavoriteProps, action: FavoriteAction) => {
 
 export const Characters = () => {
   const [search, setSearch] = useState('')
-  const [characters, setCharacters] = useState<Character[]>([])
   const [{ favorites }, dispatch] = useReducer(favoriteReducer, initialState)
+  const characters = useCharacter(API)
   const searchInput = useRef<HTMLInputElement | null>(null)
 
   const handleFavorite = (favorite: Character) => {
     dispatch({ type: 'ADD_TO_FAVORITE', payload: favorite })
   }
-
-  // const handleSearch = () => {
-  //   if (searchInput.current) {
-  //     setSearch(searchInput.current.value)
-  //   }
-  // }
-
-  // const filteredUsers = characters.filter(({ name }) => name.toLowerCase().includes(search.toLowerCase()))
 
   const handleSearch = useCallback(() => {
     if (searchInput.current) {
@@ -53,12 +50,6 @@ export const Characters = () => {
     characters.filter(({ name }) => name.toLowerCase().includes(search.toLowerCase())),
     [characters, search]
   )
-
-  useEffect(() => {
-    fetch('https://rickandmortyapi.com/api/character')
-      .then(resp => resp.json())
-      .then((data: CharacterResponse) => setCharacters(data.results))
-  }, [])
 
   return (
     <main className="Characters">
