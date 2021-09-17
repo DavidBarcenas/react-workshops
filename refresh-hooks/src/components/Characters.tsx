@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useReducer, useRef, useState } from "react"
-import { Character, CharacterResponse } from '../types/character';
+import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from "react"
+import { Search } from "./Search";
+import type { Character, CharacterResponse } from '../types/character';
 
 type FavoriteProps = {
   favorites: Character[]
@@ -34,13 +35,19 @@ export const Characters = () => {
     dispatch({ type: 'ADD_TO_FAVORITE', payload: favorite })
   }
 
-  const handleSearch = () => {
+  // const handleSearch = () => {
+  //   if (searchInput.current) {
+  //     setSearch(searchInput.current.value)
+  //   }
+  // }
+
+  // const filteredUsers = characters.filter(({ name }) => name.toLowerCase().includes(search.toLowerCase()))
+
+  const handleSearch = useCallback(() => {
     if (searchInput.current) {
       setSearch(searchInput.current.value)
     }
-  }
-
-  // const filteredUsers = characters.filter(({ name }) => name.toLowerCase().includes(search.toLowerCase()))
+  }, [])
 
   const filteredUsers = useMemo(() =>
     characters.filter(({ name }) => name.toLowerCase().includes(search.toLowerCase())),
@@ -60,9 +67,7 @@ export const Characters = () => {
         {favorites.map(favorite => (<li key={favorite.id}>{favorite.name}</li>))}
       </ul>
 
-      <div className="search">
-        <input type="text" onChange={handleSearch} value={search} ref={searchInput} />
-      </div>
+      <Search search={search} searchInput={searchInput} handleSearch={handleSearch} />
 
       <h1>Characters</h1>
       {filteredUsers.map(character => (
