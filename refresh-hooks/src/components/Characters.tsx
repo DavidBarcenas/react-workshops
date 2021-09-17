@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useReducer, useState } from "react"
+import { useEffect, useMemo, useReducer, useRef, useState } from "react"
 import { Character, CharacterResponse } from '../types/character';
 
 type FavoriteProps = {
@@ -28,13 +28,16 @@ export const Characters = () => {
   const [search, setSearch] = useState('')
   const [characters, setCharacters] = useState<Character[]>([])
   const [{ favorites }, dispatch] = useReducer(favoriteReducer, initialState)
+  const searchInput = useRef<HTMLInputElement | null>(null)
 
   const handleFavorite = (favorite: Character) => {
     dispatch({ type: 'ADD_TO_FAVORITE', payload: favorite })
   }
 
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(event.target.value)
+  const handleSearch = () => {
+    if (searchInput.current) {
+      setSearch(searchInput.current.value)
+    }
   }
 
   // const filteredUsers = characters.filter(({ name }) => name.toLowerCase().includes(search.toLowerCase()))
@@ -58,7 +61,7 @@ export const Characters = () => {
       </ul>
 
       <div className="search">
-        <input type="text" onChange={handleSearch} value={search} />
+        <input type="text" onChange={handleSearch} value={search} ref={searchInput} />
       </div>
 
       <h1>Characters</h1>
