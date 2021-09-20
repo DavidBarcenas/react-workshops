@@ -1,3 +1,4 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path') 
 
 const ruleForStyles = {
@@ -29,5 +30,8 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'build')
   },
+  plugins: [
+    new HtmlWebpackPlugin({template: 'src/index.html'})
+  ],
   module: { rules }
 }
