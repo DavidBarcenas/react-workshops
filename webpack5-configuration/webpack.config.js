@@ -26,18 +26,24 @@ const rules = [
   ruleForStyles
 ]
 
-module.exports = {
-  output: {
-    path: path.resolve(__dirname, 'build')
-  },
-  plugins: [
-    new HtmlWebpackPlugin({template: 'src/index.html'})
-  ],
-  module: { rules },
-  devServer: {
-    open: true,
-    port: 3200,
-    overlay: true,
-    compress: true
+module.exports = (env, argv) => {
+  const {mode} = argv
+  const isProduction = mode === 'production'
+
+  return {
+    output: {
+      filename: isProduction ? '[name].[contenthash].js' : 'main.js',
+      path: path.resolve(__dirname, 'build')
+    },
+    plugins: [
+      new HtmlWebpackPlugin({template: 'src/index.html'})
+    ],
+    module: { rules },
+    devServer: {
+      open: true,
+      port: 3200,
+      overlay: true,
+      compress: true
+    }
   }
 }
