@@ -12,6 +12,13 @@
   "rules": {
     "max-lines": ["warn", 160],
     "react/react-in-jsx-scope": "off",
+    "no-magic-numbers": [
+      "warn",
+      { "detectObjects": true, "enforceConst": true, "ignoreArrayIndexes": true }
+    ],
+    "no-multiple-empty-lines": ["warn", { "max": 2, "maxEOF": 1 }],
+    "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/ban-types": "off",
     "react/jsx-filename-extension": [
       1,
       {
