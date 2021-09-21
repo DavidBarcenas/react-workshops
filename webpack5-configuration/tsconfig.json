@@ -15,10 +15,13 @@
     "noFallthroughCasesInSwitch": true,
     "module": "esnext",
     "moduleResolution": "node",
+    "sourceMap": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "outDir": "./build", 
+    "jsx": "react-jsx",
+    "importHelpers": true,     
   },
   "include": [
     "src"
