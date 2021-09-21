@@ -6,6 +6,13 @@ const ruleForStyles = {
   use: ['style-loader', 'css-loader']
 }
 
+const ruleForTypeScript = {
+  test: /\.tsx?$/,
+  use: {
+    loader: 'awesome-typescript-loader'
+  }
+}
+
 const ruleForJavaScript = {
   test: /\.js$/,
   loader: 'babel-loader',
@@ -23,27 +30,35 @@ const ruleForJavaScript = {
 
 const rules = [
   ruleForJavaScript,
-  ruleForStyles
+  ruleForTypeScript,
+  ruleForStyles,
 ]
 
-module.exports = (env, argv) => {
+module.exports = (_, argv) => {
   const {mode} = argv
   const isProduction = mode === 'production'
 
   return {
+    entry: './src/index.tsx',
     output: {
       filename: isProduction ? '[name].[contenthash].js' : 'main.js',
       path: path.resolve(__dirname, 'build')
     },
+    resolve: {
+      extensions: ['.ts', '.tsx', '.js']
+    },
     plugins: [
-      new HtmlWebpackPlugin({template: 'src/index.html'})
+      new HtmlWebpackPlugin({template: './public/index.html'})
     ],
     module: { rules },
     devServer: {
       open: true,
       port: 3200,
-      overlay: true,
-      compress: true
+      hot: true,
+      compress: true,
+      client: {
+        overlay: true,
+      },
     }
   }
 }
