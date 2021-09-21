@@ -1,4 +1,4 @@
-# Webpack 5 configuration
+# Configuring a react application
 
 This module aims to teach the basic elementary configuration to create an application with react and typescript.
 
