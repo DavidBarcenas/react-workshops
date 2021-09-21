@@ -1,3 +1,5 @@
+import '../styles/components/app.css'
+
 const App = () => {
   return (
     <div>
