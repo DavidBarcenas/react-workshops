@@ -1,18 +1,24 @@
 {
   "extends": [
     "airbnb",
-    "prettier"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "prettier",
+    "prettier/@typescript-eslint"
   ],
   "plugins": [
     "prettier"
   ],
   "rules": {
+    "max-lines": ["warn", 160],
+    "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": [
       1,
       {
         "extensions": [
           ".js",
-          ".jsx"
+          ".jsx",
+          ".tsx"
         ]
       }
     ],
@@ -33,5 +39,9 @@
     "Blob": true,
     "navigator": true
   },
-  "parser": "babel-eslint"
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  }
 }
