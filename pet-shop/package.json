@@ -10,6 +10,11 @@
     "format": "prettier --write '{*.js,src/**/*.{js,jsx}}'",
     "lint": "eslint src/ --fix"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn run lint"
+    }
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -33,6 +38,7 @@
     "eslint-plugin-react": "^7.26.0",
     "html-loader": "^2.1.2",
     "html-webpack-plugin": "^5.3.2",
+    "husky": "^7.0.2",
     "mini-css-extract-plugin": "^2.3.0",
     "prettier": "^2.4.1",
     "sass": "^1.42.0",
