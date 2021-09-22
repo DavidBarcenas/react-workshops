@@ -1,7 +1,8 @@
 export const Success = () => {
   return (
-    <div>
-      <h1>Success</h1>
+    <div className="Success">
+      <h1>Gracias por tu compra!</h1>
+      <span>Tu pedido lleagara en 3 días a tu dirección.</span>
     </div>
   )
 }
