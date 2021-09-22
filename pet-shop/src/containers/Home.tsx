@@ -1,7 +1,8 @@
+import { Products } from "../components/Products"
+import initialState from "../initialState"
+
 export const Home = () => {
   return (
-    <div>
-      <h1>Home</h1>
-    </div>
+    <Products products={initialState.products} />
   )
 }
