@@ -11,24 +11,19 @@ module.exports = (_, argv) => {
     output: {
       filename: isProduction ? '[name].[contenthash].js' : 'build.js',
       path: path.resolve(__dirname, 'build'),
+      publicPath: '/'
     },
     resolve: {
-      extensions: ['.ts', '.tsx', '.js'],
+      extensions: ['.ts', '.tsx', '.js', '.jsx'],
     },
     module: {
       rules: [
         {
-          test: /\.(js|jsx)$/,
+          test: /\.(ts|tsx|js|jsx)$/,
           exclude: /node_modules/,
           use: {
             loader: 'babel-loader',
           },
-        },
-        {
-          test: /\.tsx?$/,
-          use: {
-            loader: 'awesome-typescript-loader'
-          }
         },
         {
           test: /\.html$/,
@@ -63,6 +58,7 @@ module.exports = (_, argv) => {
       hot: true,
       open: true,
       port: 3200,
+      historyApiFallback: true,
       client: {
         overlay: true,
       },
