@@ -11,6 +11,11 @@ export const Header = () => {
           Checkout
         </Link>
       </div>
+      <span className="material-icons">home</span>
+      <span className="material-icons-outlined">search</span>
+      <span className="material-icons-round">
+home
+</span>
     </header>
   )
 }

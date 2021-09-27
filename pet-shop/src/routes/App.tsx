@@ -8,6 +8,8 @@ import { Success } from "../containers/Success";
 import { NotFound } from "../containers/NotFound";
 import { Layout } from "../components/Layout";
 
+import '../styles/global.scss'
+
 const App = () => {
   return (
     <Router>
