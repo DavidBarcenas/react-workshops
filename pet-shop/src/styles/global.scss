@@ -18,3 +18,47 @@ a {
 img {
   max-width: 100%;
 }
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.d-flex,
+.d-flex-between {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.d-flex {
+  justify-content: center;
+}
+
+.d-flex-between {
+  justify-content: space-between;
+}
+
+.btn {
+  background: transparent;
+  border-radius: 40px;
+  font-weight: 400;
+  text-transform: uppercase;
+  border: 1px solid #fff;
+  color: #fff;
+  padding: 1rem 3rem;
+  font-size: 1rem;
+  cursor: pointer;
+
+  span {
+    display: inline-block;
+    margin-left: .75rem;
+    vertical-align: middle;
+    margin-bottom: 3px;
+  }
+
+  &:hover {
+    background-color: #fff;
+    color: #000;
+  }
+}
