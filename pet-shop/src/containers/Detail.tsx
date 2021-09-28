@@ -28,7 +28,7 @@ export const Detail = () => {
             </div>
 
             <div className="Detail-buttons">
-              <Link to="/checkout/payment">
+              <Link to="/success">
                 <button type="button" className="btn">Proceed to pay</button>
               </Link>
               <Link to="/checkout">

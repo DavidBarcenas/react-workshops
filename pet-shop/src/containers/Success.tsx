@@ -1,8 +1,13 @@
+import '../styles/containers/success.scss'
+
 export const Success = () => {
   return (
     <div className="Success">
-      <h1>Gracias por tu compra!</h1>
-      <span>Tu pedido lleagara en 3 días a tu dirección.</span>
+      <div className="container">
+        <h2 className="container-title">THANKS FOR YOUR PURCHASE!</h2>
+        <span className="material-icons success-icon"> done </span>
+        <p>Your order arrives in 3 days at your address.</p>
+      </div>
     </div>
   )
 }
