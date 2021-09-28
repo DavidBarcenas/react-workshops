@@ -53,7 +53,13 @@ export const Home = () => {
         </div>
       </div>
 
-      <Products products={initialState.products} />
+      <div className="Home-products">
+        <div className="container">
+          <h2>Start playing the best of the best</h2>
+          <Products products={initialState.products} />
+        </div>
+      </div>
+
     </>
   )
 }

@@ -29,5 +29,12 @@ export default {
       'price': 2,
       'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
     },
+    {
+      'id': '6',
+      'image': 'https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/styles/1200/public/media/image/2020/08/caratula-call-duty-black-ops-cold-war-2038143.png?itok=ywpD9uGS',
+      'title': 'Call of Duty - Black Ops - Cold War',
+      'price': 30,
+      'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+    },
   ],
 };
