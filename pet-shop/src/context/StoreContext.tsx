@@ -4,7 +4,7 @@ import { useInitialState } from '../hooks/useInitialState';
 import type { Product, StoreState } from '../types/product';
 
 type ContextProps = {
-  products: StoreState;
+  state: StoreState;
   addToCart: (p: Product) => void;
   removeFromCart: (id: string) => void;
 };

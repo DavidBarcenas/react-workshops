@@ -1,8 +1,8 @@
 .Header-bar {
   background: #000;
   color: #fff;
-  font-size: .75rem;
-  padding: .3rem;
+  font-size: 0.75rem;
+  padding: 0.3rem;
 
   span:nth-of-type(2) {
     text-transform: uppercase;
@@ -24,11 +24,25 @@
   width: 35px;
   height: 35px;
   text-align: center;
+  position: relative;
 
   span {
     color: #fff;
     margin-top: 7px;
     margin-left: 2px;
     font-size: 22px;
+  }
+
+  .counter {
+    display: inline-block;
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    background: #f5c84d;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    z-index: 1;
   }
 }

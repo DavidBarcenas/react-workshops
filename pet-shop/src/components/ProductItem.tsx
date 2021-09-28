@@ -1,10 +1,12 @@
-import '../styles/components/products.scss'
+import type { Product } from '../types/product';
+import '../styles/components/products.scss';
 
 type Props = {
-  product: any
-}
+  product: Product;
+  handleAddToCart: (p: Product) => void;
+};
 
-export const Product = ({ product }: Props) => {
+export const ProductItem = ({ product, handleAddToCart }: Props) => {
   return (
     <div className="Product-item">
       <img src={product.image} alt={product.title} />
@@ -20,11 +22,11 @@ export const Product = ({ product }: Props) => {
           <button type="button">
             <span className="material-icons"> add </span>
           </button>
-          <button type="button">
+          <button type="button" onClick={() => handleAddToCart(product)}>
             <span className="material-icons"> shopping_cart </span>
           </button>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

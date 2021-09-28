@@ -1,25 +1,33 @@
-import { Product } from "./Product"
-import '../styles/components/products.scss'
+import { useContext } from 'react';
 
-type Props = {
-  products: any[]
-}
+import { Storecontext } from '../context/StoreContext';
+import { ProductItem } from './ProductItem';
+import type { Product } from '../types/product';
+import '../styles/components/products.scss';
 
-export const Products = ({ products }: Props) => {
+export const Products = () => {
+  const { state, addToCart } = useContext(Storecontext);
+  const { products } = state;
+
+  const handleAddToCart = (p: Product) => {
+    addToCart(p);
+  };
+
   return (
     <div className="d-flex-between Products">
-      {products.map(product => (
-        <Product key={product.id} product={product} />
+      {products.map((p: Product) => (
+        <ProductItem key={p.id} product={p} handleAddToCart={handleAddToCart} />
       ))}
+
       <div className="Product-show-all">
         <div>
           <p>Show all</p>
           <p>games</p>
         </div>
         <button>
-          <span className="material-icons"> east </span>
+          <span className="material-icons">east</span>
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
