@@ -12,7 +12,7 @@ export const Home = () => {
           <p>gaming desktop</p>
         </div>
         <figure className="Home-banner-img">
-          <img src="https://images.pexels.com/photos/7238759/pexels-photo-7238759.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Gaming Desktop" />
+          <img src="https://images.pexels.com/photos/777001/pexels-photo-777001.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Gaming Desktop" />
           <figcaption>
             <p>It is high time that you have a comfortable</p>
             <p>desk to play, work and carry out</p>
@@ -23,6 +23,36 @@ export const Home = () => {
           </figcaption>
         </figure>
       </div>
+
+      <div className="Home-platforms">
+        <div className="container d-flex-between">
+          <div className="Home-platforms-item">
+            <span className="material-icons"> sports_esports </span>
+            <p>PC</p>
+          </div>
+          <div className="Home-platforms-item">
+            <span className="material-icons"> sports_esports </span>
+            <p>XBOX</p>
+          </div>
+          <div className="Home-platforms-item">
+            <span className="material-icons"> sports_esports </span>
+            <p>PLAY STATION</p>
+          </div>
+          <div className="Home-platforms-item">
+            <span className="material-icons"> sports_esports </span>
+            <p>NINTENDO SWITCH</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="Home-games">
+        <div className="container">
+          <h2 className="Home-games-title">Top Games <span>2021</span></h2>
+          <p>We have the best games of this year.</p>
+          <p>You will only find them here!</p>
+        </div>
+      </div>
+
       <Products products={initialState.products} />
     </>
   )
