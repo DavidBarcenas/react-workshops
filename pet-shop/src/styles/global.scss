@@ -62,3 +62,24 @@ img {
     color: #000;
   }
 }
+
+.Breadcrumbs {
+  padding: 1rem 0;
+
+  span {
+    color: #181818;
+    font-size: .75rem;
+    font-weight: 300;
+    text-transform: uppercase;
+  }
+}
+
+.container-title {
+  font-weight: 300;
+  font-size: 3rem;
+  margin: 0;
+  margin-top: 2rem;
+  margin-bottom: 4rem;
+  text-align: center;
+  text-transform: uppercase;
+}
