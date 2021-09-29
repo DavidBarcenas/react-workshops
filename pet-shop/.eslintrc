@@ -1,18 +1,8 @@
 {
-  "extends": [
-    "plugin:@typescript-eslint/recommended",
-    "plugin:react/recommended",
-    "prettier",
-    "prettier/@typescript-eslint"
-  ],
-  "plugins": [
-    "prettier"
-  ],
+  "extends": ["plugin:@typescript-eslint/recommended", "plugin:react/recommended", "prettier"],
+  "plugins": ["prettier", "import"],
   "rules": {
-    "max-lines": [
-      "warn",
-      160
-    ],
+    "max-lines": ["warn", 160],
     "react/react-in-jsx-scope": "off",
     "no-magic-numbers": [
       "warn",
@@ -34,20 +24,12 @@
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [
-          ".ts",
-          ".tsx",
-          ".js",
-          ".jsx"
-        ]
+        "extensions": [".ts", ".tsx", ".js", ".jsx"]
       }
     ],
     "react/prop-types": 0,
     "no-underscore-dangle": 0,
-    "import/imports-first": [
-      "error",
-      "absolute-first"
-    ],
+    "import/imports-first": ["error", "absolute-first"],
     "import/newline-after-import": "error"
   },
   "globals": {
@@ -63,5 +45,10 @@
   "parserOptions": {
     "ecmaVersion": 2020,
     "sourceType": "module"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }

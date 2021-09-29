@@ -37,4 +37,15 @@ export default {
       'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
     },
   ],
+  buyer: {
+    name: '',
+    email: '',
+    address: '',
+    apto: '',
+    city: '',
+    country: '',
+    state: '',
+    zip: '',
+    phone: '',
+  }
 };

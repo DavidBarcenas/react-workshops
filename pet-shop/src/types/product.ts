@@ -1,6 +1,9 @@
+import { DetailForm } from './detailForm';
+
 export type StoreState = {
   cart: Product[],
   products: Product[]
+  buyer: DetailForm
 }
 
 export type Product = {

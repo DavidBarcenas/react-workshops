@@ -5,12 +5,13 @@ import { Storecontext } from '../context/StoreContext';
 import type { Product } from '../types/product';
 import '../styles/containers/checkout.scss';
 
-export const Checkout = () => {
+export const Checkout = (): JSX.Element => {
   const { state, removeFromCart } = useContext(Storecontext);
   const { cart } = state;
+  const initialCounter = 0;
 
   const handleSumTotal = (): number => {
-    const sum = cart.reduce(reducer, 0);
+    const sum = cart.reduce(reducer, initialCounter);
     return sum;
   };
 
@@ -30,7 +31,7 @@ export const Checkout = () => {
         <div className="d-flex-between Checkout-wrapper">
           <div className="Checkout-content">
             {cart.map(p => (
-              <div className="d-flex-between Checkout-item">
+              <div key={p.id} className="d-flex-between Checkout-item">
                 <div className="Checkout-img">
                   <img src={p.image} alt={p.title} />
                   <div>
@@ -61,7 +62,7 @@ export const Checkout = () => {
               <p>
                 Total price <span>${handleSumTotal()}</span>
               </p>
-              {cart.length > 0 && (
+              {cart.length > initialCounter && (
                 <button type="button" className="btn">
                   <Link to="/checkout/detail" aria-disabled>
                     Proceed to checkout
