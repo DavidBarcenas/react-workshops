@@ -1,13 +1,13 @@
 import { useContext, useRef } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { History } from 'history';
 
 import { Storecontext } from '../context/StoreContext';
 import '../styles/containers/detail.scss';
 
-export const Detail = (): JSX.Element => {
+export const Detail = ({ history }: { history: History }): JSX.Element => {
   const { state, addToBuyer } = useContext(Storecontext);
   const form = useRef<HTMLFormElement | null>(null);
-  const history = useHistory();
   const { cart } = state;
 
   const handleSubmit = () => {

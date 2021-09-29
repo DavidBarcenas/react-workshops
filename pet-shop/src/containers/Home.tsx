@@ -1,10 +1,14 @@
-import { Products } from '../components/Products';
+import { Helmet } from 'react-helmet';
 
+import { Products } from '../components/Products';
 import '../styles/containers/home.scss';
 
-export const Home = () => {
+export const Home = (): JSX.Element => {
   return (
     <>
+      <Helmet>
+        <title>Game Store | Home</title>
+      </Helmet>
       <div className="Home-banner">
         <div className="Home-banner-title">
           <p>Create your own</p>
