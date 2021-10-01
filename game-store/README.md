@@ -2,14 +2,13 @@
 
 Online store related to desks for gamers, video games, accessories for consoles and other things related to this topic.
 
+# Preview
+![App screenshot](./.readme-static/app.png)
+
 <p align="center">
   🐞 <a href="https://github.com/DavidBarcenas/front-end-workshops/issues">Report a Bug</a> 
   🙋‍♂️ <a href="https://github.com/DavidBarcenas/front-end-workshops/issues">Request Feature</a>
 </p>
-
-
-# Preview
-![App screenshot](./.readme-static/app.png)
 
 # Running the app
 
