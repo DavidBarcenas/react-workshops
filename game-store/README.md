@@ -1,10 +1,10 @@
-# Game Store
+# React - Game Store
 
 Online store related to desks for gamers, video games, accessories for consoles and other things related to this topic.
 
 <p align="center">
-  🐞 <a href="https://github.com/DavidBarcenas/nextjs-plantpedia/issues">Report a Bug</a> 
-  🙋‍♂️ <a href="https://github.com/DavidBarcenas/nextjs-plantpedia/issues">Request Feature</a>
+  🐞 <a href="https://github.com/DavidBarcenas/front-end-workshops/issues">Report a Bug</a> 
+  🙋‍♂️ <a href="https://github.com/DavidBarcenas/front-end-workshops/issues">Request Feature</a>
 </p>
 
 
@@ -15,13 +15,12 @@ Online store related to desks for gamers, video games, accessories for consoles 
 
 ## Installation
 
-I use yarn as my package manager, feel free to change it to whatever manager you use.
-
+I use yarn as my package manager, feel free to change it to whatever manager you use. \
 If you use npm just change the word `yarn` to `npm`.
 
 ```bash
 git clone https://github.com/DavidBarcenas/front-end-workshops.git
-cd game-store
+cd front-end-workshops/game-store
 yarn install
 ```
 

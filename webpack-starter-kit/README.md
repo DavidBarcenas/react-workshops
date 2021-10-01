@@ -1,6 +1,11 @@
-# Configuring a react application
+# Webpack starter kit v5
 
-This module aims to teach the basic elementary configuration to create an application with react and typescript.
+This module aims to have a custom configuration to create an application with react and typescript.
+
+<p align="center">
+  🐞 <a href="https://github.com/DavidBarcenas/front-end-workshops/issues">Report a Bug</a> 
+  🙋‍♂️ <a href="https://github.com/DavidBarcenas/front-end-workshops/issues">Request Feature</a>
+</p>
 
 # Features
 
@@ -13,14 +18,12 @@ This module aims to teach the basic elementary configuration to create an applic
 
 # Running the app
 
-I use yarn as my package manager, feel free to change it to whatever manager you use.
-
+I use yarn as my package manager, feel free to change it to whatever manager you use. \
 If you use *npm* just change the word `yarn` to `npm`.
 
 ```bash
-git clone https://github.com/DavidBarcenas/react-workshops.git
-cd react-workshops/webpack5-configuration
-
+git clone https://github.com/DavidBarcenas/front-end-workshops.git
+cd front-end-workshops/webpack-starter-kit
 yarn install
 ```
 
@@ -29,3 +32,7 @@ yarn install
 
 ## Build
 `yarn build` creates an optimized production build of your application.
+
+# License
+Released under the  [MIT licensed](LICENSE).\
+Feel free to fork this project and improve it. Give a ⭐️ if you like this project!
