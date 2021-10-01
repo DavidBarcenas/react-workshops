@@ -1,64 +1,67 @@
-const path = require('path') 
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-
-const ruleForStyles = {
-  test: /\.css$/,
-  use: ['style-loader', 'css-loader']
-}
-
-const ruleForTypeScript = {
-  test: /\.tsx?$/,
-  use: {
-    loader: 'awesome-typescript-loader'
-  }
-}
-
-const ruleForJavaScript = {
-  test: /\.js$/,
-  loader: 'babel-loader',
-  options: {
-    presets: [
-      [
-        '@babel/preset-react',
-        {
-          runtime: 'automatic'
-        }
-      ]
-    ]
-  }
-}
-
-const rules = [
-  ruleForJavaScript,
-  ruleForTypeScript,
-  ruleForStyles,
-]
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = (_, argv) => {
-  const {mode} = argv
+  const { mode } = argv
   const isProduction = mode === 'production'
 
   return {
     entry: './src/index.tsx',
     output: {
-      filename: isProduction ? '[name].[contenthash].js' : 'main.js',
-      path: path.resolve(__dirname, 'build')
+      filename: isProduction ? '[name].[contenthash].js' : 'build.js',
+      path: path.resolve(__dirname, 'build'),
+      publicPath: '/'
     },
     resolve: {
-      extensions: ['.ts', '.tsx', '.js']
+      extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    },
+    module: {
+      rules: [
+        {
+          test: /\.(ts|tsx|js|jsx)$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'babel-loader',
+          },
+        },
+        {
+          test: /\.html$/,
+          use: [
+            {
+              loader: 'html-loader',
+            },
+          ],
+        },
+        {
+          test: /\.scss$/,
+          use: [
+            {
+              loader: MiniCssExtractPlugin.loader,
+            },
+            'css-loader',
+            'sass-loader',
+          ],
+        },
+      ],
     },
     plugins: [
-      new HtmlWebpackPlugin({template: './public/index.html'})
+      new HtmlWebpackPlugin({
+        template: './public/index.html',
+      }),
+      new MiniCssExtractPlugin({
+        filename: 'assets/[name].css',
+      }),
     ],
-    module: { rules },
     devServer: {
+      compress: true,
+      hot: true,
       open: true,
       port: 3200,
-      hot: true,
-      compress: true,
+      historyApiFallback: true,
       client: {
         overlay: true,
       },
-    }
+    },
   }
 }

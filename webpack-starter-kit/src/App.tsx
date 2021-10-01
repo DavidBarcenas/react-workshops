@@ -1,9 +1,7 @@
-import { sayHi } from "./utils"
-
 const App: React.FC = () => {
   return (
     <div>
-      <h1>{sayHi()}</h1>
+      <h1>Webpack Starter Kit!</h1>
     </div>
   )
 }
