@@ -1,6 +1,10 @@
 # Webpack starter kit v5
 
 This module aims to have a custom configuration to create an application with react and typescript.
+It also includes rules that can be applied in any project like angular, vue, js and more.
+
+
+![App screenshot](./.readme-static/app.png)
 
 <p align="center">
   🐞 <a href="https://github.com/DavidBarcenas/front-end-workshops/issues">Report a Bug</a> 
@@ -9,12 +13,10 @@ This module aims to have a custom configuration to create an application with re
 
 # Features
 
-- Webpack configuration
-- Development server configuration
-- Setting up an environment with typescript
+- Webpack configuration for packaging
+- ESLint configuration to apply good practices
+- Prettier configuration for code format
 - Rules for styles, javascript and typescript
-- Creation of hashes
-- Plugin for html
 
 # Running the app
 
