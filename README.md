@@ -1,8 +1,8 @@
-# Front end Workshops
+# React Workshops
 
 Repository with exercises from multiple courses and challenges.
 
-The objective is to know the best practices for programming with frmaworks and javascript libraries.
+The objective is to know the best practices for programming with react and javascript libraries.
 
 # Projects
 
