@@ -1,24 +1,37 @@
-import { NavLink } from "react-router-dom";
-import logo from '../logo.svg'
+import { NavLink } from 'react-router-dom';
+import logo from '../logo.svg';
+
+type link = {
+  path: string;
+  name: string;
+};
+
+const LINKS: link[] = [
+  { path: '/', name: 'Home' },
+  { path: '/about', name: 'About' },
+  { path: '/users', name: 'Users' },
+];
 
 function Header() {
+  function isActive({ isActive }: { isActive: boolean }): string {
+    return isActive ? 'nav-active ' : '';
+  }
+
   return (
-   <header>
+    <header>
       <nav>
-      <img src={logo} alt="React Logo" />
-      <ul>
-        <li>
-          <NavLink  end to="/" className={({ isActive }) => isActive ? "nav-active " : ""}>Home</NavLink>
-        </li>
-        <li>
-          <NavLink end to="/about" className={({ isActive }) => isActive ? "nav-active " : ""}>About</NavLink>
-        </li>
-        <li>
-          <NavLink end to="/users" className={({ isActive }) => isActive ? "nav-active " : ""}>Users</NavLink>
-        </li>
-      </ul>
+        <img src={logo} alt="React Logo" />
+        <ul>
+          {LINKS.map(link => (
+            <li>
+              <NavLink end to={link.path} className={isActive}>
+                {link.name}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
       </nav>
-   </header>
+    </header>
   );
 }
 

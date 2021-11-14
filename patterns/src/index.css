@@ -1,8 +1,8 @@
-html,body {
+html,
+body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   background-color: #282c34;
   color: white;
   -webkit-font-smoothing: antialiased;
@@ -10,10 +10,8 @@ html,body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
-
 
 .main-layout {
   display: flex;
@@ -24,10 +22,11 @@ nav {
   background-color: #363a45;
   height: 100vh;
   margin-right: 15px;
-  overflow-y: scroll;
+  overflow-y: auto;
   text-align: center;
   width: 250px;
 }
+
 nav ul {
   align-items: center;
   display: flex;
@@ -49,5 +48,5 @@ nav li a {
 
 .nav-active {
   color: grey;
-  transition: all .3s ease-out;
+  transition: all 0.3s ease-out;
 }

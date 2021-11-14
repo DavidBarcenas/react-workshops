@@ -1,9 +1,7 @@
-import Navigation from "./routes/navigation";
+import Navigation from './routes/navigation';
 
 function App() {
-  return (
-      <Navigation />
-  );
+  return <Navigation />;
 }
 
 export default App;

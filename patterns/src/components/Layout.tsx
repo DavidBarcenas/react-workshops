@@ -1,11 +1,11 @@
 import { ReactNode } from 'react';
 import Header from './Header';
 
-function Layout(props: {children: ReactNode}) {
+function Layout(props: { children: ReactNode }) {
   return (
     <div className="main-layout">
-        <Header />
-        {props.children}
+      <Header />
+      {props.children}
     </div>
   );
 }

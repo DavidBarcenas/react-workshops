@@ -1,5 +1,5 @@
-import { Routes, Route } from "react-router-dom";
-import Layout from "../components/Layout";
+import { Routes, Route } from 'react-router-dom';
+import Layout from '../components/Layout';
 
 function Navigation() {
   return (
@@ -13,4 +13,4 @@ function Navigation() {
   );
 }
 
-export default Navigation
+export default Navigation;
