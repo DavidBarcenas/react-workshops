@@ -1,6 +1,6 @@
 import Navigation from './routes/navigation';
 
-function App() {
+function App(): JSX.Element {
   return <Navigation />;
 }
 

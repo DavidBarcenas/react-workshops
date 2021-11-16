@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import Layout from '../components/Layout';
 
-function Navigation() {
+function Navigation(): JSX.Element {
   return (
     <Layout>
       <Routes>

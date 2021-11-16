@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import Header from './Header';
 
-function Layout(props: { children: ReactNode }) {
+function Layout(props: { children: ReactNode }): JSX.Element {
   return (
     <div className="main-layout">
       <Header />

@@ -12,7 +12,7 @@ const LINKS: link[] = [
   { path: '/users', name: 'Users' },
 ];
 
-function Header() {
+function Header(): JSX.Element {
   function isActive({ isActive }: { isActive: boolean }): string {
     return isActive ? 'nav-active ' : '';
   }
@@ -23,7 +23,7 @@ function Header() {
         <img src={logo} alt="React Logo" />
         <ul>
           {LINKS.map(link => (
-            <li>
+            <li key={link.name}>
               <NavLink end to={link.path} className={isActive}>
                 {link.name}
               </NavLink>
