@@ -7,9 +7,9 @@ type route = {
   children?: route[]
 };
 
-const Login = lazy(() => import('../../auth/pages/Login'))
-const Register = lazy(() => import('../../auth/pages/Register'))
-const VerifyAccount = lazy(() => import('../../auth/pages/VerifyAccount'))
+const Login = lazy(() => import(/* webpackChunkName: "login" */ '../../auth/pages/Login'))
+const Register = lazy(() => import(/* webpackChunkName: "register" */ '../../auth/pages/Register'))
+const VerifyAccount = lazy(() => import(/* webpackChunkName: "verifyAccount" */ '../../auth/pages/VerifyAccount'))
 
 export const routes: route[] = [
   { path: '/login', name: 'Login', component: Login },
