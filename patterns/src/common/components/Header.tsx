@@ -1,16 +1,7 @@
 import { NavLink } from 'react-router-dom';
-import logo from '../logo.svg';
 
-type link = {
-  path: string;
-  name: string;
-};
-
-const LINKS: link[] = [
-  { path: '/', name: 'Home' },
-  { path: '/about', name: 'About' },
-  { path: '/users', name: 'Users' },
-];
+import { routes } from '../routes/routes';
+import logo from '../../logo.svg';
 
 function Header(): JSX.Element {
   function isActive({ isActive }: { isActive: boolean }): string {
@@ -22,10 +13,10 @@ function Header(): JSX.Element {
       <nav>
         <img src={logo} alt="React Logo" />
         <ul>
-          {LINKS.map(link => (
-            <li key={link.name}>
-              <NavLink end to={link.path} className={isActive}>
-                {link.name}
+          {routes.map(({ path, name }) => (
+            <li key={path}>
+              <NavLink end to={path} className={isActive}>
+                {name}
               </NavLink>
             </li>
           ))}
