@@ -1,4 +1,8 @@
 import { lazy, LazyExoticComponent } from "react";
+import NoLazy from "../pages/NoLazy";
+import Login from '../../auth/pages/Login';
+import Register from '../../auth/pages/Register';
+import VerifyAccount from '../../auth/pages/VerifyAccount';
 
 type route = {
   path: string;
@@ -7,12 +11,13 @@ type route = {
   children?: route[]
 };
 
-const Login = lazy(() => import(/* webpackChunkName: "login" */ '../../auth/pages/Login'))
-const Register = lazy(() => import(/* webpackChunkName: "register" */ '../../auth/pages/Register'))
-const VerifyAccount = lazy(() => import(/* webpackChunkName: "verifyAccount" */ '../../auth/pages/VerifyAccount'))
+const Auth = lazy(() => import(/* webpackChunkName: "auth" */ '../../auth/layout/Auth'))
 
 export const routes: route[] = [
-  { path: '/login', name: 'Login', component: Login },
-  { path: '/register', name: 'Register', component: Register },
-  { path: '/verify', name: 'Verify Account', component: VerifyAccount },
+  { path: '/nolazy', name: 'No Lazy', component: NoLazy },
+  { path: '/auth', name: 'Authentication', component: Auth, children:[
+    { path: 'login', name: 'Login', component: Login },
+    { path: 'register', name: 'Register', component: Register },
+    { path: 'verify-account', name: 'Verify Account', component: VerifyAccount },
+  ]},
 ];

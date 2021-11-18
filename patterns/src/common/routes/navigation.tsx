@@ -9,9 +9,19 @@ function Navigation(): JSX.Element {
     <Layout>
       <Suspense fallback={null}>
         <Routes>
-          {routes.map(({ path, component: Component }) => (
-            <Route key={path} path={path} element={<Component />} />
-          ))}
+          {routes.map(({ path, children, component: Component }) => {
+            if (children) {
+              return (
+                <Route path="/auth" element={<Component />}>
+                  {children.map(child => (
+                    <Route key={child.path} path={child.path} element={<child.component />} />
+                  ))}
+                </Route>
+              );
+            } else {
+              return <Route key={path} path={path} element={<Component />} />;
+            }
+          })}
           <Route path="*" element={<Navigate to={routes[0].path} replace />} />
         </Routes>
       </Suspense>
