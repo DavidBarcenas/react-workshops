@@ -50,3 +50,22 @@ nav li a {
   color: grey;
   transition: all 0.3s ease-out;
 }
+
+.auth-wrap h1 {
+  display: block;
+}
+
+.auth-nav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.auth-nav li {
+  display: inline-block;
+  margin-right: 1rem;
+}
+
+.auth-nav li a {
+  color: #fff;
+}

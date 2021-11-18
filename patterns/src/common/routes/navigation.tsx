@@ -12,7 +12,7 @@ function Navigation(): JSX.Element {
           {routes.map(({ path, children, component: Component }) => {
             if (children) {
               return (
-                <Route path="/auth" element={<Component />}>
+                <Route key={path} path="/auth" element={<Component />}>
                   {children.map(child => (
                     <Route key={child.path} path={child.path} element={<child.component />} />
                   ))}
