@@ -1,17 +1,10 @@
-import { useState } from 'react';
-
+import useCounter from '../hooks/useCounter';
 import styles from '../styles/styles.module.css';
 // import noImage from '../assets/no-image.jpg';
 
 function ProductCard(): JSX.Element {
-  const minValue = 0;
-  const increaseValue = 1;
-
-  const [counter, setCounter] = useState<number>(minValue);
-
-  function increaseBy(value: number) {
-    setCounter(prev => Math.max(prev + value, minValue));
-  }
+  const value = 1;
+  const { counter, increaseBy } = useCounter(value);
 
   return (
     <div className={styles.productCard}>
@@ -19,11 +12,11 @@ function ProductCard(): JSX.Element {
       <span className={styles.productDescription}>Coffe Mug</span>
 
       <div className={styles.buttonsContainer}>
-        <button className={styles.buttonMinus} onClick={() => increaseBy(-increaseValue)}>
+        <button className={styles.buttonMinus} onClick={() => increaseBy(-value)}>
           -
         </button>
         <div className={styles.countLabel}>{counter}</div>
-        <button className={styles.buttonAdd} onClick={() => increaseBy(+increaseValue)}>
+        <button className={styles.buttonAdd} onClick={() => increaseBy(+value)}>
           +
         </button>
       </div>
