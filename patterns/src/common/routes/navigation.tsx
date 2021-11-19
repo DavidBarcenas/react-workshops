@@ -12,21 +12,18 @@ function Navigation(): JSX.Element {
           {routes.map(({ path, children, component: Component }) => {
             if (children) {
               return (
-                <Route key={path} path="/auth" element={<Component />}>
-                  {children.map(child => {
-                    if (child.isIndex) {
-                      return <Route key={child.path} index element={<child.component />} />;
+                <Route key={path} path={path} element={<Component />}>
+                  {children.map(({ path, isIndex, component: ChildComponent }) => {
+                    if (isIndex) {
+                      return <Route key={path} index element={<ChildComponent />} />;
                     } else {
-                      return (
-                        <Route key={child.path} path={child.path} element={<child.component />} />
-                      );
+                      return <Route key={path} path={path} element={<ChildComponent />} />;
                     }
                   })}
                 </Route>
               );
-            } else {
-              return <Route key={path} path={path} element={<Component />} />;
             }
+            return <Route key={path} path={path} element={<Component />} />;
           })}
           <Route path="*" element={<Navigate to={routes[0].path} replace />} />
         </Routes>
