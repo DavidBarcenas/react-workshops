@@ -16,14 +16,14 @@ function ShoppingPage(): JSX.Element {
       <div className={styles.products}>
         <ProductCard product={products[0]}>
           <ProductCard.Image />
-          <ProductCard.Title title="Caffee Mug" />
-          <ProductCard.Buttons
-            counter={0}
-            value={0}
-            increaseBy={() => {
-              null;
-            }}
-          />
+          <ProductCard.Title />
+          <ProductCard.Buttons />
+        </ProductCard>
+
+        <ProductCard product={products[1]}>
+          <ProductCard.Image />
+          <ProductCard.Title title="Nike Shirt" />
+          <ProductCard.Buttons />
         </ProductCard>
       </div>
     </div>
