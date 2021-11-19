@@ -5,4 +5,5 @@ export type route = {
   name: string;
   component: LazyExoticComponent<() => JSX.Element> | (() => JSX.Element);
   children?: route[]
+  isIndex?: boolean
 };

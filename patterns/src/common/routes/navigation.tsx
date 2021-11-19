@@ -13,9 +13,15 @@ function Navigation(): JSX.Element {
             if (children) {
               return (
                 <Route key={path} path="/auth" element={<Component />}>
-                  {children.map(child => (
-                    <Route key={child.path} path={child.path} element={<child.component />} />
-                  ))}
+                  {children.map(child => {
+                    if (child.isIndex) {
+                      return <Route key={child.path} index element={<child.component />} />;
+                    } else {
+                      return (
+                        <Route key={child.path} path={child.path} element={<child.component />} />
+                      );
+                    }
+                  })}
                 </Route>
               );
             } else {
