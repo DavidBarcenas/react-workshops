@@ -14,9 +14,17 @@ function ShoppingPage(): JSX.Element {
       <hr />
 
       <div className={styles.products}>
-        {products.map(p => (
-          <ProductCard key={p.id} product={p} />
-        ))}
+        <ProductCard product={products[0]}>
+          <ProductCard.Image />
+          <ProductCard.Title title="Caffee Mug" />
+          <ProductCard.Buttons
+            counter={0}
+            value={0}
+            increaseBy={() => {
+              null;
+            }}
+          />
+        </ProductCard>
       </div>
     </div>
   );
