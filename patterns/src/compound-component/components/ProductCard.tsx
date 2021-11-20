@@ -1,8 +1,5 @@
 import { createContext } from 'react';
 
-import ProductButtons from './ProductButtons';
-import ProductImage from './ProductImage';
-import ProductTitle from './ProductTitle';
 import useCounter from '../hooks/useCounter';
 import styles from '../styles/styles.module.css';
 
@@ -21,9 +18,5 @@ function ProductCard({ product, children }: ProductCardProps): JSX.Element {
     </Provider>
   );
 }
-
-ProductCard.Title = ProductTitle;
-ProductCard.Image = ProductImage;
-ProductCard.Buttons = ProductButtons;
 
 export default ProductCard;
