@@ -22,7 +22,7 @@ function ShoppingPage(): JSX.Element {
 
         <ProductCard product={products[1]} className={styles.bgDark}>
           <ProductImage />
-          <ProductTitle title="Nike Shirt" />
+          <ProductTitle title="Nike Shirt" className={styles.textWhite} />
           <ProductButtons />
         </ProductCard>
       </div>
