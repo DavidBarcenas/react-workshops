@@ -3,12 +3,9 @@ import { useContext } from 'react';
 import { ProductContext } from './ProductCard';
 import styles from '../styles/styles.module.css';
 
-type Props = {
-  className?: string;
-  title?: string;
-};
+import type { ProductTitleProps } from '../../types/product';
 
-function ProductTitle({ title, className }: Props): JSX.Element {
+function ProductTitle({ title, className }: ProductTitleProps): JSX.Element {
   const { product } = useContext(ProductContext);
   const showTitle = title || product.title;
 

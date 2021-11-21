@@ -19,9 +19,23 @@ export type ProductContextProps = {
   product: Product;
 };
 
+export type ProductTitleProps = {
+  className?: string;
+  title?: string;
+};
+
+export type ProductImageProps = {
+  img?: string;
+  className?: string;
+};
+
+export type ProductButtonsProps = {
+  className?: string;
+};
+
 export type ProductCardCompound = {
-  ({ product, children }: ProductCardProps): JSX.Element;
-  Title: ({ title }: {title?:string}) => JSX.Element;
-  Image: ({ img }: {img?:string}) => JSX.Element;
-  Buttons: ({className}: {className?: string}) => JSX.Element;
+  (Props: ProductCardProps): JSX.Element;
+  Buttons: (Props: ProductButtonsProps) => JSX.Element;
+  Image: (Props: ProductImageProps) => JSX.Element;
+  Title: (Props: ProductTitleProps) => JSX.Element;
 }
