@@ -71,3 +71,13 @@
 .textWhite {
   color: #fff;
 }
+
+.myButtons button,
+.myButtons div {
+  background-color: #fff;
+  color: #000;
+}
+
+.myButtons button:hover {
+  background-color: red;
+}
