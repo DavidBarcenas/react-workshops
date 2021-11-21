@@ -8,9 +8,9 @@ import type { ProductContextProps, ProductCardProps } from '../../types/product'
 export const ProductContext = createContext({} as ProductContextProps);
 const { Provider } = ProductContext;
 
-function ProductCard({ product, children, className }: ProductCardProps): JSX.Element {
+function ProductCard({ product, children, className, onChange }: ProductCardProps): JSX.Element {
   const increaseValue = 1;
-  const { counter, increaseBy } = useCounter(increaseValue);
+  const { counter, increaseBy } = useCounter(onChange);
 
   return (
     <Provider value={{ counter, increaseBy, product, increaseValue }}>

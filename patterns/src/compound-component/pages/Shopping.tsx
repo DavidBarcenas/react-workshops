@@ -20,6 +20,10 @@ const products: Product[] = [
 function ShoppingPage(): JSX.Element {
   const [shoppingCart, setShoppingCart] = useState<CartState>({});
 
+  function onProductCountChange() {
+    console.log('OnProductchange');
+  }
+
   return (
     <div>
       <h1>Shopping Page</h1>
@@ -38,7 +42,7 @@ function ShoppingPage(): JSX.Element {
 
       <div className={styles.products}>
         {products.map(p => (
-          <ProductCard key={p.id} product={p}>
+          <ProductCard key={p.id} product={p} onChange={onProductCountChange}>
             <ProductImage />
             <ProductTitle />
             <ProductButtons />

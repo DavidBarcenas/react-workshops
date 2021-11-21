@@ -10,7 +10,8 @@ export type ProductCardProps = {
   product: Product;
   children?: ReactNode;
   className?: string;
-  style?: CSSProperties
+  style?: CSSProperties;
+  onChange?: () => void
 };
 
 export type ProductContextProps = {
