@@ -81,3 +81,17 @@
 .myButtons button:hover {
   background-color: red;
 }
+
+.shoppingCart {
+  position: fixed;
+  top: 0;
+  right: 1rem;
+}
+
+.shoppingCartElement {
+  width: 100px;
+}
+
+.shoppingCartElement span {
+  font-size: 0.85rem;
+}
