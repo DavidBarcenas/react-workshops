@@ -1,4 +1,4 @@
-import ProductCard from '../components';
+import ProductCard, { ProductButtons, ProductImage, ProductTitle } from '../components';
 import styles from '../styles/styles.module.css';
 import type { Product } from '../../types/product';
 
@@ -20,10 +20,10 @@ function ShoppingPage(): JSX.Element {
           <ProductCard.Buttons />
         </ProductCard>
 
-        <ProductCard product={products[1]}>
-          <ProductCard.Image />
-          <ProductCard.Title title="Nike Shirt" />
-          <ProductCard.Buttons />
+        <ProductCard product={products[1]} className={styles.bgDark}>
+          <ProductImage />
+          <ProductTitle title="Nike Shirt" className={styles.textWhite} />
+          <ProductButtons className={styles.myButtons} />
         </ProductCard>
       </div>
     </div>

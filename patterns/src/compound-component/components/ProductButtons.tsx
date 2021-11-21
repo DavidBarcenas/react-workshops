@@ -3,11 +3,13 @@ import { useContext } from 'react';
 import { ProductContext } from './ProductCard';
 import styles from '../styles/styles.module.css';
 
-function ProductButtons(): JSX.Element {
+import type { ProductButtonsProps } from '../../types/product';
+
+function ProductButtons({ className }: ProductButtonsProps): JSX.Element {
   const { increaseBy, counter, increaseValue } = useContext(ProductContext);
 
   return (
-    <div className={styles.buttonsContainer}>
+    <div className={`${styles.buttonsContainer} ${className}`}>
       <button className={styles.buttonMinus} onClick={() => increaseBy(-increaseValue)}>
         -
       </button>
