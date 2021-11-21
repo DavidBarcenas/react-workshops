@@ -63,3 +63,7 @@
 .buttonAdd:hover {
   background-color: rgba(0, 0, 0, 0.1);
 }
+
+.bgDark {
+  background-color: rgb(56, 56, 56);
+}

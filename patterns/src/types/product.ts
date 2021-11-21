@@ -9,6 +9,7 @@ export type Product = {
 export type ProductCardProps = {
   product: Product;
   children?: ReactNode;
+  className?: string;
 };
 
 export type ProductContextProps = {
