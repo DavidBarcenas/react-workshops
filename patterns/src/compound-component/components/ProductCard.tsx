@@ -10,7 +10,7 @@ const { Provider } = ProductContext;
 
 function ProductCard({ product, children, className, onChange }: ProductCardProps): JSX.Element {
   const increaseValue = 1;
-  const { counter, increaseBy } = useCounter(onChange);
+  const { counter, increaseBy } = useCounter({ onChange, product });
 
   return (
     <Provider value={{ counter, increaseBy, product, increaseValue }}>

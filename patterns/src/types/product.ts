@@ -11,7 +11,7 @@ export type ProductCardProps = {
   children?: ReactNode;
   className?: string;
   style?: CSSProperties;
-  onChange?: () => void
+  onChange?: (args: ProductChangeArgs) => void
 };
 
 export type ProductContextProps = {
@@ -43,4 +43,9 @@ export type ProductCardCompound = {
   Buttons: (Props: ProductButtonsProps) => JSX.Element;
   Image: (Props: ProductImageProps) => JSX.Element;
   Title: (Props: ProductTitleProps) => JSX.Element;
+}
+
+export type ProductChangeArgs = {
+  product: Product;
+  count: number;
 }

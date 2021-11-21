@@ -2,14 +2,10 @@ import { useState } from 'react';
 
 import ProductCard, { ProductButtons, ProductImage, ProductTitle } from '../components';
 import styles from '../styles/styles.module.css';
-import type { Product } from '../../types/product';
+import type { Product, ProductChangeArgs } from '../../types/product';
 
 type CartState = {
-  [key: string]: CartItem;
-};
-
-type CartItem = Product & {
-  count: number;
+  [key: string]: ProductChangeArgs;
 };
 
 const products: Product[] = [
@@ -20,8 +16,8 @@ const products: Product[] = [
 function ShoppingPage(): JSX.Element {
   const [shoppingCart, setShoppingCart] = useState<CartState>({});
 
-  function onProductCountChange() {
-    console.log('OnProductchange');
+  function onProductCountChange(event: ProductChangeArgs) {
+    console.log('OnProductchange', event);
   }
 
   return (
