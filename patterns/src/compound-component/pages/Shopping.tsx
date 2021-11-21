@@ -4,7 +4,7 @@ import type { Product } from '../../types/product';
 
 const products: Product[] = [
   { id: '1', title: ' Coffee Mug', image: './coffee-mug.png' },
-  { id: '2', title: ' Other' },
+  { id: '2', title: ' Coffee Mug - Meme', image: './coffee-mug2.png' },
 ];
 
 function ShoppingPage(): JSX.Element {
@@ -20,10 +20,10 @@ function ShoppingPage(): JSX.Element {
           <ProductCard.Buttons />
         </ProductCard>
 
-        <ProductCard product={products[1]} className={styles.bgDark}>
+        <ProductCard product={products[1]}>
           <ProductImage />
-          <ProductTitle title="Nike Shirt" className={styles.textWhite} />
-          <ProductButtons className={styles.myButtons} />
+          <ProductTitle />
+          <ProductButtons />
         </ProductCard>
       </div>
     </div>
