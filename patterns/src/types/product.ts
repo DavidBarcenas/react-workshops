@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { CSSProperties, ReactNode } from "react";
 
 export type Product = {
   id: string;
@@ -10,6 +10,7 @@ export type ProductCardProps = {
   product: Product;
   children?: ReactNode;
   className?: string;
+  style?: CSSProperties
 };
 
 export type ProductContextProps = {
@@ -22,15 +23,18 @@ export type ProductContextProps = {
 export type ProductTitleProps = {
   className?: string;
   title?: string;
+  style?: CSSProperties
 };
 
 export type ProductImageProps = {
   img?: string;
   className?: string;
+  style?: CSSProperties
 };
 
 export type ProductButtonsProps = {
   className?: string;
+  style?: CSSProperties
 };
 
 export type ProductCardCompound = {
