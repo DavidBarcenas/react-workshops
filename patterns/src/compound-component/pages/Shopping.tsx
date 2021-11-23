@@ -13,11 +13,25 @@ const products: Product[] = [
   { id: '2', title: ' Coffee Mug - Meme', image: './coffee-mug2.png' },
 ];
 
+const NO_PRODUCT = 0;
+
 function ShoppingPage(): JSX.Element {
   const [shoppingCart, setShoppingCart] = useState<CartState>({});
 
   function onProductCountChange(event: ProductChangeArgs) {
-    console.log('OnProductchange', event);
+    const { count, product } = event;
+
+    setShoppingCart(prev => {
+      if (count === NO_PRODUCT) {
+        delete prev[product.id];
+        return { ...prev };
+      }
+
+      return {
+        ...prev,
+        [product.id]: { product, count },
+      };
+    });
   }
 
   return (
