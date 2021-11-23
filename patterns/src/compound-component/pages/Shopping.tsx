@@ -40,14 +40,13 @@ function ShoppingPage(): JSX.Element {
       <hr />
 
       <div className={styles.shoppingCart}>
-        <ProductCard product={products[0]} className={styles.shoppingCartElement}>
-          <ProductImage />
-          <ProductButtons />
-        </ProductCard>
-        <ProductCard product={products[1]} className={styles.shoppingCartElement}>
-          <ProductImage />
-          <ProductButtons />
-        </ProductCard>
+        {Object.values(shoppingCart).map(({ product }) => (
+          <ProductCard key={product.id} product={product} className={styles.shoppingCartElement}>
+            <ProductImage />
+            <ProductTitle />
+            <ProductButtons />
+          </ProductCard>
+        ))}
       </div>
 
       <div className={styles.products}>
