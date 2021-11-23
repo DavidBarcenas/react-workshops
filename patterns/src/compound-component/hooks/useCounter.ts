@@ -18,9 +18,7 @@ function useCounter({onChange, product, value = DEFAULT_VALUE}: Props): Counter 
   const [counter, setCounter] = useState<number>(value);
 
   useEffect(() => {
-    if(value) {
-      setCounter(value);
-    }
+    setCounter(value);
   }, [value])
   
   function increaseBy(value: number) {

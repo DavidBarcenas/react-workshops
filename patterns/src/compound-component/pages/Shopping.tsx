@@ -45,6 +45,7 @@ function ShoppingPage(): JSX.Element {
             key={product.id}
             product={product}
             value={count}
+            onChange={onProductCountChange}
             className={styles.shoppingCartElement}>
             <ProductImage />
             <ProductTitle />
@@ -55,7 +56,11 @@ function ShoppingPage(): JSX.Element {
 
       <div className={styles.products}>
         {products.map(p => (
-          <ProductCard key={p.id} product={p} onChange={onProductCountChange}>
+          <ProductCard
+            key={p.id}
+            product={p}
+            value={shoppingCart[p.id]?.count || NO_PRODUCT}
+            onChange={onProductCountChange}>
             <ProductImage />
             <ProductTitle />
             <ProductButtons />
