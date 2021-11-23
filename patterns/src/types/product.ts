@@ -11,14 +11,15 @@ export type ProductCardProps = {
   children?: ReactNode;
   className?: string;
   style?: CSSProperties;
+  value?: number;
   onChange?: (args: ProductChangeArgs) => void
 };
 
 export type ProductContextProps = {
   counter: number;
   increaseValue: number;
-  increaseBy: (value: number) => void;
   product: Product;
+  increaseBy: (value: number) => void;
 };
 
 export type ProductTitleProps = {

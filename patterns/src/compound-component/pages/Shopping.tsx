@@ -40,8 +40,12 @@ function ShoppingPage(): JSX.Element {
       <hr />
 
       <div className={styles.shoppingCart}>
-        {Object.values(shoppingCart).map(({ product }) => (
-          <ProductCard key={product.id} product={product} className={styles.shoppingCartElement}>
+        {Object.values(shoppingCart).map(({ product, count }) => (
+          <ProductCard
+            key={product.id}
+            product={product}
+            value={count}
+            className={styles.shoppingCartElement}>
             <ProductImage />
             <ProductTitle />
             <ProductButtons />
