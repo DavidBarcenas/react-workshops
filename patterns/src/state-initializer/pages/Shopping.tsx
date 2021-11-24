@@ -2,7 +2,7 @@ import ProductCard, { ProductButtons, ProductImage, ProductTitle } from '../comp
 import { products } from '../data/products';
 
 const INITIAL_PRODUCT_COUNTER = 4;
-const MAX_PRODUCT_COUNTER = 4;
+const MAX_PRODUCT_COUNTER = 5;
 
 function ShoppingPage(): JSX.Element {
   return (

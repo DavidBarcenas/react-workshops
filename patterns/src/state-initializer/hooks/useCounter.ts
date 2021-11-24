@@ -34,7 +34,12 @@ function useCounter({onChange, product, initialValues, value = DEFAULT_VALUE}: P
   }, [])
   
   function increaseBy(value: number) {
-    const newValue = Math.max(counter + value, DEFAULT_VALUE)
+    let newValue = Math.max(counter + value, DEFAULT_VALUE);
+
+    if(initialValues?.maxCount) {
+      newValue =  Math.min(newValue, initialValues.maxCount);
+    }
+
     setCounter(newValue);
     onChange && onChange({count: newValue, product})
   }
