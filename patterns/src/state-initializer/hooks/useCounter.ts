@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from 'react';
 
 import type { Product, ProductChangeArgs, InitialValues } from "../../types/product";
 
@@ -18,10 +18,20 @@ const DEFAULT_VALUE = 0
 
 function useCounter({onChange, product, initialValues, value = DEFAULT_VALUE}: Props): Counter {
   const [counter, setCounter] = useState<number>(initialValues?.count || value);
+  const isMounted = useRef(false)
 
+  
   useEffect(() => {
+    if(!isMounted.current) {
+      return;
+    }
+    
     setCounter(value);
   }, [value])
+ 
+  useEffect(() => {
+    isMounted.current = true
+  }, [])
   
   function increaseBy(value: number) {
     const newValue = Math.max(counter + value, DEFAULT_VALUE)
