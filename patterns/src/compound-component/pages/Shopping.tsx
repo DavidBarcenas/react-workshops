@@ -22,15 +22,19 @@ function ShoppingPage(): JSX.Element {
     const { count, product } = event;
 
     setShoppingCart(prev => {
-      if (count === NO_PRODUCT) {
-        delete prev[product.id];
-        return { ...prev };
+      const productInCart = prev[product.id] || { product, count: NO_PRODUCT };
+
+      if (Math.max(productInCart.count + count, NO_PRODUCT) > NO_PRODUCT) {
+        productInCart.count += count;
+
+        return {
+          ...prev,
+          [product.id]: productInCart,
+        };
       }
 
-      return {
-        ...prev,
-        [product.id]: { product, count },
-      };
+      delete prev[product.id];
+      return { ...prev };
     });
   }
 
