@@ -13,7 +13,13 @@ export type ProductCardProps = {
   style?: CSSProperties;
   value?: number;
   onChange?: (args: ProductChangeArgs) => void
+  initialValues?: InitialValues
 };
+
+export type InitialValues = {
+  count?: number;
+  maxCount?: number;
+}
 
 export type ProductContextProps = {
   counter: number;

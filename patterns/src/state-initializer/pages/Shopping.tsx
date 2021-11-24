@@ -1,12 +1,10 @@
 import ProductCard, { ProductButtons, ProductImage, ProductTitle } from '../components';
-import useShoppingCart from '../hooks/useShoppingCart';
 import { products } from '../data/products';
 
-const NO_PRODUCT = 0;
+const INITIAL_PRODUCT_COUNTER = 4;
+const MAX_PRODUCT_COUNTER = 4;
 
 function ShoppingPage(): JSX.Element {
-  const { onProductCountChange, shoppingCart } = useShoppingCart();
-
   return (
     <div>
       <h1>State Initializer</h1>
@@ -14,8 +12,10 @@ function ShoppingPage(): JSX.Element {
 
       <ProductCard
         product={products[0]}
-        value={shoppingCart[products[0].id]?.count || NO_PRODUCT}
-        onChange={onProductCountChange}>
+        initialValues={{
+          count: INITIAL_PRODUCT_COUNTER,
+          maxCount: MAX_PRODUCT_COUNTER,
+        }}>
         <ProductImage />
         <ProductTitle />
         <ProductButtons />
