@@ -17,12 +17,25 @@ function ProductCard({
   initialValues,
 }: ProductCardStateInit): JSX.Element {
   const increaseValue = 1;
-  const { counter, increaseBy } = useCounter({ onChange, product, value, initialValues });
+  const { counter, increaseBy, isMaxCountReached, reset } = useCounter({
+    onChange,
+    product,
+    value,
+    initialValues,
+  });
 
   return (
     <Provider
       value={{ counter, increaseBy, product, increaseValue, maxCount: initialValues?.maxCount }}>
-      <div className={`${styles.productCard} ${className}`}>{children()}</div>
+      <div className={`${styles.productCard} ${className}`}>
+        {children({
+          count: counter,
+          isMaxCountReached,
+          reset,
+          product,
+          increaseBy,
+        })}
+      </div>
     </Provider>
   );
 }

@@ -18,7 +18,7 @@ export type ProductCardProps = {
 
 
 export type ProductCardStateInit = ProductCardProps & {
-  children: () => JSX.Element
+  children: (args: ProductCartHandlers) => JSX.Element
 }
 
 export type InitialValues = {
@@ -61,4 +61,14 @@ export type ProductCardCompound = {
 export type ProductChangeArgs = {
   product: Product;
   count: number;
+}
+
+export type ProductCartHandlers = {
+  count: number;
+  isMaxCountReached?: boolean;
+  maxCount?: number;
+  product: Product;
+
+  increaseBy: (value: number) => void;
+  reset: () => void;
 }

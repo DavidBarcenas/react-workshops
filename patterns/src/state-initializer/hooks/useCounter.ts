@@ -4,14 +4,16 @@ import type { Product, ProductChangeArgs, InitialValues } from "../../types/prod
 
 type Counter = {
   counter: number;
+  isMaxCountReached?: boolean;
   increaseBy: (value: number) => void;
+  reset: () => void;
 }
 
 type Props = {
   product: Product;
   value?: number;
+  initialValues?: InitialValues;
   onChange?: (args: ProductChangeArgs) => void
-  initialValues?: InitialValues
 }
 
 const DEFAULT_VALUE = 0
@@ -44,7 +46,11 @@ function useCounter({onChange, product, initialValues, value = DEFAULT_VALUE}: P
     onChange && onChange({count: newValue, product})
   }
 
-  return {counter, increaseBy}
+  function reset() {
+    setCounter(initialValues?.count || value)
+  }
+
+  return {counter, increaseBy, reset, isMaxCountReached: counter === initialValues?.maxCount}
 }
 
 export default useCounter;

@@ -16,11 +16,13 @@ function ShoppingPage(): JSX.Element {
           count: INITIAL_PRODUCT_COUNTER,
           maxCount: MAX_PRODUCT_COUNTER,
         }}>
-        {() => (
+        {({ reset }) => (
           <>
             <ProductImage />
             <ProductTitle />
             <ProductButtons />
+
+            <button onClick={reset}>Reset</button>
           </>
         )}
       </ProductCard>
