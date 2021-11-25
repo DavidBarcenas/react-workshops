@@ -31,6 +31,7 @@ export type ProductContextProps = {
   increaseValue: number;
   product: Product;
   increaseBy: (value: number) => void;
+  maxCount?: number;
 };
 
 export type ProductTitleProps = {

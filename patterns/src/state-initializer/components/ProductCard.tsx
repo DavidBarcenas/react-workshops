@@ -20,7 +20,8 @@ function ProductCard({
   const { counter, increaseBy } = useCounter({ onChange, product, value, initialValues });
 
   return (
-    <Provider value={{ counter, increaseBy, product, increaseValue }}>
+    <Provider
+      value={{ counter, increaseBy, product, increaseValue, maxCount: initialValues?.maxCount }}>
       <div className={`${styles.productCard} ${className}`}>{children()}</div>
     </Provider>
   );
