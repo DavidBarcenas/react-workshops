@@ -13,13 +13,25 @@ export type ProductCardProps = {
   style?: CSSProperties;
   value?: number;
   onChange?: (args: ProductChangeArgs) => void
+  initialValues?: InitialValues
 };
+
+
+export type ProductCardStateInit = ProductCardProps & {
+  children: (args: ProductCartHandlers) => JSX.Element
+}
+
+export type InitialValues = {
+  count?: number;
+  maxCount?: number;
+}
 
 export type ProductContextProps = {
   counter: number;
   increaseValue: number;
   product: Product;
   increaseBy: (value: number) => void;
+  maxCount?: number;
 };
 
 export type ProductTitleProps = {
@@ -49,4 +61,14 @@ export type ProductCardCompound = {
 export type ProductChangeArgs = {
   product: Product;
   count: number;
+}
+
+export type ProductCartHandlers = {
+  count: number;
+  isMaxCountReached?: boolean;
+  maxCount?: number;
+  product: Product;
+
+  increaseBy: (value: number) => void;
+  reset: () => void;
 }
