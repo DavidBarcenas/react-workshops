@@ -16,6 +16,11 @@ export type ProductCardProps = {
   initialValues?: InitialValues
 };
 
+
+export type ProductCardStateInit = ProductCardProps & {
+  children: () => JSX.Element
+}
+
 export type InitialValues = {
   count?: number;
   maxCount?: number;

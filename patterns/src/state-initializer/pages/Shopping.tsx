@@ -16,9 +16,13 @@ function ShoppingPage(): JSX.Element {
           count: INITIAL_PRODUCT_COUNTER,
           maxCount: MAX_PRODUCT_COUNTER,
         }}>
-        <ProductImage />
-        <ProductTitle />
-        <ProductButtons />
+        {() => (
+          <>
+            <ProductImage />
+            <ProductTitle />
+            <ProductButtons />
+          </>
+        )}
       </ProductCard>
     </div>
   );
