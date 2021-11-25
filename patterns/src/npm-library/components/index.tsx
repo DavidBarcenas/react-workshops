@@ -3,9 +3,7 @@ import ProductButtons from './ProductButtons';
 import ProductImage from './ProductImage';
 import ProductTitle from './ProductTitle';
 
-import type { ProductCardCompound } from '../../types/product';
-
-const ProductCard: ProductCardCompound = Object.assign(ProductCardHOC, {
+const ProductCard = Object.assign(ProductCardHOC, {
   Title: ProductTitle,
   Image: ProductImage,
   Buttons: ProductButtons,
