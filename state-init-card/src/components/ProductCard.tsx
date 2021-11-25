@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import React, { createContext } from 'react';
 
 import useCounter from '../hooks/useCounter';
 import styles from '../styles/styles.module.css';
