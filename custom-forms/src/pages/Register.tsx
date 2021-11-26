@@ -1,23 +1,14 @@
-import { useState } from "react";
+import useForm from '../hooks/useForm';
 
 function RegiterPage() {
-  const [formData, setFormData] = useState({
-    name: 'david',
-    email: 'david@mail.com',
-    password: 'mySecret123',
-    confirmPassword: 'mySecret123'
+  const {formData, onHandleChange} = useForm({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
   })
-
-  const {name, email, password, confirmPassword} = formData
-
-  function onHandleChange(e: any) {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }))
-  }
-
-  function onHandleSubmit(e: any) {
+  
+  function onHandleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     console.log(formData)
   }
@@ -26,10 +17,10 @@ function RegiterPage() {
     <>
       <h1>Register</h1>
       <form onChange={onHandleChange} onSubmit={onHandleSubmit}>
-        <input type="text" name="name" placeholder="Name" defaultValue={name} />
-        <input type="email" name="email" placeholder="Email" defaultValue={email} />
-        <input type="password" name="password" placeholder="Password" defaultValue={password} />
-        <input type="password" name="confirmPassword" placeholder="Password Confirm" defaultValue={confirmPassword} />
+        <input type="text" name="name" placeholder="Name"  />
+        <input type="email" name="email" placeholder="Email"  />
+        <input type="password" name="password" placeholder="Password"  />
+        <input type="password" name="confirmPassword" placeholder="Password Confirm"  />
         <button type="submit">Create</button>
       </form>
     </>
