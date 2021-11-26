@@ -1,4 +1,4 @@
-# React - Game Store
+# Game Store Layout
 
 Online store related to desks for gamers, video games, accessories for consoles and other things related to this topic.
 
