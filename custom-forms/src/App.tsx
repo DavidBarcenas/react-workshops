@@ -1,9 +1,7 @@
 import RegiterPage from './pages/Register';
 
-function App() {
-  return (
-    <RegiterPage />
-  );
+function App(): JSX.Element {
+  return <RegiterPage />;
 }
 
 export default App;
