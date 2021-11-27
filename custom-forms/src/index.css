@@ -1,8 +1,104 @@
+:root {
+  --green: #25cc88;
+  --green-hover: #10b874;
+  --white: #fff;
+  --blue: #02044a;
+  --font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+  --semi-transparent: rgba(255, 255, 255, 0.5);
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-  background-color: #02044a;
-  color: #fff;
+  background-color: var(--blue);
+  color: var(--white);
   margin: 0;
-  font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+  font-family: var(--font-family);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+  outline: none;
+  border: none;
+}
+
+.section-title {
+  border-bottom: 1px solid var(--semi-transparent);
+  font-weight: 400;
+  margin-bottom: 4rem;
+  padding: 2rem 0;
+}
+
+.container {
+  margin: auto;
+  max-width: 1200px;
+}
+
+.green-form {
+  margin: auto;
+  width: 60%;
+}
+
+.green-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.green-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.green-form input {
+  background-color: transparent;
+  border: 2px solid var(--semi-transparent);
+  border-radius: 10px;
+  color: var(--white);
+  display: block;
+  font-family: var(--font-family);
+  font-size: 1rem;
+  padding: 1.3rem;
+  outline: none;
+  transition: border 0.2s;
+  width: 100%;
+}
+
+.green-form input:focus {
+  border-color: var(--green);
+}
+
+.greenFormCta {
+  margin-top: 2rem;
+  text-align: right;
+}
+
+.green-form button {
+  background-color: transparent;
+  border: 2px solid var(--semi-transparent);
+  border-radius: 5px;
+  color: var(--white);
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-left: 1rem;
+  min-width: 150px;
+  padding: 1.3rem;
+  transition: all 0.2s;
+}
+
+.green-form button:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: transparent;
+  color: var(--white);
+}
+
+.green-form button[type='submit'] {
+  background-color: var(--green);
+  border: transparent;
+}
+
+.green-form button[type='submit']:hover {
+  background-color: var(--green-hover);
 }

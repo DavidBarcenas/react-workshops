@@ -15,16 +15,38 @@ function RegiterPage(): JSX.Element {
 
   return (
     <>
-      <h1>Register</h1>
-      <form onChange={onHandleChange} onSubmit={onHandleSubmit}>
-        <input type="text" name="name" placeholder="Name" />
-        <input type="email" name="email" placeholder="Email" />
-        <input type="password" name="password" placeholder="Password" />
-        <input type="password" name="confirmPassword" placeholder="Password Confirm" />
-        <button type="submit">Create</button>
-        <button type="button" onClick={reset}>
-          Reset
-        </button>
+      <h1 className="section-title">Green Form - Register</h1>
+      <form
+        onChange={onHandleChange}
+        onSubmit={onHandleSubmit}
+        onReset={reset}
+        autoComplete="off"
+        className="green-form"
+      >
+        <div className="form-group">
+          <label htmlFor="name">Name</label>
+          <input type="text" name="name" />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="name">Email</label>
+          <input type="email" name="email" />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
+          <input type="password" name="password" />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="passwordConfirm">Password confirm</label>
+          <input type="password" name="confirmPassword" />
+        </div>
+
+        <div className="greenFormCta">
+          <button type="reset">Reset</button>
+          <button type="submit">Create</button>
+        </div>
       </form>
     </>
   );
