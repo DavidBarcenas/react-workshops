@@ -8,7 +8,11 @@ function useForm<T>(initialValue: T) {
     setFormData(prev => ({ ...prev, [name]: value }))
   }
 
-  return {formData, onHandleChange}
+  function reset() {
+    setFormData({...initialValue})
+  }
+
+  return {formData, onHandleChange, reset}
 }
 
 export default useForm;

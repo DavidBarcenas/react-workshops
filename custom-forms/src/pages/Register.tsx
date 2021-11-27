@@ -1,7 +1,7 @@
 import useForm from '../hooks/useForm';
 
 function RegiterPage() {
-  const {formData, onHandleChange} = useForm({
+  const {formData, onHandleChange, reset} = useForm({
     name: '',
     email: '',
     password: '',
@@ -22,6 +22,7 @@ function RegiterPage() {
         <input type="password" name="password" placeholder="Password"  />
         <input type="password" name="confirmPassword" placeholder="Password Confirm"  />
         <button type="submit">Create</button>
+        <button type="button" onClick={reset}>Reset</button>
       </form>
     </>
   );
