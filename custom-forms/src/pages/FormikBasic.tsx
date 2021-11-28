@@ -10,7 +10,7 @@ const MAX_LENGTH = 15;
 const EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 
 function FormkBasicPage(): JSX.Element {
-  const { values, handleChange, handleSubmit } = useFormik({
+  const { values, errors, touched, handleChange, handleSubmit, handleBlur } = useFormik({
     initialValues: {
       name: '',
       lastname: '',
@@ -32,8 +32,8 @@ function FormkBasicPage(): JSX.Element {
 
     if (!lastname.trim()) {
       errors.lastname = 'Required';
-    } else if (name.length > MAX_LENGTH) {
-      errors.name = 'Must be 15 characters or less';
+    } else if (lastname.length > MAX_LENGTH) {
+      errors.lastname = 'Must be 15 characters or less';
     }
 
     if (!email.trim()) {
@@ -56,19 +56,18 @@ function FormkBasicPage(): JSX.Element {
       >
         <div className="form-group">
           <label htmlFor="name">Name</label>
-          <input type="text" name="name" defaultValue={values.name} />
-          <span className="error">This field is required</span>
+          <input type="text" name="name" defaultValue={values.name} onBlur={handleBlur} />
+          {touched.name && errors.name && <span className="error">{errors.name}</span>}
         </div>
         <div className="form-group">
           <label htmlFor="lastname">Lastname</label>
-          <input type="text" name="lastname" defaultValue={values.lastname} />
-          <span className="error">This field is required</span>
+          <input type="text" name="lastname" defaultValue={values.lastname} onBlur={handleBlur} />
+          {touched.lastname && errors.lastname && <span className="error">{errors.lastname}</span>}
         </div>
         <div className="form-group">
           <label htmlFor="name">Email</label>
-          <input type="email" name="email" defaultValue={values.email} />
-          <span className="error">This field is required</span>
-          <span className="error">Enter a valid email</span>
+          <input type="email" name="email" defaultValue={values.email} onBlur={handleBlur} />
+          {touched.email && errors.email && <span className="error">{errors.email}</span>}
         </div>
         <div className="greenFormCta">
           <button type="reset">Reset</button>
