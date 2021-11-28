@@ -1,13 +1,7 @@
-import { FormikErrors, useFormik } from 'formik';
-
-type FormValues = {
-  name: string;
-  lastname: string;
-  email: string;
-};
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
 const MAX_LENGTH = 15;
-const EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 
 function FormkBasicPage(): JSX.Element {
   const { values, errors, touched, handleChange, handleSubmit, handleBlur } = useFormik({
@@ -16,34 +10,17 @@ function FormkBasicPage(): JSX.Element {
       lastname: '',
       email: '',
     },
-    validate: validateForm,
+    validationSchema: Yup.object({
+      name: Yup.string()
+        .max(MAX_LENGTH, 'Must be 15 characters or less')
+        .required('This field is required'),
+      lastname: Yup.string()
+        .max(MAX_LENGTH, 'Must be 15 characters or less')
+        .required('This field is required'),
+      email: Yup.string().required('This field is required').email('Enter a valid email'),
+    }),
     onSubmit: formValue => console.log(formValue),
   });
-
-  function validateForm(formValues: FormValues): FormikErrors<FormValues> {
-    const errors: FormikErrors<FormValues> = {};
-    const { name, lastname, email } = formValues;
-
-    if (!name.trim()) {
-      errors.name = 'Required';
-    } else if (name.length > MAX_LENGTH) {
-      errors.name = 'Must be 15 characters or less';
-    }
-
-    if (!lastname.trim()) {
-      errors.lastname = 'Required';
-    } else if (lastname.length > MAX_LENGTH) {
-      errors.lastname = 'Must be 15 characters or less';
-    }
-
-    if (!email.trim()) {
-      errors.email = 'Required';
-    } else if (!EMAIL_REGEX.test(values.email)) {
-      errors.email = 'Invalid email address';
-    }
-
-    return errors;
-  }
 
   return (
     <>
