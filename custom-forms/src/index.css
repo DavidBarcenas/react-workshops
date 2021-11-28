@@ -76,7 +76,6 @@ button {
 
 .green-form button {
   background-color: transparent;
-  border: 2px solid var(--semi-transparent);
   border-radius: 5px;
   color: var(--white);
   cursor: pointer;
@@ -90,15 +89,19 @@ button {
 
 .green-form button:hover {
   background-color: rgba(255, 255, 255, 0.15);
-  border-color: transparent;
   color: var(--white);
 }
 
 .green-form button[type='submit'] {
   background-color: var(--green);
-  border: transparent;
 }
 
 .green-form button[type='submit']:hover {
   background-color: var(--green-hover);
+}
+
+.green-form .error {
+  color: #f44336;
+  display: block;
+  margin: 0.5rem 0;
 }

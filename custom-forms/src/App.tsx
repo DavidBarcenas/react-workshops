@@ -1,9 +1,9 @@
-import RegiterPage from './pages/Register';
+import FormkBasicPage from './pages/FormikBasic';
 
 function App(): JSX.Element {
   return (
     <div className="container">
-      <RegiterPage />
+      <FormkBasicPage />
     </div>
   );
 }
