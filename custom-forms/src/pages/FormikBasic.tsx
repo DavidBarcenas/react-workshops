@@ -9,7 +9,7 @@ function FormkBasicPage(): JSX.Element {
       <h1 className="section-title">Green Form - Formik Basic</h1>
 
       <Formik
-        initialValues={{ name: '', lastname: '', email: '' }}
+        initialValues={{ name: '', lastname: '', email: '', terms: false, jobType: '' }}
         onSubmit={values => console.log(values)}
         validationSchema={Yup.object({
           name: Yup.string()
@@ -19,6 +19,8 @@ function FormkBasicPage(): JSX.Element {
             .max(MAX_LENGTH, 'Must be 15 characters or less')
             .required('This field is required'),
           email: Yup.string().required('This field is required').email('Enter a valid email'),
+          terms: Yup.boolean().oneOf([true], 'You must accept the terms and conditions'),
+          jobType: Yup.string().required('This field is required'),
         })}
       >
         {() => (
@@ -39,6 +41,23 @@ function FormkBasicPage(): JSX.Element {
               <label htmlFor="email">Email</label>
               <Field type="email" name="email" />
               <ErrorMessage name="email" render={msg => <span className="error">{msg}</span>} />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="jobType">Job Type</label>
+              <Field as="select" name="jobType">
+                <option value="">--Select option--</option>
+                <option value="developer">Developer</option>
+                <option value="designer">Designer</option>
+                <option value="tester">Tester</option>
+              </Field>
+              <ErrorMessage name="jobType" render={msg => <span className="error">{msg}</span>} />
+            </div>
+
+            <div className="form-group">
+              <Field type="checkbox" name="terms" id="terms" />
+              <label htmlFor="terms">Terms and conditions</label>
+              <ErrorMessage name="terms" render={msg => <span className="error">{msg}</span>} />
             </div>
 
             <div className="greenFormCta">
