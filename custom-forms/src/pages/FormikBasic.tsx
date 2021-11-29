@@ -1,5 +1,7 @@
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
+import CheckboxField from '../components/CheckboxField';
+import SelectField from '../components/SelectField';
 
 import TextField from '../components/TextField';
 
@@ -37,20 +39,16 @@ function FormkBasicPage(): JSX.Element {
               <TextField name="email" label="Email" type="email" />
             </div>
             <div className="form-group">
-              <label htmlFor="jobType">Job Type</label>
-              <Field as="select" name="jobType">
+              <SelectField label="jobType" name="jobType">
                 <option value="">--Select option--</option>
                 <option value="developer">Developer</option>
                 <option value="designer">Designer</option>
                 <option value="tester">Tester</option>
-              </Field>
-              <ErrorMessage name="jobType" render={msg => <span className="error">{msg}</span>} />
+              </SelectField>
             </div>
 
             <div className="form-group">
-              <Field type="checkbox" name="terms" id="terms" />
-              <label htmlFor="terms">Terms and conditions</label>
-              <ErrorMessage name="terms" render={msg => <span className="error">{msg}</span>} />
+              <CheckboxField label="Terms and conditions" name="terms" />
             </div>
 
             <div className="greenFormCta">
