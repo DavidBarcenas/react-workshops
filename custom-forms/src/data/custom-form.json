@@ -1,0 +1,9 @@
+[
+  {
+    "type": "text",
+    "name": "name",
+    "placeholder": "John Doe",
+    "label": "Name",
+    "value": ""
+  }
+]
