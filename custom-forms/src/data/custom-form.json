@@ -19,5 +19,12 @@
     "placeholder": "jondoe@mail.com",
     "label": "Email",
     "value": ""
+  },
+  {
+    "type": "select",
+    "name": "status",
+    "label": "Status",
+    "value": "",
+    "options": ["Single", "Married", "Free Union"]
   }
 ]

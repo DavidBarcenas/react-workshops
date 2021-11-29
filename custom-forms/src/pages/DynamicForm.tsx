@@ -1,6 +1,7 @@
 import { Form, Formik } from 'formik';
 import TextField from '../components/TextField';
 import formJson from '../data/custom-form.json';
+import SelectField from '../components/SelectField';
 
 const initialValues: { [key: string]: any } = {};
 
@@ -9,14 +10,24 @@ for (const input of formJson) {
 }
 
 function DynamicFormPage(): JSX.Element {
-  console.log(initialValues);
-
   return (
     <>
       <Formik initialValues={initialValues} onSubmit={formValues => console.log(formValues)}>
         {() => (
           <Form>
-            {formJson.map(({ type, name, placeholder, label }) => {
+            {formJson.map(({ type, name, placeholder, label, options }) => {
+              if (type === 'select') {
+                return (
+                  <SelectField key={name} label={label} name={name}>
+                    {options?.map(opt => (
+                      <option key={opt} value={opt}>
+                        {opt}
+                      </option>
+                    ))}
+                  </SelectField>
+                );
+              }
+
               return (
                 <TextField
                   key={name}
