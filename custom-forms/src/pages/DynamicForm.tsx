@@ -2,12 +2,18 @@ import { Form, Formik } from 'formik';
 import TextField from '../components/TextField';
 import formJson from '../data/custom-form.json';
 
-console.log(formJson);
+const initialValues: { [key: string]: any } = {};
+
+for (const input of formJson) {
+  initialValues[input.name] = input.value || '';
+}
 
 function DynamicFormPage(): JSX.Element {
+  console.log(initialValues);
+
   return (
     <>
-      <Formik initialValues={{ name: '' }} onSubmit={formValues => console.log(formValues)}>
+      <Formik initialValues={initialValues} onSubmit={formValues => console.log(formValues)}>
         {() => (
           <Form>
             {formJson.map(({ type, name, placeholder, label }) => {

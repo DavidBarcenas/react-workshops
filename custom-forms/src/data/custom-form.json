@@ -2,8 +2,22 @@
   {
     "type": "text",
     "name": "name",
-    "placeholder": "John Doe",
+    "placeholder": "John",
     "label": "Name",
+    "value": "Jorge"
+  },
+  {
+    "type": "text",
+    "name": "lastname",
+    "placeholder": "Doe",
+    "label": "Lastname",
+    "value": "Mendez"
+  },
+  {
+    "type": "email",
+    "name": "email",
+    "placeholder": "jondoe@mail.com",
+    "label": "Email",
     "value": ""
   }
 ]
