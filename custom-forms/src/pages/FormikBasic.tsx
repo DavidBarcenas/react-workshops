@@ -1,6 +1,8 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
+import TextField from '../components/TextField';
+
 const MAX_LENGTH = 15;
 
 function FormkBasicPage(): JSX.Element {
@@ -26,23 +28,14 @@ function FormkBasicPage(): JSX.Element {
         {() => (
           <Form autoComplete="off" className="green-form">
             <div className="form-group">
-              <label htmlFor="name">Name</label>
-              <Field type="text" name="name" />
-              <ErrorMessage name="name" render={msg => <span className="error">{msg}</span>} />
+              <TextField name="name" label="Name" />
             </div>
-
             <div className="form-group">
-              <label htmlFor="lastname">Lastname</label>
-              <Field type="text" name="lastname" />
-              <ErrorMessage name="lastname" render={msg => <span className="error">{msg}</span>} />
+              <TextField name="lastname" label="Lastname" />
             </div>
-
             <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <Field type="email" name="email" />
-              <ErrorMessage name="email" render={msg => <span className="error">{msg}</span>} />
+              <TextField name="email" label="Email" type="email" />
             </div>
-
             <div className="form-group">
               <label htmlFor="jobType">Job Type</label>
               <Field as="select" name="jobType">
