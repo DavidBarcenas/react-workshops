@@ -1,9 +1,9 @@
-import FormkBasicPage from './pages/FormikBasic';
+import ForkimRegiterPage from './pages/FormikRegister';
 
 function App(): JSX.Element {
   return (
     <div className="container">
-      <FormkBasicPage />
+      <ForkimRegiterPage />
     </div>
   );
 }
