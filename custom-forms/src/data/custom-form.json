@@ -1,0 +1,35 @@
+[
+  {
+    "type": "text",
+    "name": "name",
+    "placeholder": "John",
+    "label": "Name",
+    "value": "",
+    "validations": [
+      {
+        "type": "required"
+      }
+    ]
+  },
+  {
+    "type": "text",
+    "name": "lastname",
+    "placeholder": "Doe",
+    "label": "Lastname",
+    "value": "Mendez"
+  },
+  {
+    "type": "email",
+    "name": "email",
+    "placeholder": "jondoe@mail.com",
+    "label": "Email",
+    "value": ""
+  },
+  {
+    "type": "select",
+    "name": "status",
+    "label": "Status",
+    "value": "",
+    "options": ["Single", "Married", "Free Union"]
+  }
+]
