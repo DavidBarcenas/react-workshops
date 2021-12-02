@@ -10,7 +10,18 @@ const Template: ComponentStory<typeof MyLabel> = (args) => <MyLabel {...args} />
 
 export const Basic = Template.bind({})
 Basic.args = {
-  label: 'Hello World!'
+  label: 'Hello World!',
+  size: 'normal',
+  allCaps: false
 }
 export const AllCaps = Template.bind({})
+AllCaps.args = {
+  size: 'normal',
+  allCaps: true
+}
+
 export const Secondary = Template.bind({})
+Secondary.args = {
+  size: 'normal',
+  color: 'red'
+}
