@@ -1,17 +1,29 @@
-import { Outlet } from 'react-router';
-import Router from './routes/Router';
+import { NavLink, Route, Routes } from 'react-router-dom';
+import { routes } from './routes';
 
 function App(): JSX.Element {
   return (
     <>
       <aside>
-        <h1>Aside</h1>
+        <nav>
+          <ul>
+            {routes.map(({ path, name }) => (
+              <li key={path}>
+                <NavLink end to={path}>
+                  {name}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </aside>
       <main>
-        <h1>Main</h1>
-        <Outlet />
+        <Routes>
+          {routes.map(({ path, component: Component }) => (
+            <Route key={path} path={path} element={<Component />} />
+          ))}
+        </Routes>
       </main>
-      <Router />
     </>
   );
 }
