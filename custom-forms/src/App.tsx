@@ -3,14 +3,22 @@ import { routes } from './routes';
 
 function App(): JSX.Element {
   return (
-    <>
+    <div className="container">
+      <header>
+        <h1>Build forms with Formik</h1>
+        <p>Feel free to fork this project and improve it. Give it a star!</p>
+      </header>
       <aside>
         <nav>
           <ul>
-            {routes.map(({ path, name }) => (
+            {routes.map(({ path, name, description }) => (
               <li key={path}>
                 <NavLink end to={path}>
-                  {name}
+                  <div>
+                    <strong>{name}</strong>
+                    <span>{description}</span>
+                  </div>
+                  <span>icon</span>
                 </NavLink>
               </li>
             ))}
@@ -24,7 +32,7 @@ function App(): JSX.Element {
           ))}
         </Routes>
       </main>
-    </>
+    </div>
   );
 }
 
