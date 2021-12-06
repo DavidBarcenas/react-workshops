@@ -4,7 +4,7 @@
   --white: #fff;
   --blue: #02044a;
   --font-family: 'Roboto', 'Helvetica Neue', sans-serif;
-  --semi-transparent: rgba(255, 255, 255, 0.5);
+  --semi-transparent: rgba(255, 255, 255, 0.35);
 }
 
 * {
@@ -25,6 +25,92 @@ button {
   border: none;
 }
 
+ul,
+ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-template-areas:
+    'header header'
+    'nav main';
+  margin: auto;
+  max-width: 1200px;
+}
+
+.header {
+  border-bottom: 1px solid var(--semi-transparent);
+  grid-area: header;
+  padding: 1.5rem 0;
+}
+
+.header h1 {
+  margin-bottom: 0.5rem;
+}
+
+.header p {
+  font-weight: 300;
+  margin-top: 0;
+}
+
+.navigation {
+  border-right: 1px solid var(--semi-transparent);
+  grid-area: nav;
+  padding: 3rem 1rem;
+}
+
+.navigation li {
+  margin-bottom: 3em;
+  padding-right: 1rem;
+}
+
+.navigation a {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: #fff;
+  text-align: right;
+}
+
+.navigation a strong {
+  display: block;
+}
+
+.navigation .description {
+  font-size: 0.9rem;
+  font-weight: 300;
+}
+
+.navigation .icon {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  margin-left: 2rem;
+  width: 60px;
+  height: 60px;
+}
+
+.navigation a.active .icon {
+  background: var(--green);
+}
+
+.main {
+  grid-area: main;
+  padding: 1rem;
+  padding-top: 3rem;
+}
+
 .section-title {
   border-bottom: 1px solid var(--semi-transparent);
   font-weight: 400;
@@ -32,18 +118,13 @@ button {
   padding: 2rem 0;
 }
 
-.container {
-  margin: auto;
-  max-width: 1200px;
-}
-
 .green-form {
   margin: auto;
-  width: 60%;
+  width: 85%;
 }
 
 .green-form .form-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2.5rem;
 }
 
 .green-form label {
@@ -51,7 +132,8 @@ button {
   margin-bottom: 0.5rem;
 }
 
-.green-form input {
+.green-form input,
+.green-form select {
   background-color: transparent;
   border: 2px solid var(--semi-transparent);
   border-radius: 10px;

@@ -4,28 +4,28 @@ import { routes } from './routes';
 function App(): JSX.Element {
   return (
     <div className="container">
-      <header>
+      <header className="header">
         <h1>Build forms with Formik</h1>
         <p>Feel free to fork this project and improve it. Give it a star!</p>
       </header>
-      <aside>
+      <aside className="navigation">
         <nav>
           <ul>
             {routes.map(({ path, name, description }) => (
               <li key={path}>
-                <NavLink end to={path}>
+                <NavLink end to={path} className={({ isActive }) => (isActive ? 'active' : '')}>
                   <div>
                     <strong>{name}</strong>
-                    <span>{description}</span>
+                    <span className="description">{description}</span>
                   </div>
-                  <span>icon</span>
+                  <span className="icon">✪</span>
                 </NavLink>
               </li>
             ))}
           </ul>
         </nav>
       </aside>
-      <main>
+      <main className="main">
         <Routes>
           {routes.map(({ path, component: Component }) => (
             <Route key={path} path={path} element={<Component />} />

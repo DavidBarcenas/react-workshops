@@ -10,8 +10,6 @@ const MAX_LENGTH = 15;
 function FormkBasicPage(): JSX.Element {
   return (
     <>
-      <h1 className="section-title">Green Form - Formik Basic</h1>
-
       <Formik
         initialValues={{ name: '', lastname: '', email: '', terms: false, jobType: '' }}
         onSubmit={values => console.log(values)}
@@ -40,7 +38,7 @@ function FormkBasicPage(): JSX.Element {
             </div>
             <div className="form-group">
               <SelectField label="jobType" name="jobType">
-                <option value="">--Select option--</option>
+                <option value="">-- Select option --</option>
                 <option value="developer">Developer</option>
                 <option value="designer">Designer</option>
                 <option value="tester">Tester</option>
