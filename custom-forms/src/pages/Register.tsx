@@ -15,7 +15,6 @@ function RegiterPage(): JSX.Element {
 
   return (
     <>
-      <h1 className="section-title">Green Form - Register</h1>
       <form
         onChange={onHandleChange}
         onSubmit={onHandleSubmit}

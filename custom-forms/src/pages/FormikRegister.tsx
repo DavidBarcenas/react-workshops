@@ -10,7 +10,6 @@ const PASSWORD_MIN_LENGTH = 6;
 function ForkimRegiterPage(): JSX.Element {
   return (
     <>
-      <h1 className="section-title">Green Form - Register</h1>
       <Formik
         initialValues={{
           name: '',
