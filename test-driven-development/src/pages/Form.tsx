@@ -26,15 +26,20 @@ function FormPage(): JSX.Element {
     }
   }
 
+  function handleBlur(e: React.FocusEvent<HTMLInputElement, Element>) {
+    const { name, value } = e.target as HTMLInputElement;
+    setFormErrors({ ...formErrors, [name]: value.length ? '' : `The ${name} is required` });
+  }
+
   return (
     <>
       <h1>Create Product</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Name</label>
-        <input type="text" name="name" id="name" />
+        <input type="text" name="name" id="name" onBlur={handleBlur} />
         {formErrors.name && <span>The name is required</span>}
         <label htmlFor="size">Size</label>
-        <input type="text" name="size" id="size" />
+        <input type="text" name="size" id="size" onBlur={handleBlur} />
         {formErrors.size && <span>The size is required</span>}
         <label htmlFor="type">Type</label>
         <select name="type" id="type">
