@@ -1,12 +1,25 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
-import { CREATED_STATUS } from '../../consts/httpStatus';
-
+import { CREATED_STATUS, ERROR_SERVER_STATUS } from '../../consts/httpStatus';
 import FormPage from '../../pages/Form';
 
+type Product = {
+  name: string;
+  size: string;
+  type: string;
+};
+
 const server = setupServer(
-  rest.post('/products', (req, res, ctx) => res(ctx.status(CREATED_STATUS)))
+  rest.post<Product>('/products', (req, res, ctx) => {
+    const { name, size, type } = req.body;
+
+    if (name && size && type) {
+      return res(ctx.status(CREATED_STATUS));
+    }
+
+    return res(ctx.status(ERROR_SERVER_STATUS));
+  })
 );
 
 beforeEach(() => render(<FormPage />));
@@ -87,8 +100,16 @@ describe('When the user submits the form', () => {
   });
 
   it('The form page must display the success message “Product stored” and clean the fields values', async () => {
+    fireEvent.change(screen.getByLabelText(/name/i), {
+      target: { name: 'name', value: 'my product' },
+    });
+    fireEvent.change(screen.getByLabelText(/size/i), {
+      target: { name: 'size', value: '10' },
+    });
+    fireEvent.change(screen.getByLabelText(/type/i), {
+      target: { name: 'type', value: 'electronic' },
+    });
     const submitBtn = screen.getByRole('button', { name: /submit/i });
-
     fireEvent.click(submitBtn);
 
     await waitFor(() => expect(screen.getByText(/product stored/i)).toBeInTheDocument());

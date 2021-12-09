@@ -15,7 +15,15 @@ function FormPage(): JSX.Element {
     const target = e.target as HTMLFormElement;
     validateForm(target);
 
-    const response = await saveProduct();
+    const name = target.elements.namedItem('name') as HTMLInputElement;
+    const size = target.elements.namedItem('size') as HTMLInputElement;
+    const type = target.elements.namedItem('type') as HTMLInputElement;
+
+    const response = await saveProduct({
+      name: name.value,
+      size: size.value,
+      type: type.value,
+    });
 
     if (response.status === CREATED_STATUS) {
       setIsSuccess(true);
