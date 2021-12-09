@@ -1,14 +1,12 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
+import { CREATED_STATUS } from '../../consts/httpStatus';
 
 import FormPage from '../../pages/Form';
 
 const server = setupServer(
-  rest.post('/products', (req, res, ctx) => {
-    const STATUS_CREATED = 201;
-    return res(ctx.status(STATUS_CREATED));
-  })
+  rest.post('/products', (req, res, ctx) => res(ctx.status(CREATED_STATUS)))
 );
 
 beforeEach(() => render(<FormPage />));
@@ -80,11 +78,19 @@ describe('When the user blurs an empty field', () => {
 describe('When the user submits the form', () => {
   it('The submit button should be disabled until the request is done', async () => {
     const submitBtn = screen.getByRole('button', { name: /submit/i });
-
     expect(submitBtn).not.toBeDisabled();
-    fireEvent.click(submitBtn);
-    expect(submitBtn).toBeDisabled();
 
+    fireEvent.click(submitBtn);
+
+    expect(submitBtn).toBeDisabled();
     await waitFor(() => expect(submitBtn).not.toBeDisabled());
+  });
+
+  it('The form page must display the success message “Product stored” and clean the fields values', async () => {
+    const submitBtn = screen.getByRole('button', { name: /submit/i });
+
+    fireEvent.click(submitBtn);
+
+    await waitFor(() => expect(screen.getByText(/product stored/i)).toBeInTheDocument());
   });
 });

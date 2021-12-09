@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { CREATED_STATUS } from '../consts/httpStatus';
 import { saveProduct } from '../services/productService';
 
 function FormPage(): JSX.Element {
   const [formErrors, setFormErrors] = useState({ name: '', size: '', type: '' });
   const [isSaving, setIsSaving] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -13,7 +15,11 @@ function FormPage(): JSX.Element {
     const target = e.target as HTMLFormElement;
     validateForm(target);
 
-    await saveProduct();
+    const response = await saveProduct();
+
+    if (response.status === CREATED_STATUS) {
+      setIsSuccess(true);
+    }
 
     setIsSaving(false);
   }
@@ -44,6 +50,7 @@ function FormPage(): JSX.Element {
   return (
     <>
       <h1>Create Product</h1>
+      {isSuccess && <p>Product Stored</p>}
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Name</label>
         <input type="text" name="name" id="name" onBlur={handleBlur} />
