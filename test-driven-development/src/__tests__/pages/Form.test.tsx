@@ -1,7 +1,19 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { rest } from 'msw';
+import { setupServer } from 'msw/node';
+
 import FormPage from '../../pages/Form';
 
+const server = setupServer(
+  rest.post('/products', (req, res, ctx) => {
+    const STATUS_CREATED = 201;
+    return res(ctx.status(STATUS_CREATED));
+  })
+);
+
 beforeEach(() => render(<FormPage />));
+beforeAll(() => server.listen());
+afterAll(() => server.close());
 
 describe('When form is mounted', () => {
   it('There must be a create product form page.', () => {
@@ -26,18 +38,20 @@ describe('When form is mounted', () => {
 });
 
 describe('When the user submits the form without values', () => {
-  it('Should show validation messages', () => {
-    const submit = screen.getByRole('button', { name: /submit/i });
+  it('Should show validation messages', async () => {
+    const submitBtn = screen.getByRole('button', { name: /submit/i });
 
     expect(screen.queryByText(`/The name is required/i`)).not.toBeInTheDocument();
     expect(screen.queryByText(/The size is required/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/The type is required/i)).not.toBeInTheDocument();
 
-    fireEvent.click(submit);
+    fireEvent.click(submitBtn);
 
     expect(screen.queryByText(/The name is required/i)).toBeInTheDocument();
     expect(screen.queryByText(/The size is required/i)).toBeInTheDocument();
     expect(screen.queryByText(/The type is required/i)).toBeInTheDocument();
+
+    await waitFor(() => expect(submitBtn).not.toBeDisabled());
   });
 });
 
@@ -48,6 +62,7 @@ describe('When the user blurs an empty field', () => {
     fireEvent.blur(screen.getByLabelText(/name/i), {
       target: { name: 'name', value: '' },
     });
+
     expect(screen.queryByText(/The name is required/i)).toBeInTheDocument();
   });
 
@@ -57,6 +72,19 @@ describe('When the user blurs an empty field', () => {
     fireEvent.blur(screen.getByLabelText(/size/i), {
       target: { name: 'size', value: '' },
     });
+
     expect(screen.queryByText(/The size is required/i)).toBeInTheDocument();
+  });
+});
+
+describe('When the user submits the form', () => {
+  it('The submit button should be disabled until the request is done', async () => {
+    const submitBtn = screen.getByRole('button', { name: /submit/i });
+
+    expect(submitBtn).not.toBeDisabled();
+    fireEvent.click(submitBtn);
+    expect(submitBtn).toBeDisabled();
+
+    await waitFor(() => expect(submitBtn).not.toBeDisabled());
   });
 });

@@ -1,14 +1,14 @@
+import { json } from 'msw/lib/types/context';
 import { useState } from 'react';
 
 function FormPage(): JSX.Element {
-  const [formErrors, setFormErrors] = useState({
-    name: '',
-    size: '',
-    type: '',
-  });
+  const [formErrors, setFormErrors] = useState({ name: '', size: '', type: '' });
+  const [isSaving, setIsSaving] = useState(false);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    setIsSaving(true);
 
     const target = e.target as HTMLFormElement;
     const name = target.elements.namedItem('name') as HTMLInputElement;
@@ -24,10 +24,17 @@ function FormPage(): JSX.Element {
     if (!type.value.trim()) {
       setFormErrors(prevState => ({ ...prevState, type: 'The type is required' }));
     }
+
+    await fetch('/products', {
+      method: 'POST',
+      body: JSON.stringify({}),
+    });
+
+    setIsSaving(false);
   }
 
   function handleBlur(e: React.FocusEvent<HTMLInputElement, Element>) {
-    const { name, value } = e.target as HTMLInputElement;
+    const { name, value } = e.target;
     setFormErrors({ ...formErrors, [name]: value.length ? '' : `The ${name} is required` });
   }
 
@@ -49,7 +56,9 @@ function FormPage(): JSX.Element {
           <option value="clothing">Clothing</option>
         </select>
         {formErrors.type && <span>The type is required</span>}
-        <button type="submit">Submit</button>
+        <button type="submit" disabled={isSaving}>
+          Submit
+        </button>
       </form>
     </>
   );
