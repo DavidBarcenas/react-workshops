@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { saveProduct } from '../services/productService';
 
 function FormPage(): JSX.Element {
   const [formErrors, setFormErrors] = useState({ name: '', size: '', type: '' });
@@ -12,10 +13,7 @@ function FormPage(): JSX.Element {
     const target = e.target as HTMLFormElement;
     validateForm(target);
 
-    await fetch('/products', {
-      method: 'POST',
-      body: JSON.stringify({}),
-    });
+    await saveProduct();
 
     setIsSaving(false);
   }
