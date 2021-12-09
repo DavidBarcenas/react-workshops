@@ -1,4 +1,3 @@
-import { json } from 'msw/lib/types/context';
 import { useState } from 'react';
 
 function FormPage(): JSX.Element {
@@ -11,19 +10,7 @@ function FormPage(): JSX.Element {
     setIsSaving(true);
 
     const target = e.target as HTMLFormElement;
-    const name = target.elements.namedItem('name') as HTMLInputElement;
-    const size = target.elements.namedItem('size') as HTMLInputElement;
-    const type = target.elements.namedItem('type') as HTMLInputElement;
-
-    if (!name.value.trim()) {
-      setFormErrors(prevState => ({ ...prevState, name: 'The name is required' }));
-    }
-    if (!size.value.trim()) {
-      setFormErrors(prevState => ({ ...prevState, size: 'The size is required' }));
-    }
-    if (!type.value.trim()) {
-      setFormErrors(prevState => ({ ...prevState, type: 'The type is required' }));
-    }
+    validateForm(target);
 
     await fetch('/products', {
       method: 'POST',
@@ -34,8 +21,26 @@ function FormPage(): JSX.Element {
   }
 
   function handleBlur(e: React.FocusEvent<HTMLInputElement, Element>) {
-    const { name, value } = e.target;
-    setFormErrors({ ...formErrors, [name]: value.length ? '' : `The ${name} is required` });
+    updateField(e.target.name, e.target.value);
+  }
+
+  function validateForm(form: HTMLFormElement) {
+    const name = form.elements.namedItem('name') as HTMLInputElement;
+    const size = form.elements.namedItem('size') as HTMLInputElement;
+    const type = form.elements.namedItem('type') as HTMLInputElement;
+
+    updateField('name', name.value);
+    updateField('size', size.value);
+    updateField('type', type.value);
+  }
+
+  function updateField(fieldName: string, value: string) {
+    value.trim();
+
+    setFormErrors(prevState => ({
+      ...prevState,
+      [fieldName]: value.length ? '' : `The ${fieldName} is required`,
+    }));
   }
 
   return (
