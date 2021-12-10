@@ -16,11 +16,11 @@ function FormPage(): JSX.Element {
     const target = e.target as HTMLFormElement;
     validateForm(target);
 
-    try {
-      const name = target.elements.namedItem('name') as HTMLInputElement;
-      const size = target.elements.namedItem('size') as HTMLInputElement;
-      const type = target.elements.namedItem('type') as HTMLInputElement;
+    const name = target.elements.namedItem('name') as HTMLInputElement;
+    const size = target.elements.namedItem('size') as HTMLInputElement;
+    const type = target.elements.namedItem('type') as HTMLInputElement;
 
+    try {
       const response = await saveProduct({
         name: name.value,
         size: size.value,
@@ -36,19 +36,26 @@ function FormPage(): JSX.Element {
         setIsSuccess(true);
       }
     } catch (error: unknown) {
-      if (error instanceof Response) {
-        if (error.status === ERROR_SERVER_STATUS) {
-          setErrorMessage('Unexpected error, please try again');
-        }
-
-        if (error.status === INVALID_REQUEST_STATUS) {
-          const data = await error.json();
-          setErrorMessage(data.message);
-        }
-      }
+      handleError(error);
     }
 
     setIsSaving(false);
+  }
+
+  async function handleError(error: unknown) {
+    if (error instanceof Response) {
+      if (error.status === ERROR_SERVER_STATUS) {
+        setErrorMessage('Unexpected error, please try again');
+        return;
+      }
+
+      if (error.status === INVALID_REQUEST_STATUS) {
+        const data = await error.json();
+        setErrorMessage(data.message);
+        return;
+      }
+    }
+    setErrorMessage('Connection error, please try later');
   }
 
   function handleBlur(e: React.FocusEvent<HTMLInputElement, Element>) {

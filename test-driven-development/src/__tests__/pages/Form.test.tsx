@@ -161,3 +161,15 @@ describe('When the user submits the form and the server returns an inalid reques
     );
   });
 });
+
+describe('When the user submits the form and the server returns an inalid', () => {
+  it('The form page must display the error message “The form is invalid are required””', async () => {
+    server.use(rest.post('/products', (req, res) => res.networkError('Failed to connect')));
+
+    fireEvent.click(screen.getByRole('button', { name: /submit/i }));
+
+    await waitFor(() =>
+      expect(screen.getByText(/Connection error, please try later/i)).toBeInTheDocument()
+    );
+  });
+});
