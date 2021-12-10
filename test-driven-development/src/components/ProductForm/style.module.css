@@ -1,0 +1,75 @@
+.Form {
+  background-color: #fff;
+  border-radius: 1rem;
+  color: #222;
+  padding: 4rem 2.5rem;
+  position: relative;
+  width: 40%;
+}
+
+.FormGroup {
+  margin-bottom: 1.5rem;
+}
+
+.FormGroup label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.FormGroup input,
+.FormGroup select {
+  background: transparent;
+  border: 2px solid #cacaca;
+  border-radius: 10px;
+  box-sizing: border-box;
+  display: block;
+  font-size: 1rem;
+  padding: 1rem;
+  width: 100%;
+  transition: all 0.2s ease-in-out;
+}
+
+.FormGroup input:focus,
+.FormGroup select:focus {
+  border-color: var(--blue);
+  outline: none;
+}
+
+.Button {
+  background: var(--blue);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  padding: 1.2rem;
+  margin-top: 0.5rem;
+  text-transform: uppercase;
+  width: 100%;
+  border: none;
+}
+
+.Error {
+  display: block;
+  color: #f44336;
+  margin: 0.5rem 0;
+}
+
+.ErrorMessage,
+.SuccessMessage {
+  border-radius: 5px;
+  display: block;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+.ErrorMessage {
+  background: #ffccbc;
+  color: #bf360c;
+}
+
+.SuccessMessage {
+  background: #b9f6ca;
+  color: #1b5e20;
+}

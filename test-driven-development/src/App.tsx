@@ -1,7 +1,11 @@
 import FormPage from './pages/Form';
 
 function App(): JSX.Element {
-  return <FormPage />;
+  return (
+    <div className="container">
+      <FormPage />
+    </div>
+  );
 }
 
 export default App;

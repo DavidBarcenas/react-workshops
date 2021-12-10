@@ -1,6 +1,11 @@
 import { useState } from 'react';
-import { CREATED_STATUS, ERROR_SERVER_STATUS, INVALID_REQUEST_STATUS } from '../consts/httpStatus';
-import { saveProduct } from '../services/productService';
+import {
+  CREATED_STATUS,
+  ERROR_SERVER_STATUS,
+  INVALID_REQUEST_STATUS,
+} from '../../consts/httpStatus';
+import { saveProduct } from '../../services/productService';
+import styles from './style.module.css';
 
 function ProductForm(): JSX.Element {
   const [formErrors, setFormErrors] = useState({ name: '', size: '', type: '' });
@@ -82,29 +87,39 @@ function ProductForm(): JSX.Element {
   }
 
   return (
-    <>
-      {isSuccess && <p>Product Stored</p>}
-      {errorMessage && <p>{errorMessage}</p>}
+    <div className={styles.Form}>
+      {isSuccess && <p className={styles.SuccessMessage}>Product Stored</p>}
+      {errorMessage && <p className={styles.ErrorMessage}>{errorMessage}</p>}
+
       <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Name</label>
-        <input type="text" name="name" id="name" onBlur={handleBlur} />
-        {formErrors.name && <span>The name is required</span>}
-        <label htmlFor="size">Size</label>
-        <input type="text" name="size" id="size" onBlur={handleBlur} />
-        {formErrors.size && <span>The size is required</span>}
-        <label htmlFor="type">Type</label>
-        <select name="type" id="type">
-          <option value="">-- Select option --</option>
-          <option value="electronic">Electronic</option>
-          <option value="furniture">Furniture</option>
-          <option value="clothing">Clothing</option>
-        </select>
-        {formErrors.type && <span>The type is required</span>}
-        <button type="submit" disabled={isSaving}>
+        <div className={styles.FormGroup}>
+          <label htmlFor="name">Name</label>
+          <input type="text" name="name" id="name" onBlur={handleBlur} />
+          {formErrors.name && <span className={styles.Error}>The name is required</span>}
+        </div>
+
+        <div className={styles.FormGroup}>
+          <label htmlFor="size">Size</label>
+          <input type="text" name="size" id="size" onBlur={handleBlur} />
+          {formErrors.size && <span className={styles.Error}>The size is required</span>}
+        </div>
+
+        <div className={styles.FormGroup}>
+          <label htmlFor="type">Type</label>
+          <select name="type" id="type">
+            <option value="">-- Select option --</option>
+            <option value="electronic">Electronic</option>
+            <option value="furniture">Furniture</option>
+            <option value="clothing">Clothing</option>
+          </select>
+          {formErrors.type && <span className={styles.Error}>The type is required</span>}
+        </div>
+
+        <button type="submit" disabled={isSaving} className={styles.Button}>
           Submit
         </button>
       </form>
-    </>
+    </div>
   );
 }
 
