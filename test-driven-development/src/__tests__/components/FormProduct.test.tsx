@@ -1,12 +1,12 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
+import ProductForm from '../../components/ProductForm';
 import {
   CREATED_STATUS,
   ERROR_SERVER_STATUS,
   INVALID_REQUEST_STATUS,
 } from '../../consts/httpStatus';
-import FormPage from '../../pages/Form';
 
 type Product = {
   name: string;
@@ -26,16 +26,12 @@ const server = setupServer(
   })
 );
 
-beforeEach(() => render(<FormPage />));
+beforeEach(() => render(<ProductForm />));
 beforeAll(() => server.listen());
 afterAll(() => server.close());
 afterEach(() => server.resetHandlers());
 
 describe('When form is mounted', () => {
-  it('There must be a create product form page.', () => {
-    expect(screen.getByRole('heading', { name: /create product/i })).toBeInTheDocument();
-  });
-
   it('The following fields must exist: name. size, type', () => {
     expect(screen.getByLabelText(/name/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/size/i)).toBeInTheDocument();
