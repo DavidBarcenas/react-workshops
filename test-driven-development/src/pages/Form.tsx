@@ -26,6 +26,7 @@ function FormPage(): JSX.Element {
     });
 
     if (response.status === CREATED_STATUS) {
+      target.reset();
       setIsSuccess(true);
     }
 
