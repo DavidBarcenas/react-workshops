@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { CREATED_STATUS } from '../consts/httpStatus';
+import { CREATED_STATUS, ERROR_SERVER_STATUS, INVALID_REQUEST_STATUS } from '../consts/httpStatus';
 import { saveProduct } from '../services/productService';
 
 function FormPage(): JSX.Element {
   const [formErrors, setFormErrors] = useState({ name: '', size: '', type: '' });
   const [isSaving, setIsSaving] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -15,19 +16,36 @@ function FormPage(): JSX.Element {
     const target = e.target as HTMLFormElement;
     validateForm(target);
 
-    const name = target.elements.namedItem('name') as HTMLInputElement;
-    const size = target.elements.namedItem('size') as HTMLInputElement;
-    const type = target.elements.namedItem('type') as HTMLInputElement;
+    try {
+      const name = target.elements.namedItem('name') as HTMLInputElement;
+      const size = target.elements.namedItem('size') as HTMLInputElement;
+      const type = target.elements.namedItem('type') as HTMLInputElement;
 
-    const response = await saveProduct({
-      name: name.value,
-      size: size.value,
-      type: type.value,
-    });
+      const response = await saveProduct({
+        name: name.value,
+        size: size.value,
+        type: type.value,
+      });
 
-    if (response.status === CREATED_STATUS) {
-      target.reset();
-      setIsSuccess(true);
+      if (!response.ok) {
+        throw response;
+      }
+
+      if (response.status === CREATED_STATUS) {
+        target.reset();
+        setIsSuccess(true);
+      }
+    } catch (error: unknown) {
+      if (error instanceof Response) {
+        if (error.status === ERROR_SERVER_STATUS) {
+          setErrorMessage('Unexpected error, please try again');
+        }
+
+        if (error.status === INVALID_REQUEST_STATUS) {
+          const data = await error.json();
+          setErrorMessage(data.message);
+        }
+      }
     }
 
     setIsSaving(false);
@@ -60,6 +78,7 @@ function FormPage(): JSX.Element {
     <>
       <h1>Create Product</h1>
       {isSuccess && <p>Product Stored</p>}
+      {errorMessage && <p>{errorMessage}</p>}
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Name</label>
         <input type="text" name="name" id="name" onBlur={handleBlur} />

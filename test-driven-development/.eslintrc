@@ -7,7 +7,7 @@
   ],
   "plugins": ["prettier", "import"],
   "rules": {
-    "max-lines": ["warn", 160],
+    "max-lines": ["warn", 300],
     "react/react-in-jsx-scope": "off",
     "no-magic-numbers": [
       "warn",
