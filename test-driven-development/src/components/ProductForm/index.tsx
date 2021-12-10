@@ -1,43 +1,37 @@
 import { useState } from 'react';
+import { saveProduct } from '../../services/productService';
 import {
   CREATED_STATUS,
   ERROR_SERVER_STATUS,
   INVALID_REQUEST_STATUS,
 } from '../../consts/httpStatus';
-import { saveProduct } from '../../services/productService';
 import styles from './style.module.css';
+import type { Product } from '../../types/Product';
 
 function ProductForm(): JSX.Element {
-  const [formErrors, setFormErrors] = useState({ name: '', size: '', type: '' });
+  const [formErrors, setFormErrors] = useState<Product>({ name: '', size: '', type: '' });
   const [isSaving, setIsSaving] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
     setIsSaving(true);
 
-    const target = e.target as HTMLFormElement;
-    validateForm(target);
+    const form = e.target as HTMLFormElement;
+    validateForm(form);
 
-    const name = target.elements.namedItem('name') as HTMLInputElement;
-    const size = target.elements.namedItem('size') as HTMLInputElement;
-    const type = target.elements.namedItem('type') as HTMLInputElement;
+    const { name, size, type } = formValues(form);
 
     try {
-      const response = await saveProduct({
-        name: name.value,
-        size: size.value,
-        type: type.value,
-      });
+      const response = await saveProduct({ name, size, type });
 
       if (!response.ok) {
         throw response;
       }
 
       if (response.status === CREATED_STATUS) {
-        target.reset();
+        form.reset();
         setIsSuccess(true);
       }
     } catch (error: unknown) {
@@ -68,13 +62,11 @@ function ProductForm(): JSX.Element {
   }
 
   function validateForm(form: HTMLFormElement) {
-    const name = form.elements.namedItem('name') as HTMLInputElement;
-    const size = form.elements.namedItem('size') as HTMLInputElement;
-    const type = form.elements.namedItem('type') as HTMLInputElement;
+    const { name, size, type } = formValues(form);
 
-    updateField('name', name.value);
-    updateField('size', size.value);
-    updateField('type', type.value);
+    updateField('name', name);
+    updateField('size', size);
+    updateField('type', type);
   }
 
   function updateField(fieldName: string, value: string) {
@@ -84,6 +76,18 @@ function ProductForm(): JSX.Element {
       ...prevState,
       [fieldName]: value.length ? '' : `The ${fieldName} is required`,
     }));
+  }
+
+  function formValues(form: HTMLFormElement) {
+    const name = form.elements.namedItem('name') as HTMLInputElement;
+    const size = form.elements.namedItem('size') as HTMLInputElement;
+    const type = form.elements.namedItem('type') as HTMLInputElement;
+
+    return {
+      name: name.value,
+      size: size.value,
+      type: type.value,
+    };
   }
 
   return (

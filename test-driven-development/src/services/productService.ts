@@ -1,8 +1,4 @@
-type Product = {
-  name: string;
-  size: string;
-  type: string;
-}
+import type { Product } from "../types/Product";
 
 export function saveProduct(product: Product): Promise<Response> {
   return fetch('/products', {
