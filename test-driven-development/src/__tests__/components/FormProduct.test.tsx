@@ -7,12 +7,7 @@ import {
   ERROR_SERVER_STATUS,
   INVALID_REQUEST_STATUS,
 } from '../../consts/httpStatus';
-
-type Product = {
-  name: string;
-  size: string;
-  type: string;
-};
+import type { Product } from '../../types/Product';
 
 const server = setupServer(
   rest.post<Product>('/products', (req, res, ctx) => {
@@ -158,7 +153,7 @@ describe('When the user submits the form and the server returns an inalid reques
   });
 });
 
-describe('When the user submits the form and the server returns an inalid', () => {
+describe('When the user submits the form and the server returns an invalid', () => {
   it('The form page must display the error message “The form is invalid are required””', async () => {
     server.use(rest.post('/products', (req, res) => res.networkError('Failed to connect')));
 
