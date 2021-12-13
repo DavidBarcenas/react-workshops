@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import FormPage from '../../pages/form';
+import FormPage from '.';
 
 describe('There must be a create product form page', () => {
   render(<FormPage />);

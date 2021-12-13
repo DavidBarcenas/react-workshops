@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
-import ProductForm from '../../components/ProductForm';
+import ProductForm from '.';
 import {
   CREATED_STATUS,
   ERROR_SERVER_STATUS,
