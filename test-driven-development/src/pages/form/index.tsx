@@ -10,8 +10,8 @@ function FormPage(): JSX.Element {
       <div>
         <h1 className={styles.Title}>Create Product</h1>
         <p className={styles.Text}>
-          Creation of forms using the test-driven-development approach with tests based on user
-          stories.
+          Creation of forms using the test-driven-development approach with
+          tests based on user stories.
         </p>
         <ul className={styles.Technologies}>
           <li>

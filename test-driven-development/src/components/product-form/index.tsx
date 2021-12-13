@@ -9,10 +9,14 @@ import styles from './style.module.css';
 import type { Product } from '../../types/Product';
 
 function ProductForm(): JSX.Element {
-  const [formErrors, setFormErrors] = useState<Product>({ name: '', size: '', type: '' });
   const [isSaving, setIsSaving] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [formErrors, setFormErrors] = useState<Product>({
+    name: '',
+    size: '',
+    type: '',
+  });
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -99,13 +103,17 @@ function ProductForm(): JSX.Element {
         <div className={styles.FormGroup}>
           <label htmlFor="name">Name</label>
           <input type="text" name="name" id="name" onBlur={handleBlur} />
-          {formErrors.name && <span className={styles.Error}>The name is required</span>}
+          {formErrors.name && (
+            <span className={styles.Error}>The name is required</span>
+          )}
         </div>
 
         <div className={styles.FormGroup}>
           <label htmlFor="size">Size</label>
           <input type="text" name="size" id="size" onBlur={handleBlur} />
-          {formErrors.size && <span className={styles.Error}>The size is required</span>}
+          {formErrors.size && (
+            <span className={styles.Error}>The size is required</span>
+          )}
         </div>
 
         <div className={styles.FormGroup}>
@@ -116,7 +124,9 @@ function ProductForm(): JSX.Element {
             <option value="furniture">Furniture</option>
             <option value="clothing">Clothing</option>
           </select>
-          {formErrors.type && <span className={styles.Error}>The type is required</span>}
+          {formErrors.type && (
+            <span className={styles.Error}>The type is required</span>
+          )}
         </div>
 
         <button type="submit" disabled={isSaving} className={styles.Button}>

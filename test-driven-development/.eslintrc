@@ -9,14 +9,6 @@
   "rules": {
     "max-lines": ["warn", 300],
     "react/react-in-jsx-scope": "off",
-    "no-magic-numbers": [
-      "warn",
-      {
-        "detectObjects": true,
-        "enforceConst": true,
-        "ignoreArrayIndexes": true
-      }
-    ],
     "no-multiple-empty-lines": [
       "warn",
       {
