@@ -1,13 +1,38 @@
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
+import { Grid, styled,Typography, TextField, Button } from '@mui/material';
+
+const CssTextField = styled(TextField)({
+  '& label': {
+    color: 'white',
+  },
+  '& label.Mui-focused': {
+    color: 'white',
+  },
+  '& .MuiInput-underline:before': {
+    borderBottomColor: 'white',
+  },
+  '& .MuiInput-underline:after': {
+    borderBottomColor: 'white',
+  },
+  '.MuiInput-root:hover:before': {
+    borderBottomColor: 'white',
+  },
+});
 
 function GithubSearchPage(): JSX.Element{
   return ( 
     <>
       <Typography variant="h3" component="h1">
-        github repositories list
+        Github repositories list
       </Typography>
-      <TextField id="filter-by" label="Filter by" variant="standard" />
+
+      <Grid container justifyContent="space-between" alignItems="flex-end" spacing={2}>
+        <Grid item sm={12} md={9}>
+          <CssTextField id="filter-by" label="Filter by" variant="standard" fullWidth />
+        </Grid>
+        <Grid item sm={12} md={3}>
+          <Button variant="contained" fullWidth>Search</Button>
+        </Grid>
+      </Grid>
     </>
   );
 }
