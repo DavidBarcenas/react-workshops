@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Grid, styled, Typography, TextField, Button } from '@mui/material';
 
 const CssTextField = styled(TextField)({
@@ -8,6 +9,8 @@ const CssTextField = styled(TextField)({
     color: 'rgba(255,255,255,.8)',
   },
   '& .MuiInput-underline': {
+    color: 'white',
+
     '&:before': {
       borderBottomColor: 'rgba(255,255,255,.6)',
     },
@@ -15,12 +18,21 @@ const CssTextField = styled(TextField)({
       borderBottomColor: 'white',
     },
   },
-  '.MuiInput-root:hover:before': {
+  '& .MuiInput-root:hover:before': {
     borderBottomColor: 'rgba(255,255,255,.6)',
   },
 });
 
 function GithubSearchPage(): JSX.Element {
+  const [isSearching, setIsSearching] = useState(false);
+
+  async function handleClick() {
+    setIsSearching(true);
+
+    await Promise.resolve();
+    setIsSearching(false);
+  }
+
   return (
     <>
       <Typography variant="h3" component="h1" mb={5}>
@@ -42,11 +54,20 @@ function GithubSearchPage(): JSX.Element {
           />
         </Grid>
         <Grid item sm={12} md={3}>
-          <Button variant="contained" fullWidth>
+          <Button
+            variant="contained"
+            fullWidth
+            disabled={isSearching}
+            onClick={handleClick}
+          >
             Search
           </Button>
         </Grid>
       </Grid>
+
+      <Typography mt={3} style={{ color: 'rgba(255, 255, 255, .75)' }}>
+        Please provide a search option and click in the search button
+      </Typography>
     </>
   );
 }
