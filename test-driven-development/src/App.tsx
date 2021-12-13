@@ -1,9 +1,9 @@
-import FormPage from './pages/Form';
+import GithubSearchPage from './pages/github-search';
 
 function App(): JSX.Element {
   return (
     <div className="container">
-      <FormPage />
+      <GithubSearchPage />
     </div>
   );
 }
