@@ -77,4 +77,21 @@ describe('when a search is performed', () => {
     expect(openIssues).toHaveTextContent(/open issues/i);
     expect(updatedAt).toHaveTextContent(/updated at/i);
   });
+
+  it('each table result should have: name, stars, updated at, forks, open issues', async () => {
+    fireClickSearch();
+
+    const table = await screen.findByRole('table');
+    const tableCell = within(table).getAllByRole('cell');
+
+    expect(tableCell).toHaveLength(5);
+
+    const [repository, stars, forks, openIssues, updatedAt] = tableCell;
+
+    expect(repository).toHaveTextContent(/test/i);
+    expect(stars).toHaveTextContent(/5/i);
+    expect(forks).toHaveTextContent(/1/i);
+    expect(openIssues).toHaveTextContent(/0/i);
+    expect(updatedAt).toHaveTextContent(/12-12-2020/i);
+  });
 });

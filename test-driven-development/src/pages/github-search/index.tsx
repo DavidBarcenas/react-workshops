@@ -78,6 +78,15 @@ function GithubSearchPage(): JSX.Element {
               <th>updated at</th>
             </tr>
           </thead>
+          <tbody>
+            <tr>
+              <td>test</td>
+              <td>5</td>
+              <td>1</td>
+              <td>0</td>
+              <td>12-12-2020</td>
+            </tr>
+          </tbody>
         </table>
       ) : (
         <Typography mt={3} style={{ color: 'rgba(255, 255, 255, .75)' }}>
