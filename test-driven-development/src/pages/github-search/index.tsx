@@ -25,11 +25,13 @@ const CssTextField = styled(TextField)({
 
 function GithubSearchPage(): JSX.Element {
   const [isSearching, setIsSearching] = useState(false);
+  const [isSearchApplied, setIsSearchApplied] = useState(false);
 
   async function handleClick() {
     setIsSearching(true);
 
     await Promise.resolve();
+    setIsSearchApplied(true);
     setIsSearching(false);
   }
 
@@ -65,9 +67,13 @@ function GithubSearchPage(): JSX.Element {
         </Grid>
       </Grid>
 
-      <Typography mt={3} style={{ color: 'rgba(255, 255, 255, .75)' }}>
-        Please provide a search option and click in the search button
-      </Typography>
+      {isSearchApplied ? (
+        <table />
+      ) : (
+        <Typography mt={3} style={{ color: 'rgba(255, 255, 255, .75)' }}>
+          Please provide a search option and click in the search button
+        </Typography>
+      )}
     </>
   );
 }
