@@ -1,4 +1,10 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from '@testing-library/react';
 import GithubSearchPage from '.';
 
 beforeEach(() => render(<GithubSearchPage />));
@@ -28,19 +34,21 @@ describe('render GithubSearchPage', () => {
 });
 
 describe('when a search is performed', () => {
+  const fireClickSearch = () =>
+    fireEvent.click(screen.getByRole('button', { name: /search/i }));
+
   it('the search button should be disabled until the search is done', async () => {
     const submitBtn = screen.getByRole('button', { name: /search/i });
 
     expect(submitBtn).not.toBeDisabled();
-    fireEvent.click(submitBtn);
+    fireClickSearch();
     expect(submitBtn).toBeDisabled();
 
     await waitFor(() => expect(submitBtn).not.toBeDisabled());
   });
 
   it('the data should be displayed as a sticky table', async () => {
-    const submitBtn = screen.getByRole('button', { name: /search/i });
-    fireEvent.click(submitBtn);
+    fireClickSearch();
 
     await waitFor(() =>
       expect(
@@ -51,5 +59,22 @@ describe('when a search is performed', () => {
     );
 
     expect(screen.getByRole('table')).toBeInTheDocument();
+  });
+
+  it('the table headers must contain: repository, stars, forks, open issues and updated at', async () => {
+    fireClickSearch();
+
+    const table = await screen.findByRole('table');
+    const tableHeaders = within(table).getAllByRole('columnheader');
+
+    expect(tableHeaders).toHaveLength(5);
+
+    const [repository, stars, forks, openIssues, updatedAt] = tableHeaders;
+
+    expect(repository).toHaveTextContent(/repository/i);
+    expect(stars).toHaveTextContent(/stars/i);
+    expect(forks).toHaveTextContent(/forks/i);
+    expect(openIssues).toHaveTextContent(/open issues/i);
+    expect(updatedAt).toHaveTextContent(/updated at/i);
   });
 });

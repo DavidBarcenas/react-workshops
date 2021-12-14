@@ -68,7 +68,17 @@ function GithubSearchPage(): JSX.Element {
       </Grid>
 
       {isSearchApplied ? (
-        <table />
+        <table>
+          <thead>
+            <tr>
+              <th>repository</th>
+              <th>stars</th>
+              <th>forks</th>
+              <th>open issues</th>
+              <th>updated at</th>
+            </tr>
+          </thead>
+        </table>
       ) : (
         <Typography mt={3} style={{ color: 'rgba(255, 255, 255, .75)' }}>
           Please provide a search option and click in the search button
