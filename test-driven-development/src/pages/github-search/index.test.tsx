@@ -78,26 +78,23 @@ describe('when a search is performed', () => {
     expect(updatedAt).toHaveTextContent(/updated at/i);
   });
 
-  it('each table result should have: owner avatar image, name, stars, updated at, forks, open issues', async () => {
+  it(`each table result should have: owner avatar image, name, stars, updated at, forks, open issues,
+      column repository should have a link that opens in a new tab the github repository selected`, async () => {
     fireClickSearch();
 
     const table = await screen.findByRole('table');
     const tableCell = within(table).getAllByRole('cell');
     const [repository, stars, forks, openIssues, updatedAt] = tableCell;
 
-    expect(within(tableCell[0]).getByRole('img', { name: /test/i }));
+    expect(within(repository).getByRole('img', { name: /test/i }));
     expect(tableCell).toHaveLength(5);
     expect(repository).toHaveTextContent(/test/i);
     expect(stars).toHaveTextContent(/5/i);
     expect(forks).toHaveTextContent(/1/i);
     expect(openIssues).toHaveTextContent(/0/i);
-    expect(updatedAt).toHaveTextContent(/12-12-2020/i);
-  });
+    expect(updatedAt).toHaveTextContent(/12-12-2021/i);
 
-  it('table row should have a link that opens in a new tab the github repository selected', async () => {
-    fireClickSearch();
-    const table = await screen.findByRole('table');
-    expect(within(table).getByText(/test/i).closest('a')).toHaveAttribute(
+    expect(within(repository).getByText(/test/i).closest('a')).toHaveAttribute(
       'href',
       'http://localhost:3000/test',
     );

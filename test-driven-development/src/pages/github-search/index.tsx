@@ -1,5 +1,20 @@
 import { useState } from 'react';
-import { Grid, styled, Typography, TextField, Button } from '@mui/material';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Paper from '@mui/material/Paper';
+import Avatar from '@mui/material/Avatar';
+import Link from '@mui/material/Link';
+import Box from '@mui/material/Box';
+import { styled } from '@mui/material';
 
 const CssTextField = styled(TextField)({
   '& label': {
@@ -46,6 +61,7 @@ function GithubSearchPage(): JSX.Element {
         justifyContent="space-between"
         alignItems="flex-end"
         spacing={2}
+        mb={4}
       >
         <Grid item sm={12} md={9}>
           <CssTextField
@@ -68,29 +84,50 @@ function GithubSearchPage(): JSX.Element {
       </Grid>
 
       {isSearchApplied ? (
-        <table>
-          <thead>
-            <tr>
-              <th>repository</th>
-              <th>stars</th>
-              <th>forks</th>
-              <th>open issues</th>
-              <th>updated at</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <img src="" alt="test" />
-                <a href="http://localhost:3000/test">test</a>
-              </td>
-              <td>5</td>
-              <td>1</td>
-              <td>0</td>
-              <td>12-12-2020</td>
-            </tr>
-          </tbody>
-        </table>
+        <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+          <TableContainer>
+            <Table stickyHeader aria-label="sticky table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Repository</TableCell>
+                  <TableCell>Stars</TableCell>
+                  <TableCell>Forks</TableCell>
+                  <TableCell>Open issues</TableCell>
+                  <TableCell>Updated at</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                <TableRow hover tabIndex={-1}>
+                  <TableCell>
+                    <Box display="flex" alignItems="center">
+                      <Avatar
+                        alt="Test"
+                        src="/static/images/avatar/1.jpg"
+                        style={{ marginRight: '.5rem' }}
+                      />
+                      <Link underline="none" href="http://localhost:3000/test">
+                        Test
+                      </Link>
+                    </Box>
+                  </TableCell>
+                  <TableCell>5</TableCell>
+                  <TableCell>1</TableCell>
+                  <TableCell>0</TableCell>
+                  <TableCell>12-12-2021</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[10, 25, 100]}
+            component="div"
+            count={5}
+            rowsPerPage={10}
+            page={0}
+            onPageChange={() => null}
+            onRowsPerPageChange={() => null}
+          />
+        </Paper>
       ) : (
         <Typography mt={3} style={{ color: 'rgba(255, 255, 255, .75)' }}>
           Please provide a search option and click in the search button
