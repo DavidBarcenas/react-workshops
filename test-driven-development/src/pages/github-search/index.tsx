@@ -80,7 +80,10 @@ function GithubSearchPage(): JSX.Element {
           </thead>
           <tbody>
             <tr>
-              <td>test</td>
+              <td>
+                <img src="" alt="test" />
+                <a href="http://localhost:3000/test">test</a>
+              </td>
               <td>5</td>
               <td>1</td>
               <td>0</td>
