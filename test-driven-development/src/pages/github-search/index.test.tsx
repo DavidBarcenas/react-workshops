@@ -5,9 +5,44 @@ import {
   waitFor,
   within,
 } from '@testing-library/react';
+import { setupServer } from 'msw/node';
+import { rest } from 'msw';
 import GithubSearchPage from '.';
+import type { CustomRepository } from '../../types/repository';
+
+const fakeRepoData: CustomRepository = {
+  id: 10270250,
+  name: 'react',
+  owner: {
+    avatar_url: 'https://avatars.githubusercontent.com/u/69631?v=4',
+  },
+  html_url: 'https://github.com/facebook/react',
+  updated_at: '2021-12-15T19:39:28Z',
+  stargazers_count: 179183,
+  forks_count: 36335,
+  open_issues_count: 905,
+};
+
+const server = setupServer(
+  rest.get('/search/repositories', (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        total_counts: 8643,
+        incomplete_results: false,
+        items: [fakeRepoData],
+      }),
+    );
+  }),
+);
+
+beforeAll(() => server.listen());
 
 beforeEach(() => render(<GithubSearchPage />));
+
+afterAll(() => server.close());
+
+afterEach(() => server.resetHandlers());
 
 describe('render GithubSearchPage', () => {
   it('must display the title', () => {
@@ -107,7 +142,7 @@ describe('when a search is performed', () => {
     expect(screen.getByText(/1–10 of 100/i)).toBeInTheDocument();
   });
 
-  it('results size per page select/combobox with the options: 10, 25, 50. The default is 10.', async () => {
+  it('results size per page select/combobox with the options: 10, 25, 50. the default is 10', async () => {
     fireClickSearch();
 
     await screen.findByRole('table');
@@ -123,5 +158,18 @@ describe('when a search is performed', () => {
     expect(firstOpt).toHaveTextContent(/10/);
     expect(secondOpt).toHaveTextContent(/25/);
     expect(thirdOption).toHaveTextContent(/50/);
+  });
+
+  it('previous and next page buttons should exist', async () => {
+    fireClickSearch();
+
+    await screen.findByRole('table');
+
+    const prevButton = screen.getByRole('button', { name: /previous page/i });
+    const nextButton = screen.getByRole('button', { name: /next page/i });
+
+    expect(prevButton).toBeInTheDocument();
+    expect(nextButton).toBeInTheDocument();
+    expect(prevButton).toBeDisabled();
   });
 });
