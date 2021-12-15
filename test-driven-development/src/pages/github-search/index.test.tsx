@@ -99,4 +99,11 @@ describe('when a search is performed', () => {
       'http://localhost:3000/test',
     );
   });
+
+  it('show the total number of search results and the current number of results [1-10 of 100]', async () => {
+    fireClickSearch();
+
+    await screen.findByRole('table');
+    expect(screen.getByText(/1–10 of 100/i)).toBeInTheDocument();
+  });
 });

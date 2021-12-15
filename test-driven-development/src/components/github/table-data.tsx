@@ -15,6 +15,14 @@ type TableDataProps = {
   isSearchApplied: boolean;
 };
 
+const tableHeaders = [
+  'Repository',
+  'Stars',
+  'Forks',
+  'Open Issues',
+  'Updated At',
+];
+
 export default function TableData({ isSearchApplied }: TableDataProps) {
   return isSearchApplied ? (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
@@ -22,11 +30,9 @@ export default function TableData({ isSearchApplied }: TableDataProps) {
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              <TableCell>Repository</TableCell>
-              <TableCell>Stars</TableCell>
-              <TableCell>Forks</TableCell>
-              <TableCell>Open issues</TableCell>
-              <TableCell>Updated at</TableCell>
+              {tableHeaders.map(name => (
+                <TableCell key={name}>{name}</TableCell>
+              ))}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -51,17 +57,29 @@ export default function TableData({ isSearchApplied }: TableDataProps) {
           </TableBody>
         </Table>
       </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={5}
-        rowsPerPage={10}
-        page={0}
-        onPageChange={() => null}
-        onRowsPerPageChange={() => null}
-      />
+      <Paginator />
     </Paper>
   ) : (
+    <Message />
+  );
+}
+
+function Paginator() {
+  return (
+    <TablePagination
+      rowsPerPageOptions={[10, 25, 50]}
+      component="div"
+      count={100}
+      rowsPerPage={10}
+      page={0}
+      onPageChange={() => null}
+      onRowsPerPageChange={() => null}
+    />
+  );
+}
+
+function Message() {
+  return (
     <Typography mt={3} style={{ color: 'rgba(255, 255, 255, .75)' }}>
       Please provide a search option and click in the search button
     </Typography>
