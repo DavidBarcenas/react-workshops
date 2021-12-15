@@ -10,9 +10,11 @@ import Paper from '@mui/material/Paper';
 import Avatar from '@mui/material/Avatar';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
+import type { Repository } from '../../types/repository';
 
 type TableDataProps = {
   isSearchApplied: boolean;
+  reposList: Repository[];
 };
 
 const tableHeaders = [
@@ -23,7 +25,10 @@ const tableHeaders = [
   'Updated At',
 ];
 
-export default function TableData({ isSearchApplied }: TableDataProps) {
+export default function TableData({
+  isSearchApplied,
+  reposList,
+}: TableDataProps) {
   return isSearchApplied ? (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
       <TableContainer>
@@ -36,24 +41,26 @@ export default function TableData({ isSearchApplied }: TableDataProps) {
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow hover tabIndex={-1}>
-              <TableCell>
-                <Box display="flex" alignItems="center">
-                  <Avatar
-                    alt="Test"
-                    src="/static/images/avatar/1.jpg"
-                    style={{ marginRight: '.5rem' }}
-                  />
-                  <Link underline="none" href="http://localhost:3000/test">
-                    Test
-                  </Link>
-                </Box>
-              </TableCell>
-              <TableCell>5</TableCell>
-              <TableCell>1</TableCell>
-              <TableCell>0</TableCell>
-              <TableCell>12-12-2021</TableCell>
-            </TableRow>
+            {reposList.map(repo => (
+              <TableRow hover tabIndex={-1} key={repo.id}>
+                <TableCell>
+                  <Box display="flex" alignItems="center">
+                    <Avatar
+                      alt={repo.name}
+                      src={repo.owner.avatar_url}
+                      style={{ marginRight: '.5rem' }}
+                    />
+                    <Link underline="none" href={repo.html_url}>
+                      {repo.name}
+                    </Link>
+                  </Box>
+                </TableCell>
+                <TableCell>{repo.stargazers_count}</TableCell>
+                <TableCell>{repo.forks_count}</TableCell>
+                <TableCell>{repo.open_issues_count}</TableCell>
+                <TableCell>{repo.updated_at}</TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </TableContainer>

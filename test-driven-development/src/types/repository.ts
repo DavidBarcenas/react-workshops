@@ -23,7 +23,7 @@ export type Repository  = {
   name:              string;
   full_name:         string;
   private:           boolean;
-  owner:             Object;
+  owner:             Owner;
   html_url:          string;
   description:       string;
   fork:              boolean;
@@ -96,4 +96,8 @@ export type Repository  = {
   watchers:          number;
   default_branch:    string;
   score:             number;
+}
+
+type Owner = {
+  avatar_url: string;
 }

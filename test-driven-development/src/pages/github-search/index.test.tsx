@@ -120,19 +120,26 @@ describe('when a search is performed', () => {
     const table = await screen.findByRole('table');
     const tableCell = within(table).getAllByRole('cell');
     const [repository, stars, forks, openIssues, updatedAt] = tableCell;
+    const avatarImg = within(repository).getByRole('img', {
+      name: fakeRepoData.name,
+    });
 
-    expect(within(repository).getByRole('img', { name: /test/i }));
+    expect(avatarImg).toBeInTheDocument();
+    expect(avatarImg).toHaveAttribute('src', fakeRepoData.owner.avatar_url);
+
     expect(tableCell).toHaveLength(5);
-    expect(repository).toHaveTextContent(/test/i);
-    expect(stars).toHaveTextContent(/5/i);
-    expect(forks).toHaveTextContent(/1/i);
-    expect(openIssues).toHaveTextContent(/0/i);
-    expect(updatedAt).toHaveTextContent(/12-12-2021/i);
 
-    expect(within(repository).getByText(/test/i).closest('a')).toHaveAttribute(
-      'href',
-      'http://localhost:3000/test',
+    expect(repository).toHaveTextContent(fakeRepoData.name);
+    expect(stars).toHaveTextContent(fakeRepoData.stargazers_count.toString());
+    expect(forks).toHaveTextContent(fakeRepoData.forks_count.toString());
+    expect(openIssues).toHaveTextContent(
+      fakeRepoData.open_issues_count.toString(),
     );
+    expect(updatedAt).toHaveTextContent(fakeRepoData.updated_at);
+
+    expect(
+      within(repository).getByText(fakeRepoData.name).closest('a'),
+    ).toHaveAttribute('href', fakeRepoData.html_url);
   });
 
   it('show the total number of search results and the current number of results [1-10 of 100]', async () => {
