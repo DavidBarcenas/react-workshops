@@ -106,4 +106,22 @@ describe('when a search is performed', () => {
     await screen.findByRole('table');
     expect(screen.getByText(/1–10 of 100/i)).toBeInTheDocument();
   });
+
+  it('results size per page select/combobox with the options: 10, 25, 50. The default is 10.', async () => {
+    fireClickSearch();
+
+    await screen.findByRole('table');
+    expect(screen.getByLabelText(/rows per page/i)).toBeInTheDocument();
+
+    fireEvent.mouseDown(screen.getByLabelText(/rows per page/i));
+
+    const listbox = screen.getByRole('listbox', { name: /rows per page/i });
+    const options = within(listbox).getAllByRole('option');
+    const [firstOpt, secondOpt, thirdOption] = options;
+
+    expect(options).toHaveLength(3);
+    expect(firstOpt).toHaveTextContent(/10/);
+    expect(secondOpt).toHaveTextContent(/25/);
+    expect(thirdOption).toHaveTextContent(/50/);
+  });
 });
