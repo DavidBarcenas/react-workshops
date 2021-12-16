@@ -25,11 +25,22 @@ const tableHeaders = [
   'Updated At',
 ];
 
-export default function TableData({
-  isSearchApplied,
-  reposList,
-}: TableDataProps) {
-  return isSearchApplied ? (
+export default function TableData(props: TableDataProps) {
+  if (props.isSearchApplied && !!props.reposList.length) {
+    return <BuildTable reposList={props.reposList} />;
+  }
+
+  if (props.isSearchApplied && !props.reposList.length) {
+    return <Message text="You search has no results" />;
+  }
+
+  return (
+    <Message text="Please provide a search option and click in the search button" />
+  );
+}
+
+function BuildTable({ reposList }: { reposList: Repository[] }) {
+  return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
       <TableContainer>
         <Table stickyHeader aria-label="sticky table">
@@ -66,8 +77,6 @@ export default function TableData({
       </TableContainer>
       <Paginator />
     </Paper>
-  ) : (
-    <Message />
   );
 }
 
@@ -85,10 +94,10 @@ function Paginator() {
   );
 }
 
-function Message() {
+function Message({ text }: { text: string }) {
   return (
     <Typography mt={3} style={{ color: 'rgba(255, 255, 255, .75)' }}>
-      Please provide a search option and click in the search button
+      {text}
     </Typography>
   );
 }
