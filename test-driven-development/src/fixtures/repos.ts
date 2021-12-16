@@ -1,3 +1,5 @@
+import repos25 from '../fixtures/repos-25-paginated.json'
+import repos50 from '../fixtures/repos-25-paginated.json'
 import type { CustomRepository } from "../types/repository";
 
 export const makeFakeResponse = (
@@ -25,3 +27,7 @@ const reposData = ['go', 'freeCodecamp', 'laravel', 'python', 'java']
 const reposList = reposData.map((name, i) => makeFakeRepo(i, name))
 
 export const getReposList = (name: string) => reposList.filter(r => r.name === name)
+
+export const getReposPerPage = (currentPage: number, perPage: number) => {
+  return perPage === 25 ? repos25[currentPage] : repos50[currentPage]
+}

@@ -15,6 +15,8 @@ import type { Repository } from '../../types/repository';
 type TableDataProps = {
   isSearchApplied: boolean;
   reposList: Repository[];
+  rowsPerPage: number;
+  setRowsPerPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const tableHeaders = [
@@ -26,11 +28,21 @@ const tableHeaders = [
 ];
 
 export default function TableData(props: TableDataProps) {
-  if (props.isSearchApplied && !!props.reposList.length) {
-    return <BuildTable reposList={props.reposList} />;
+  if (props.isSearchApplied && !!props.reposList?.length) {
+    return (
+      <>
+        <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+          <BuildTable reposList={props.reposList} />
+          <Paginator
+            rowsPerPage={props.rowsPerPage}
+            setRowsPerPage={props.setRowsPerPage}
+          />
+        </Paper>
+      </>
+    );
   }
 
-  if (props.isSearchApplied && !props.reposList.length) {
+  if (props.isSearchApplied && !props.reposList?.length) {
     return <Message text="You search has no results" />;
   }
 
@@ -41,55 +53,58 @@ export default function TableData(props: TableDataProps) {
 
 function BuildTable({ reposList }: { reposList: Repository[] }) {
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <TableContainer>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              {tableHeaders.map(name => (
-                <TableCell key={name}>{name}</TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {reposList.map(repo => (
-              <TableRow hover tabIndex={-1} key={repo.id}>
-                <TableCell>
-                  <Box display="flex" alignItems="center">
-                    <Avatar
-                      alt={repo.name}
-                      src={repo.owner.avatar_url}
-                      style={{ marginRight: '.5rem' }}
-                    />
-                    <Link underline="none" href={repo.html_url}>
-                      {repo.name}
-                    </Link>
-                  </Box>
-                </TableCell>
-                <TableCell>{repo.stargazers_count}</TableCell>
-                <TableCell>{repo.forks_count}</TableCell>
-                <TableCell>{repo.open_issues_count}</TableCell>
-                <TableCell>{repo.updated_at}</TableCell>
-              </TableRow>
+    <TableContainer>
+      <Table stickyHeader aria-label="sticky table">
+        <TableHead>
+          <TableRow>
+            {tableHeaders.map(name => (
+              <TableCell key={name}>{name}</TableCell>
             ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <Paginator />
-    </Paper>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {reposList.map(repo => (
+            <TableRow hover tabIndex={-1} key={repo.id}>
+              <TableCell>
+                <Box display="flex" alignItems="center">
+                  <Avatar
+                    alt={repo.name}
+                    src={repo.owner.avatar_url}
+                    style={{ marginRight: '.5rem' }}
+                  />
+                  <Link underline="none" href={repo.html_url}>
+                    {repo.name}
+                  </Link>
+                </Box>
+              </TableCell>
+              <TableCell>{repo.stargazers_count}</TableCell>
+              <TableCell>{repo.forks_count}</TableCell>
+              <TableCell>{repo.open_issues_count}</TableCell>
+              <TableCell>{repo.updated_at}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 }
 
-function Paginator() {
+function Paginator({
+  rowsPerPage,
+  setRowsPerPage,
+}: {
+  rowsPerPage: number;
+  setRowsPerPage: React.Dispatch<React.SetStateAction<number>>;
+}) {
   return (
     <TablePagination
       rowsPerPageOptions={[10, 25, 50]}
       component="div"
       count={100}
-      rowsPerPage={10}
+      rowsPerPage={rowsPerPage}
       page={0}
       onPageChange={() => null}
-      onRowsPerPageChange={() => null}
+      onRowsPerPageChange={({ target }) => setRowsPerPage(+target.value)}
     />
   );
 }

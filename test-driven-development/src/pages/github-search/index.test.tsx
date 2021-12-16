@@ -10,6 +10,7 @@ import { rest } from 'msw';
 import GithubSearchPage from '.';
 import {
   getReposList,
+  getReposPerPage,
   makeFakeRepo,
   makeFakeResponse,
 } from '../../fixtures/repos';
@@ -217,5 +218,34 @@ describe('when a search is done', () => {
     const [repository] = tableCells;
 
     expect(repository).toHaveTextContent(expectedRepo.name);
+  });
+});
+
+describe('when the option to display 25 rows is selected', () => {
+  it('it should do a new search and show 25 rows of results in the table', async () => {
+    server.use(
+      rest.get('/search/repositories', (req, res, ctx) => {
+        return res(
+          ctx.status(OK_STATUS),
+          ctx.json({
+            ...makeFakeResponse(),
+            items: getReposPerPage(
+              Number(req.url.searchParams.get('page')),
+              Number(req.url.searchParams.get('per_page')),
+            ),
+          }),
+        );
+      }),
+    );
+
+    fireClickSearch();
+
+    expect(await screen.findByRole('table')).toBeInTheDocument();
+    expect(await screen.findAllByRole('row')).toHaveLength(26);
+
+    fireEvent.mouseDown(screen.getByLabelText(/rows per page/i));
+    fireEvent.click(screen.getByRole('option', { name: '50' }));
+
+    expect(await screen.findAllByRole('row')).toHaveLength(51);
   });
 });

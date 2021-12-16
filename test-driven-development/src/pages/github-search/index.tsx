@@ -36,11 +36,12 @@ function GithubSearchPage(): JSX.Element {
   const [isSearchApplied, setIsSearchApplied] = useState(false);
   const [reposList, setReposList] = useState<Repository[]>([]);
   const [searchBy, setSearchBy] = useState('');
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   async function handleClick() {
     setIsSearching(true);
 
-    const response = await fetchRepos(searchBy);
+    const response = await fetchRepos(searchBy, rowsPerPage);
     const data = await response.json();
 
     setReposList(data.items);
@@ -89,7 +90,12 @@ function GithubSearchPage(): JSX.Element {
         </Grid>
       </Grid>
 
-      <TableData isSearchApplied={isSearchApplied} reposList={reposList} />
+      <TableData
+        isSearchApplied={isSearchApplied}
+        reposList={reposList}
+        rowsPerPage={rowsPerPage}
+        setRowsPerPage={setRowsPerPage}
+      />
     </>
   );
 }
