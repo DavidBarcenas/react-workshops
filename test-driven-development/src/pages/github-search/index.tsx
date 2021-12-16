@@ -4,7 +4,9 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { styled } from '@mui/material';
+
 import TableData from '../../components/github/table-data';
+import { fetchRepos } from '../../services/github-repos';
 import type { Repository } from '../../types/repository';
 
 const CssTextField = styled(TextField)({
@@ -37,9 +39,7 @@ function GithubSearchPage(): JSX.Element {
   async function handleClick() {
     setIsSearching(true);
 
-    const response = await fetch(
-      '/search/repositories?q=remix&page=1&per_page=10',
-    );
+    const response = await fetchRepos();
     const data = await response.json();
 
     setReposList(data.items);
