@@ -8,14 +8,18 @@ import {
 import { setupServer } from 'msw/node';
 import { rest } from 'msw';
 import GithubSearchPage from '.';
-import { fakeRepoData, makeFakeResponse } from '../../fixtures/repos';
+import {
+  getReposList,
+  makeFakeRepo,
+  makeFakeResponse,
+} from '../../fixtures/repos';
 import { OK_STATUS } from '../../consts/httpStatus';
 
 const server = setupServer(
   rest.get('/search/repositories', (req, res, ctx) => {
     return res(
       ctx.status(OK_STATUS),
-      ctx.json(makeFakeResponse(8643, [fakeRepoData])),
+      ctx.json(makeFakeResponse(8643, [makeFakeRepo()])),
     );
   }),
 );
@@ -105,25 +109,25 @@ describe('when a search is performed', () => {
     const tableCell = within(table).getAllByRole('cell');
     const [repository, stars, forks, openIssues, updatedAt] = tableCell;
     const avatarImg = within(repository).getByRole('img', {
-      name: fakeRepoData.name,
+      name: makeFakeRepo().name,
     });
 
     expect(avatarImg).toBeInTheDocument();
-    expect(avatarImg).toHaveAttribute('src', fakeRepoData.owner.avatar_url);
+    expect(avatarImg).toHaveAttribute('src', makeFakeRepo().owner.avatar_url);
 
     expect(tableCell).toHaveLength(5);
 
-    expect(repository).toHaveTextContent(fakeRepoData.name);
-    expect(stars).toHaveTextContent(fakeRepoData.stargazers_count.toString());
-    expect(forks).toHaveTextContent(fakeRepoData.forks_count.toString());
+    expect(repository).toHaveTextContent(makeFakeRepo().name);
+    expect(stars).toHaveTextContent(makeFakeRepo().stargazers_count.toString());
+    expect(forks).toHaveTextContent(makeFakeRepo().forks_count.toString());
     expect(openIssues).toHaveTextContent(
-      fakeRepoData.open_issues_count.toString(),
+      makeFakeRepo().open_issues_count.toString(),
     );
-    expect(updatedAt).toHaveTextContent(fakeRepoData.updated_at);
+    expect(updatedAt).toHaveTextContent(makeFakeRepo().updated_at);
 
     expect(
-      within(repository).getByText(fakeRepoData.name).closest('a'),
-    ).toHaveAttribute('href', fakeRepoData.html_url);
+      within(repository).getByText(makeFakeRepo().name).closest('a'),
+    ).toHaveAttribute('href', makeFakeRepo().html_url);
   });
 
   it('show the total number of search results and the current number of results [1-10 of 100]', async () => {
@@ -182,5 +186,36 @@ describe('if there are no results in the search', () => {
     );
 
     expect(screen.queryByRole('table')).not.toBeInTheDocument();
+  });
+});
+
+describe('when a search is done', () => {
+  it('must display the related repos', async () => {
+    const searchValue = 'python';
+    const expectedRepo = getReposList(searchValue)[0];
+
+    server.use(
+      rest.get('/search/repositories', (req, res, ctx) => {
+        return res(
+          ctx.status(OK_STATUS),
+          ctx.json({
+            ...makeFakeResponse(),
+            items: getReposList(req.url.searchParams.get('q') || searchValue),
+          }),
+        );
+      }),
+    );
+
+    fireEvent.change(screen.getByLabelText(/filter by/i), {
+      target: { value: searchValue },
+    });
+
+    fireClickSearch();
+
+    const table = await screen.findByRole('table');
+    const tableCells = within(table).getAllByRole('cell');
+    const [repository] = tableCells;
+
+    expect(repository).toHaveTextContent(expectedRepo.name);
   });
 });

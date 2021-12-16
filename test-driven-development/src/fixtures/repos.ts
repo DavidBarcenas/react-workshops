@@ -8,9 +8,9 @@ export const makeFakeResponse = (
   items,
 });
 
-export const fakeRepoData: CustomRepository = {
-  id: 10270250,
-  name: 'react',
+export const makeFakeRepo = (id = 10270250, name = 'react') => ({
+  id,
+  name,
   owner: {
     avatar_url: 'https://avatars.githubusercontent.com/u/69631?v=4',
   },
@@ -19,4 +19,9 @@ export const fakeRepoData: CustomRepository = {
   stargazers_count: 179183,
   forks_count: 36335,
   open_issues_count: 905,
-};
+})
+
+const reposData = ['go', 'freeCodecamp', 'laravel', 'python', 'java']
+const reposList = reposData.map((name, i) => makeFakeRepo(i, name))
+
+export const getReposList = (name: string) => reposList.filter(r => r.name === name)

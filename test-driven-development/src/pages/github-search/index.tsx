@@ -35,16 +35,23 @@ function GithubSearchPage(): JSX.Element {
   const [isSearching, setIsSearching] = useState(false);
   const [isSearchApplied, setIsSearchApplied] = useState(false);
   const [reposList, setReposList] = useState<Repository[]>([]);
+  const [searchBy, setSearchBy] = useState('');
 
   async function handleClick() {
     setIsSearching(true);
 
-    const response = await fetchRepos();
+    const response = await fetchRepos(searchBy);
     const data = await response.json();
 
     setReposList(data.items);
     setIsSearchApplied(true);
     setIsSearching(false);
+  }
+
+  function handleOnChange(
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) {
+    setSearchBy(e.target.value);
   }
 
   return (
@@ -65,6 +72,8 @@ function GithubSearchPage(): JSX.Element {
             id="filter-by"
             label="Filter by"
             variant="standard"
+            value={searchBy}
+            onChange={handleOnChange}
             fullWidth
           />
         </Grid>
