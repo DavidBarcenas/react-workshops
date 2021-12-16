@@ -8,30 +8,14 @@ import {
 import { setupServer } from 'msw/node';
 import { rest } from 'msw';
 import GithubSearchPage from '.';
-import type { CustomRepository } from '../../types/repository';
-
-const fakeRepoData: CustomRepository = {
-  id: 10270250,
-  name: 'react',
-  owner: {
-    avatar_url: 'https://avatars.githubusercontent.com/u/69631?v=4',
-  },
-  html_url: 'https://github.com/facebook/react',
-  updated_at: '2021-12-15T19:39:28Z',
-  stargazers_count: 179183,
-  forks_count: 36335,
-  open_issues_count: 905,
-};
+import { fakeRepoData, makeFakeResponse } from '../../fixtures/repos';
+import { OK_STATUS } from '../../consts/httpStatus';
 
 const server = setupServer(
   rest.get('/search/repositories', (req, res, ctx) => {
     return res(
-      ctx.status(200),
-      ctx.json({
-        total_counts: 8643,
-        incomplete_results: false,
-        items: [fakeRepoData],
-      }),
+      ctx.status(OK_STATUS),
+      ctx.json(makeFakeResponse(8643, [fakeRepoData])),
     );
   }),
 );
@@ -185,14 +169,7 @@ describe('if there are no results in the search', () => {
   it('show a empty state message', async () => {
     server.use(
       rest.get('/search/repositories', (req, res, ctx) => {
-        return res(
-          ctx.status(200),
-          ctx.json({
-            total_counts: 0,
-            incomplete_results: false,
-            items: [],
-          }),
-        );
+        return res(ctx.status(OK_STATUS), ctx.json(makeFakeResponse()));
       }),
     );
 
