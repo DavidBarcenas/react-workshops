@@ -4,10 +4,10 @@ import repos50 from './repos-50-paginated.json'
 import type { CustomRepository } from "../types/repository";
 
 export const makeFakeResponse = (
-  total_counts = 0,
+  total_count = 0,
   items: CustomRepository[] = [],
 ) => ({
-  total_counts,
+  total_count,
   items,
 });
 
@@ -30,7 +30,6 @@ const reposList = reposData.map((name, i) => makeFakeRepo(i, name))
 export const getReposList = (name: string) => reposList.filter(r => r.name === name)
 
 export const getReposPerPage = (currentPage: number, perPage: number) => {
-  currentPage = currentPage - 1
   switch(perPage) {
     case 25:
        return repos25[currentPage]

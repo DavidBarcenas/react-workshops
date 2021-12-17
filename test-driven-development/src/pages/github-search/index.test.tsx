@@ -20,7 +20,7 @@ const server = setupServer(
   rest.get('/search/repositories', (req, res, ctx) => {
     return res(
       ctx.status(OK_STATUS),
-      ctx.json(makeFakeResponse(8643, [makeFakeRepo()])),
+      ctx.json(makeFakeResponse(100, [makeFakeRepo()])),
     );
   }),
 );

@@ -17,6 +17,7 @@ type TableDataProps = {
   reposList: Repository[];
   rowsPerPage: number;
   currentPage: number;
+  totalCount: number;
   setRowsPerPage: React.Dispatch<React.SetStateAction<number>>;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 };
@@ -40,6 +41,7 @@ export default function TableData(props: TableDataProps) {
             setRowsPerPage={props.setRowsPerPage}
             currentPage={props.currentPage}
             setCurrentPage={props.setCurrentPage}
+            totalCount={props.totalCount}
           />
         </Paper>
       </>
@@ -98,9 +100,11 @@ function Paginator({
   setRowsPerPage,
   currentPage,
   setCurrentPage,
+  totalCount,
 }: {
   rowsPerPage: number;
   currentPage: number;
+  totalCount: number;
   setRowsPerPage: React.Dispatch<React.SetStateAction<number>>;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 }) {
@@ -108,7 +112,7 @@ function Paginator({
     <TablePagination
       rowsPerPageOptions={[10, 25, 50]}
       component="div"
-      count={100}
+      count={totalCount}
       rowsPerPage={rowsPerPage}
       page={currentPage}
       onPageChange={(e, currenPage) => setCurrentPage(currenPage)}

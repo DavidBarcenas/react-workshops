@@ -39,7 +39,8 @@ function GithubSearchPage(): JSX.Element {
   const [reposList, setReposList] = useState<Repository[]>([]);
   const [searchBy, setSearchBy] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(ROWS_DEFAULT);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
   const didMount = useRef(false);
 
   useEffect(() => {
@@ -57,6 +58,7 @@ function GithubSearchPage(): JSX.Element {
     const data = await response.json();
 
     setReposList(data.items);
+    setTotalCount(data.total_count);
     setIsSearchApplied(true);
     setIsSearching(false);
   }
@@ -109,6 +111,7 @@ function GithubSearchPage(): JSX.Element {
         setRowsPerPage={setRowsPerPage}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
+        totalCount={totalCount}
       />
     </>
   );
