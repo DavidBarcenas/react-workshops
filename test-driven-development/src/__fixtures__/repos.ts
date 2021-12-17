@@ -1,5 +1,5 @@
-import repos25 from '../fixtures/repos-25-paginated.json'
-import repos50 from '../fixtures/repos-25-paginated.json'
+import repos25 from './repos-25-paginated.json'
+import repos50 from './repos-25-paginated.json'
 import type { CustomRepository } from "../types/repository";
 
 export const makeFakeResponse = (

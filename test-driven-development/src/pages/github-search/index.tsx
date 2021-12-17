@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
@@ -37,8 +37,17 @@ function GithubSearchPage(): JSX.Element {
   const [reposList, setReposList] = useState<Repository[]>([]);
   const [searchBy, setSearchBy] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const didMount = useRef(false);
 
-  async function handleClick() {
+  useEffect(() => {
+    if (!didMount.current) {
+      didMount.current = true;
+      return;
+    }
+    handleSearch();
+  }, [rowsPerPage]);
+
+  async function handleSearch() {
     setIsSearching(true);
 
     const response = await fetchRepos(searchBy, rowsPerPage);
@@ -83,7 +92,7 @@ function GithubSearchPage(): JSX.Element {
             variant="contained"
             fullWidth
             disabled={isSearching}
-            onClick={handleClick}
+            onClick={handleSearch}
           >
             Search
           </Button>
