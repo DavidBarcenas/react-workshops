@@ -1,5 +1,6 @@
+import repos10 from './repos-10-paginated.json'
 import repos25 from './repos-25-paginated.json'
-import repos50 from './repos-25-paginated.json'
+import repos50 from './repos-50-paginated.json'
 import type { CustomRepository } from "../types/repository";
 
 export const makeFakeResponse = (
@@ -29,5 +30,14 @@ const reposList = reposData.map((name, i) => makeFakeRepo(i, name))
 export const getReposList = (name: string) => reposList.filter(r => r.name === name)
 
 export const getReposPerPage = (currentPage: number, perPage: number) => {
-  return perPage === 25 ? repos25[currentPage] : repos50[currentPage]
+  switch(perPage) {
+    case 25:
+       return repos25[currentPage]
+       
+    case 50:
+      return repos50[currentPage]
+
+    default:
+      return repos10[currentPage]
+  }
 }

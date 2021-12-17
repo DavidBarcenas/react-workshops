@@ -53,7 +53,7 @@ export default function TableData(props: TableDataProps) {
 
 function BuildTable({ reposList }: { reposList: Repository[] }) {
   return (
-    <TableContainer>
+    <TableContainer style={{ maxHeight: '600px' }}>
       <Table stickyHeader aria-label="sticky table">
         <TableHead>
           <TableRow>

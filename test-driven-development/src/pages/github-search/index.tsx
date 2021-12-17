@@ -31,12 +31,14 @@ const CssTextField = styled(TextField)({
   },
 });
 
+const ROWS_DEFAULT = 10;
+
 function GithubSearchPage(): JSX.Element {
   const [isSearching, setIsSearching] = useState(false);
   const [isSearchApplied, setIsSearchApplied] = useState(false);
   const [reposList, setReposList] = useState<Repository[]>([]);
   const [searchBy, setSearchBy] = useState('');
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(ROWS_DEFAULT);
   const didMount = useRef(false);
 
   useEffect(() => {
