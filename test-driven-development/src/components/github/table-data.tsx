@@ -16,7 +16,9 @@ type TableDataProps = {
   isSearchApplied: boolean;
   reposList: Repository[];
   rowsPerPage: number;
+  currentPage: number;
   setRowsPerPage: React.Dispatch<React.SetStateAction<number>>;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const tableHeaders = [
@@ -36,6 +38,8 @@ export default function TableData(props: TableDataProps) {
           <Paginator
             rowsPerPage={props.rowsPerPage}
             setRowsPerPage={props.setRowsPerPage}
+            currentPage={props.currentPage}
+            setCurrentPage={props.setCurrentPage}
           />
         </Paper>
       </>
@@ -92,9 +96,13 @@ function BuildTable({ reposList }: { reposList: Repository[] }) {
 function Paginator({
   rowsPerPage,
   setRowsPerPage,
+  currentPage,
+  setCurrentPage,
 }: {
   rowsPerPage: number;
+  currentPage: number;
   setRowsPerPage: React.Dispatch<React.SetStateAction<number>>;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 }) {
   return (
     <TablePagination
@@ -102,8 +110,8 @@ function Paginator({
       component="div"
       count={100}
       rowsPerPage={rowsPerPage}
-      page={0}
-      onPageChange={() => null}
+      page={currentPage}
+      onPageChange={(e, currenPage) => setCurrentPage(currenPage)}
       onRowsPerPageChange={({ target }) => setRowsPerPage(+target.value)}
     />
   );

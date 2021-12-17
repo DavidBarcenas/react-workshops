@@ -30,6 +30,7 @@ const reposList = reposData.map((name, i) => makeFakeRepo(i, name))
 export const getReposList = (name: string) => reposList.filter(r => r.name === name)
 
 export const getReposPerPage = (currentPage: number, perPage: number) => {
+  currentPage = currentPage - 1
   switch(perPage) {
     case 25:
        return repos25[currentPage]

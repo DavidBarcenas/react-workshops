@@ -39,6 +39,7 @@ function GithubSearchPage(): JSX.Element {
   const [reposList, setReposList] = useState<Repository[]>([]);
   const [searchBy, setSearchBy] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(ROWS_DEFAULT);
+  const [currentPage, setCurrentPage] = useState(1);
   const didMount = useRef(false);
 
   useEffect(() => {
@@ -47,12 +48,12 @@ function GithubSearchPage(): JSX.Element {
       return;
     }
     handleSearch();
-  }, [rowsPerPage]);
+  }, [rowsPerPage, currentPage]);
 
   async function handleSearch() {
     setIsSearching(true);
 
-    const response = await fetchRepos(searchBy, rowsPerPage);
+    const response = await fetchRepos(searchBy, rowsPerPage, currentPage);
     const data = await response.json();
 
     setReposList(data.items);
@@ -106,6 +107,8 @@ function GithubSearchPage(): JSX.Element {
         reposList={reposList}
         rowsPerPage={rowsPerPage}
         setRowsPerPage={setRowsPerPage}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
       />
     </>
   );

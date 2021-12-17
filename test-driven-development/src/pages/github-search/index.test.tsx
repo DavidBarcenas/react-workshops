@@ -252,3 +252,27 @@ describe('when the option to display the rows is selected', () => {
     expect(await screen.findAllByRole('row')).toHaveLength(51);
   });
 });
+
+describe('change results page with the arrow buttons', () => {
+  it('should show next page of repositories', async () => {
+    server.use(rest.get('/search/repositories', handlerPaginated));
+
+    fireClickSearch();
+
+    expect(await screen.findByRole('table')).toBeInTheDocument();
+    expect(screen.getByRole('cell', { name: /1-2/ })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /next page/i }),
+    ).not.toBeDisabled();
+
+    fireEvent.click(screen.getByRole('button', { name: /next page/i }));
+
+    expect(screen.getByRole('button', { name: /search/i })).toBeDisabled();
+    await waitFor(() =>
+      expect(
+        screen.getByRole('button', { name: /search/i }),
+      ).not.toBeDisabled(),
+    );
+    expect(screen.getByRole('cell', { name: /2-2/ })).toBeInTheDocument();
+  });
+});
