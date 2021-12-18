@@ -268,11 +268,23 @@ describe('change results page with the arrow buttons', () => {
     fireEvent.click(screen.getByRole('button', { name: /next page/i }));
 
     expect(screen.getByRole('button', { name: /search/i })).toBeDisabled();
+
     await waitFor(() =>
       expect(
         screen.getByRole('button', { name: /search/i }),
       ).not.toBeDisabled(),
     );
+
     expect(screen.getByRole('cell', { name: /2-2/ })).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: /previous page/i }));
+
+    await waitFor(() =>
+      expect(
+        screen.getByRole('button', { name: /search/i }),
+      ).not.toBeDisabled(),
+    );
+
+    expect(screen.getByRole('cell', { name: /1-2/ })).toBeInTheDocument();
   });
 });
