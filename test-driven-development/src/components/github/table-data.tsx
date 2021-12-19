@@ -116,7 +116,10 @@ function Paginator({
       rowsPerPage={rowsPerPage}
       page={currentPage}
       onPageChange={(e, currenPage) => setCurrentPage(currenPage)}
-      onRowsPerPageChange={({ target }) => setRowsPerPage(+target.value)}
+      onRowsPerPageChange={({ target }) => {
+        setCurrentPage(0);
+        setRowsPerPage(+target.value);
+      }}
     />
   );
 }
