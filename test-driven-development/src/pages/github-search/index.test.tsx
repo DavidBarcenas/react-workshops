@@ -8,7 +8,11 @@ import {
 import { setupServer } from 'msw/node';
 import { rest } from 'msw';
 import GithubSearchPage from '.';
-import { OK_STATUS } from '../../consts/httpStatus';
+import {
+  ERROR_SERVER_STATUS,
+  OK_STATUS,
+  UNPROCESSABLE_STATUS,
+} from '../../consts/httpStatus';
 import { handlerPaginated } from '../../__fixtures__/handler';
 import {
   getReposList,
@@ -290,16 +294,37 @@ describe('change results page with the arrow buttons', () => {
   });
 });
 
-describe('when there is am umexpected error from the backend', () => {
+describe('when there is an unexpected error from the backend', () => {
   it('must display an alert message error with the message from the server', async () => {
+    expect(screen.queryByText(/validation failed/i)).not.toBeInTheDocument();
+
     server.use(
       rest.get('/search/repositories', (req, res, ctx) => {
-        return res(ctx.status(422), ctx.json(makeFakeError()));
+        return res(ctx.status(UNPROCESSABLE_STATUS), ctx.json(makeFakeError()));
       }),
     );
 
     fireClickSearch();
 
     expect(await screen.findByText(/validation failed/i)).toBeVisible();
+  });
+});
+
+describe('when there is an unexpected error from the backend', () => {
+  it('must display an alert message error with the message from the server', async () => {
+    expect(screen.queryByText(/unexpected error/i)).not.toBeInTheDocument();
+
+    server.use(
+      rest.get('/search/repositories', (req, res, ctx) => {
+        return res(
+          ctx.status(ERROR_SERVER_STATUS),
+          ctx.json(makeFakeError('unexpected error')),
+        );
+      }),
+    );
+
+    fireClickSearch();
+
+    expect(await screen.findByText(/unexpected error/i)).toBeVisible();
   });
 });

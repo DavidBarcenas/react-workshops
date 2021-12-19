@@ -42,6 +42,7 @@ function GithubSearchPage(): JSX.Element {
   const [currentPage, setCurrentPage] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const didMount = useRef(false);
 
   useEffect(() => {
@@ -68,7 +69,11 @@ function GithubSearchPage(): JSX.Element {
       setTotalCount(data.total_count);
       setIsSearchApplied(true);
     } catch (error) {
-      setIsOpen(true);
+      if (error instanceof Response) {
+        const data = await error.json();
+        setIsOpen(true);
+        setErrorMessage(data.message);
+      }
     } finally {
       setIsSearching(false);
     }
@@ -90,7 +95,7 @@ function GithubSearchPage(): JSX.Element {
         open={isOpen}
         autoHideDuration={6000}
         onClose={() => setIsOpen(false)}
-        message="Validation Failed"
+        message={errorMessage}
       />
 
       <Grid
