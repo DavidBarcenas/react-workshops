@@ -9,17 +9,16 @@ import { setupServer } from 'msw/node';
 import { rest } from 'msw';
 import GithubSearchPage from '.';
 import {
-  ERROR_SERVER_STATUS,
-  OK_STATUS,
-  UNPROCESSABLE_STATUS,
-} from '../../consts/httpStatus';
-import { handlerPaginated } from '../../__fixtures__/handler';
-import {
   getReposList,
   makeFakeError,
   makeFakeRepo,
   makeFakeResponse,
 } from '../../__fixtures__/repos';
+import {
+  ERROR_SERVER_STATUS,
+  OK_STATUS,
+  UNPROCESSABLE_STATUS,
+} from '../../consts/httpStatus';
 
 const server = setupServer(
   rest.get('/search/repositories', (req, res, ctx) => {
@@ -226,74 +225,6 @@ describe('when a search is done', () => {
   });
 });
 
-describe('when the option to display the rows is selected', () => {
-  it('it should do a new search and show 25 and 50 rows of results in the table', async () => {
-    server.use(rest.get('/search/repositories', handlerPaginated));
-
-    fireClickSearch();
-
-    expect(await screen.findByRole('table')).toBeInTheDocument();
-    expect(await screen.findAllByRole('row')).toHaveLength(11);
-
-    fireEvent.mouseDown(screen.getByLabelText(/rows per page/i));
-    fireEvent.click(screen.getByRole('option', { name: '25' }));
-
-    await waitFor(() =>
-      expect(
-        screen.getByRole('button', { name: /search/i }),
-      ).not.toBeDisabled(),
-    );
-    expect(await screen.findAllByRole('row')).toHaveLength(26);
-
-    fireEvent.mouseDown(screen.getByLabelText(/rows per page/i));
-    fireEvent.click(screen.getByRole('option', { name: '50' }));
-
-    await waitFor(() =>
-      expect(
-        screen.getByRole('button', { name: /search/i }),
-      ).not.toBeDisabled(),
-    );
-
-    expect(await screen.findAllByRole('row')).toHaveLength(51);
-  });
-});
-
-describe('change results page with the arrow buttons', () => {
-  it('should show next page of repositories', async () => {
-    server.use(rest.get('/search/repositories', handlerPaginated));
-
-    fireClickSearch();
-
-    expect(await screen.findByRole('table')).toBeInTheDocument();
-    expect(screen.getByRole('cell', { name: /1-2/ })).toBeInTheDocument();
-    expect(
-      screen.getByRole('button', { name: /next page/i }),
-    ).not.toBeDisabled();
-
-    fireEvent.click(screen.getByRole('button', { name: /next page/i }));
-
-    expect(screen.getByRole('button', { name: /search/i })).toBeDisabled();
-
-    await waitFor(() =>
-      expect(
-        screen.getByRole('button', { name: /search/i }),
-      ).not.toBeDisabled(),
-    );
-
-    expect(screen.getByRole('cell', { name: /2-2/ })).toBeInTheDocument();
-
-    fireEvent.click(screen.getByRole('button', { name: /previous page/i }));
-
-    await waitFor(() =>
-      expect(
-        screen.getByRole('button', { name: /search/i }),
-      ).not.toBeDisabled(),
-    );
-
-    expect(screen.getByRole('cell', { name: /1-2/ })).toBeInTheDocument();
-  });
-});
-
 describe('when there is an unexpected error from the backend', () => {
   it('must display an alert message error with the message from the server', async () => {
     expect(screen.queryByText(/validation failed/i)).not.toBeInTheDocument();
@@ -308,9 +239,7 @@ describe('when there is an unexpected error from the backend', () => {
 
     expect(await screen.findByText(/validation failed/i)).toBeVisible();
   });
-});
 
-describe('when there is an unexpected error from the backend', () => {
   it('must display an alert message error with the message from the server', async () => {
     expect(screen.queryByText(/unexpected error/i)).not.toBeInTheDocument();
 
