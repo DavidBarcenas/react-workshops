@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
-import ProductForm from '../../components/ProductForm';
+import ProductForm from '.';
 import {
   CREATED_STATUS,
   ERROR_SERVER_STATUS,
@@ -18,7 +18,7 @@ const server = setupServer(
     }
 
     return res(ctx.status(ERROR_SERVER_STATUS));
-  })
+  }),
 );
 
 beforeEach(() => render(<ProductForm />));
@@ -48,7 +48,9 @@ describe('When the user submits the form without values', () => {
   it('Should show validation messages', async () => {
     const submitBtn = screen.getByRole('button', { name: /submit/i });
 
-    expect(screen.queryByText(`/The name is required/i`)).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(`/The name is required/i`),
+    ).not.toBeInTheDocument();
     expect(screen.queryByText(/The size is required/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/The type is required/i)).not.toBeInTheDocument();
 
@@ -112,7 +114,9 @@ describe('When the user submits the form properly and he server returns created 
     const submitBtn = screen.getByRole('button', { name: /submit/i });
     fireEvent.click(submitBtn);
 
-    await waitFor(() => expect(screen.getByText(/product stored/i)).toBeInTheDocument());
+    await waitFor(() =>
+      expect(screen.getByText(/product stored/i)).toBeInTheDocument(),
+    );
 
     expect(nameInput).toHaveValue('');
     expect(sizeInput).toHaveValue('');
@@ -126,7 +130,9 @@ describe('When the user submits the form and the server returns an unexpected er
     fireEvent.click(submitBtn);
 
     await waitFor(() =>
-      expect(screen.getByText(/Unexpected error, please try again/i)).toBeInTheDocument()
+      expect(
+        screen.getByText(/Unexpected error, please try again/i),
+      ).toBeInTheDocument(),
     );
   });
 });
@@ -137,9 +143,12 @@ describe('When the user submits the form and the server returns an inalid reques
       rest.post('/products', (req, res, ctx) => {
         return res(
           ctx.status(INVALID_REQUEST_STATUS),
-          ctx.json({ message: 'The form is invalid, the fields name, size, type are required' })
+          ctx.json({
+            message:
+              'The form is invalid, the fields name, size, type are required',
+          }),
         );
-      })
+      }),
     );
 
     const submitBtn = screen.getByRole('button', { name: /submit/i });
@@ -147,20 +156,28 @@ describe('When the user submits the form and the server returns an inalid reques
 
     await waitFor(() =>
       expect(
-        screen.getByText(/The form is invalid, the fields name, size, type are required/i)
-      ).toBeInTheDocument()
+        screen.getByText(
+          /The form is invalid, the fields name, size, type are required/i,
+        ),
+      ).toBeInTheDocument(),
     );
   });
 });
 
 describe('When the user submits the form and the server returns an invalid', () => {
   it('The form page must display the error message “The form is invalid are required””', async () => {
-    server.use(rest.post('/products', (req, res) => res.networkError('Failed to connect')));
+    server.use(
+      rest.post('/products', (req, res) =>
+        res.networkError('Failed to connect'),
+      ),
+    );
 
     fireEvent.click(screen.getByRole('button', { name: /submit/i }));
 
     await waitFor(() =>
-      expect(screen.getByText(/Connection error, please try later/i)).toBeInTheDocument()
+      expect(
+        screen.getByText(/Connection error, please try later/i),
+      ).toBeInTheDocument(),
     );
   });
 });
