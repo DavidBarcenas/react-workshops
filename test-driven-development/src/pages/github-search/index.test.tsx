@@ -12,6 +12,7 @@ import { OK_STATUS } from '../../consts/httpStatus';
 import { handlerPaginated } from '../../__fixtures__/handler';
 import {
   getReposList,
+  makeFakeError,
   makeFakeRepo,
   makeFakeResponse,
 } from '../../__fixtures__/repos';
@@ -286,5 +287,19 @@ describe('change results page with the arrow buttons', () => {
     );
 
     expect(screen.getByRole('cell', { name: /1-2/ })).toBeInTheDocument();
+  });
+});
+
+describe('when there is am umexpected error from the backend', () => {
+  it('must display an alert message error with the message from the server', async () => {
+    server.use(
+      rest.get('/search/repositories', (req, res, ctx) => {
+        return res(ctx.status(422), ctx.json(makeFakeError()));
+      }),
+    );
+
+    fireClickSearch();
+
+    expect(await screen.findByText(/validation failed/i)).toBeVisible();
   });
 });

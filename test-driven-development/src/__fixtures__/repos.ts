@@ -11,6 +11,8 @@ export const makeFakeResponse = (
   items,
 });
 
+export const makeFakeError = () => ({ message: "Validation Failed" })
+
 export const makeFakeRepo = (id = 10270250, name = 'react') => ({
   id,
   name,

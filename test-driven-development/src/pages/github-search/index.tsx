@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { styled } from '@mui/material';
+import { Snackbar, styled } from '@mui/material';
 
 import TableData from '../../components/github/table-data';
 import { fetchRepos } from '../../services/github-repos';
@@ -41,6 +41,7 @@ function GithubSearchPage(): JSX.Element {
   const [rowsPerPage, setRowsPerPage] = useState(ROWS_DEFAULT);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
   const didMount = useRef(false);
 
   useEffect(() => {
@@ -54,13 +55,23 @@ function GithubSearchPage(): JSX.Element {
   async function handleSearch() {
     setIsSearching(true);
 
-    const response = await fetchRepos(searchBy, rowsPerPage, currentPage);
-    const data = await response.json();
+    try {
+      const response = await fetchRepos(searchBy, rowsPerPage, currentPage);
 
-    setReposList(data.items);
-    setTotalCount(data.total_count);
-    setIsSearchApplied(true);
-    setIsSearching(false);
+      if (!response.ok) {
+        throw response;
+      }
+
+      const data = await response.json();
+
+      setReposList(data.items);
+      setTotalCount(data.total_count);
+      setIsSearchApplied(true);
+    } catch (error) {
+      setIsOpen(true);
+    } finally {
+      setIsSearching(false);
+    }
   }
 
   function handleOnChange(
@@ -74,6 +85,13 @@ function GithubSearchPage(): JSX.Element {
       <Typography variant="h3" component="h1" mb={5}>
         Github repositories list
       </Typography>
+
+      <Snackbar
+        open={isOpen}
+        autoHideDuration={6000}
+        onClose={() => setIsOpen(false)}
+        message="Validation Failed"
+      />
 
       <Grid
         container
