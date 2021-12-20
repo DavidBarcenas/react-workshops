@@ -1,11 +1,11 @@
-import GithubSearchPage from './pages/github-search';
 import ErrorBoundary from './components/error-boundary';
+import LoginPage from "./pages/auth/login";
 
 function App(): JSX.Element {
   return (
     <div className="container">
       <ErrorBoundary>
-        <GithubSearchPage />
+        <LoginPage />
       </ErrorBoundary>
     </div>
   );
