@@ -15,11 +15,11 @@ describe('login page is mounted', () => {
   });
 });
 
-describe('if the fields are empty and the form is submitted', () => {
-  it('display required messages as the format: "The [field name] is required"', () => {
-    const emailRequired = /the email is required/i;
-    const passwordRequired = /the password is required/i;
+describe('check the required validations of the fields when submitting the form', () => {
+  const emailRequired = /the email is required/i;
+  const passwordRequired = /the password is required/i;
 
+  it('if the fields are empty, show the following message: "The [field name] is required"', () => {
     expect(screen.queryByText(emailRequired)).not.toBeInTheDocument();
     expect(screen.queryByText(passwordRequired)).not.toBeInTheDocument();
 
@@ -28,15 +28,12 @@ describe('if the fields are empty and the form is submitted', () => {
     expect(screen.getByText(emailRequired)).toBeInTheDocument();
     expect(screen.getByText(passwordRequired)).toBeInTheDocument();
   });
-});
 
-describe('if the fields are filled and the form is submitted', () => {
-  it('must no display required message', () => {
-    const emailRequired = /the email is required/i;
-    const passwordRequired = /the password is required/i;
-
-    (screen.getByLabelText(/email/i) as HTMLInputElement).value = 'john.doe@test.com';
-    (screen.getByLabelText(/password/i) as HTMLInputElement).value = 'secret123';
+  it('if the fields are filled, it should not show the required message', () => {
+    (screen.getByLabelText(/email/i) as HTMLInputElement).value =
+      'john.doe@test.com';
+    (screen.getByLabelText(/password/i) as HTMLInputElement).value =
+      'secret123';
 
     fireEvent.click(screen.getByRole('button', {name: /send/i}));
 
