@@ -46,14 +46,19 @@ describe('check the required validations of the fields when submitting the form'
 });
 
 describe('an invalid email was entered and it leaves the input', () => {
-  it('must display a validation message', () => {
-    fireEvent.change(screen.getByLabelText(/email/i), {
-      target: { value: 'invalid.email' },
-    });
-    fireEvent.blur(screen.getByLabelText(/email/i));
+  const message = /the email is invalid. Example: john.doe@mail.com/i;
+  const emailField = () => screen.getByLabelText(/email/i);
+  const inputBlur = () => fireEvent.blur(emailField());
 
-    expect(
-      screen.getByText(/the email is invalid. Example: john.doe@mail.com/i),
-    ).toBeInTheDocument();
+  it('it should show the message when the email is invalid and delete it when it is valid', () => {
+    fireEvent.change(emailField(), { target: { value: 'invalid.email' } });
+    inputBlur();
+
+    expect(screen.getByText(message)).toBeInTheDocument();
+
+    fireEvent.change(emailField(), { target: { value: 'john.doe@test.com' } });
+    inputBlur();
+
+    expect(screen.queryByText(message)).not.toBeInTheDocument();
   });
 });

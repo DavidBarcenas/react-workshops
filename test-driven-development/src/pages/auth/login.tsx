@@ -30,7 +30,10 @@ export default function LoginPage() {
       setEmailValidationMessage(
         'The email is invalid. Example: john.doe@mail.com',
       );
+      return;
     }
+
+    setEmailValidationMessage('');
   }
 
   return (
