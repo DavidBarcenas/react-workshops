@@ -1,24 +1,35 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import type { FormEvent } from 'react';
+
+import { validateEmail } from '../../utils/validate-email';
 
 export default function LoginPage() {
   const [emailValidationMessage, setEmailValidationMessage] = useState('');
   const [passwordValidationMessage, setPasswordValidationMessage] =
     useState('');
-  const emailRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
+  const [formValues, setFormValues] = useState({ email: '', password: '' });
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    if (!emailRef.current?.value) {
-      setEmailValidationMessage('The email is required');
-    }
+    setEmailValidationMessage(!formValues.email ? 'The email is required' : '');
+    setPasswordValidationMessage(
+      !formValues.password ? 'The password is required' : '',
+    );
+  }
 
-    if (!passwordRef.current?.value) {
-      setPasswordValidationMessage('The password is required');
+  function handleChange(e: FormEvent<HTMLFormElement>) {
+    const target = e.target as HTMLFormElement;
+    setFormValues({ ...formValues, [target.name]: target.value });
+  }
+
+  function handleBlurEmail() {
+    if (!validateEmail(formValues.email)) {
+      setEmailValidationMessage(
+        'The email is invalid. Example: john.doe@mail.com',
+      );
     }
   }
 
@@ -26,17 +37,18 @@ export default function LoginPage() {
     <div>
       <h1>Login Page</h1>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} onChange={handleChange}>
         <TextField
-          inputRef={emailRef}
           label="email"
           id="email"
+          name="email"
           helperText={emailValidationMessage}
+          onBlur={handleBlurEmail}
         />
         <TextField
-          inputRef={passwordRef}
           label="password"
           id="password"
+          name="password"
           type="password"
           helperText={passwordValidationMessage}
         />
