@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import type { FormEvent } from 'react';
@@ -10,18 +10,30 @@ import {
 } from '../../consts/messages';
 
 export default function LoginPage() {
+  const controller = new AbortController();
+
   const [emailValidationMessage, setEmailValidationMessage] = useState('');
   const [passwordValidationMessage, setPasswordValidationMessage] =
     useState('');
   const [formValues, setFormValues] = useState({ email: '', password: '' });
+  const [isFetching, setIsFetching] = useState(false);
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  useEffect(() => {
+    return () => controller?.abort();
+  }, []);
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     setEmailValidationMessage(!formValues.email ? 'The email is required' : '');
     setPasswordValidationMessage(
       !formValues.password ? 'The password is required' : '',
     );
+
+    setIsFetching(true);
+
+    await fetch('/login', { method: 'POST', signal: controller.signal });
+    setIsFetching(false);
   }
 
   function handleChange(e: FormEvent<HTMLFormElement>) {
@@ -67,7 +79,9 @@ export default function LoginPage() {
           helperText={passwordValidationMessage}
           onBlur={handleBlurPassword}
         />
-        <Button type="submit">Send</Button>
+        <Button type="submit" disabled={isFetching}>
+          Send
+        </Button>
       </form>
     </div>
   );
