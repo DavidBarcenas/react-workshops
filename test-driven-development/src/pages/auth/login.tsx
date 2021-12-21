@@ -3,7 +3,11 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import type { FormEvent } from 'react';
 
-import { validateEmail } from '../../utils/validate-email';
+import { validateEmail, validatePassword } from '../../utils/validations';
+import {
+  INVALID_EMAIL_MESSAGE,
+  INVALID_PASSWORD_MESSAGE,
+} from '../../consts/messages';
 
 export default function LoginPage() {
   const [emailValidationMessage, setEmailValidationMessage] = useState('');
@@ -27,13 +31,20 @@ export default function LoginPage() {
 
   function handleBlurEmail() {
     if (!validateEmail(formValues.email)) {
-      setEmailValidationMessage(
-        'The email is invalid. Example: john.doe@mail.com',
-      );
+      setEmailValidationMessage(INVALID_EMAIL_MESSAGE);
       return;
     }
 
     setEmailValidationMessage('');
+  }
+
+  function handleBlurPassword() {
+    if (!validatePassword(formValues.password)) {
+      setPasswordValidationMessage(INVALID_PASSWORD_MESSAGE);
+      return;
+    }
+
+    setPasswordValidationMessage('');
   }
 
   return (
@@ -54,6 +65,7 @@ export default function LoginPage() {
           name="password"
           type="password"
           helperText={passwordValidationMessage}
+          onBlur={handleBlurPassword}
         />
         <Button type="submit">Send</Button>
       </form>

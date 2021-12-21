@@ -1,5 +1,9 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import LoginPage from './login';
+import {
+  INVALID_EMAIL_MESSAGE,
+  INVALID_PASSWORD_MESSAGE,
+} from '../../consts/messages';
 
 beforeEach(() => render(<LoginPage />));
 
@@ -46,19 +50,45 @@ describe('check the required validations of the fields when submitting the form'
 });
 
 describe('an invalid email was entered and it leaves the input', () => {
-  const message = /the email is invalid. Example: john.doe@mail.com/i;
-  const emailField = () => screen.getByLabelText(/email/i);
-  const inputBlur = () => fireEvent.blur(emailField());
-
   it('it should show the message when the email is invalid and delete it when it is valid', () => {
-    fireEvent.change(emailField(), { target: { value: 'invalid.email' } });
+    const emailField = screen.getByLabelText(/email/i);
+    const inputBlur = () => fireEvent.blur(emailField);
+
+    fireEvent.change(emailField, { target: { value: 'invalid.email' } });
     inputBlur();
 
-    expect(screen.getByText(message)).toBeInTheDocument();
+    expect(screen.getByText(INVALID_EMAIL_MESSAGE)).toBeInTheDocument();
 
-    fireEvent.change(emailField(), { target: { value: 'john.doe@test.com' } });
+    fireEvent.change(emailField, { target: { value: 'john.doe@test.com' } });
     inputBlur();
 
-    expect(screen.queryByText(message)).not.toBeInTheDocument();
+    expect(screen.queryByText(INVALID_EMAIL_MESSAGE)).not.toBeInTheDocument();
   });
+});
+
+describe('the password input should contain at least: 8 characters, one upper case letter, one number and one special character', () => {
+  it('show message if password value does not have at least 8 characters', () => {
+    validatePasswordValue('secret');
+  });
+
+  it('show message if password value does not have a capital letter', () => {
+    validatePasswordValue('secret12');
+  });
+
+  it('show message if password value does not have a number', () => {
+    validatePasswordValue('my_Secret');
+  });
+
+  it('show message if password value does not have a special character', () => {
+    validatePasswordValue('my_Secret1');
+  });
+
+  function validatePasswordValue(value: string) {
+    const passwordField = screen.getByLabelText(/password/i);
+
+    fireEvent.change(passwordField, { target: { value } });
+    fireEvent.blur(passwordField);
+
+    expect(screen.getByText(INVALID_PASSWORD_MESSAGE)).toBeInTheDocument();
+  }
 });
