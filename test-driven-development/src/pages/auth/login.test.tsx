@@ -1,11 +1,11 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import {fireEvent, render, screen} from '@testing-library/react';
 import LoginPage from './login';
 import {
   INVALID_EMAIL_MESSAGE,
   INVALID_PASSWORD_MESSAGE,
 } from '../../consts/messages';
 
-beforeEach(() => render(<LoginPage />));
+beforeEach(() => render(<LoginPage/>));
 
 describe('login page is mounted', () => {
   it('must display the login title', () => {
@@ -15,7 +15,7 @@ describe('login page is mounted', () => {
   it('must have a form with the following fields: email, password and a submit button', () => {
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /send/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', {name: /send/i})).toBeInTheDocument();
   });
 });
 
@@ -27,7 +27,7 @@ describe('check the required validations of the fields when submitting the form'
     expect(screen.queryByText(emailRequired)).not.toBeInTheDocument();
     expect(screen.queryByText(passwordRequired)).not.toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole('button', { name: /send/i }));
+    fireEvent.click(screen.getByRole('button', {name: /send/i}));
 
     expect(screen.getByText(emailRequired)).toBeInTheDocument();
     expect(screen.getByText(passwordRequired)).toBeInTheDocument();
@@ -35,14 +35,14 @@ describe('check the required validations of the fields when submitting the form'
 
   it('if the fields are filled, it should not show the required message', () => {
     fireEvent.change(screen.getByLabelText(/email/i), {
-      target: { value: 'john.doe@test.com' },
+      target: {value: 'john.doe@test.com'},
     });
 
     fireEvent.change(screen.getByLabelText(/password/i), {
-      target: { value: 'secret123' },
+      target: {value: 'secret123'},
     });
 
-    fireEvent.click(screen.getByRole('button', { name: /send/i }));
+    fireEvent.click(screen.getByRole('button', {name: /send/i}));
 
     expect(screen.queryByText(emailRequired)).not.toBeInTheDocument();
     expect(screen.queryByText(passwordRequired)).not.toBeInTheDocument();
@@ -54,12 +54,12 @@ describe('an invalid email was entered and it leaves the input', () => {
     const emailField = screen.getByLabelText(/email/i);
     const inputBlur = () => fireEvent.blur(emailField);
 
-    fireEvent.change(emailField, { target: { value: 'invalid.email' } });
+    fireEvent.change(emailField, {target: {value: 'invalid.email'}});
     inputBlur();
 
     expect(screen.getByText(INVALID_EMAIL_MESSAGE)).toBeInTheDocument();
 
-    fireEvent.change(emailField, { target: { value: 'john.doe@test.com' } });
+    fireEvent.change(emailField, {target: {value: 'john.doe@test.com'}});
     inputBlur();
 
     expect(screen.queryByText(INVALID_EMAIL_MESSAGE)).not.toBeInTheDocument();
@@ -68,27 +68,36 @@ describe('an invalid email was entered and it leaves the input', () => {
 
 describe('the password input should contain at least: 8 characters, one upper case letter, one number and one special character', () => {
   it('show message if password value does not have at least 8 characters', () => {
-    validatePasswordValue('secret');
+    setInvalidPassword('secret');
   });
 
   it('show message if password value does not have a capital letter', () => {
-    validatePasswordValue('secret12');
+    setInvalidPassword('secret12');
   });
 
   it('show message if password value does not have a number', () => {
-    validatePasswordValue('my_Secret');
+    setInvalidPassword('my_Secret');
   });
 
   it('show message if password value does not have a special character', () => {
-    validatePasswordValue('my_Secret1');
+    setInvalidPassword('my_Secret1');
   });
 
-  function validatePasswordValue(value: string) {
+  it('it should not display an error message if the password is valid', () => {
+    setInvalidPassword('secret');
+    fillPassword('Secret123*')
+    expect(screen.queryByText(INVALID_PASSWORD_MESSAGE)).not.toBeInTheDocument();
+  });
+
+  function setInvalidPassword(value: string) {
+    fillPassword(value)
+    expect(screen.getByText(INVALID_PASSWORD_MESSAGE)).toBeInTheDocument();
+  }
+
+  function fillPassword(value: string) {
     const passwordField = screen.getByLabelText(/password/i);
 
-    fireEvent.change(passwordField, { target: { value } });
+    fireEvent.change(passwordField, {target: {value}});
     fireEvent.blur(passwordField);
-
-    expect(screen.getByText(INVALID_PASSWORD_MESSAGE)).toBeInTheDocument();
   }
 });
