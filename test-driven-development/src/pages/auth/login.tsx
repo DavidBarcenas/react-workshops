@@ -1,7 +1,7 @@
-import type { FormEvent } from 'react';
 import { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import type { FormEvent } from 'react';
 
 export default function LoginPage() {
   const [emailValidationMessage, setEmailValidationMessage] = useState('');
@@ -10,8 +10,18 @@ export default function LoginPage() {
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setEmailValidationMessage('The email is required');
-    setPasswordValidationMessage('The password is required');
+
+    const target = e.target as HTMLFormElement;
+    const email = target.elements.namedItem('email') as HTMLInputElement;
+    const password = target.elements.namedItem('password') as HTMLInputElement;
+
+    if (!email.value) {
+      setEmailValidationMessage('The email is required');
+    }
+
+    if (!password.value) {
+      setPasswordValidationMessage('The password is required');
+    }
   }
 
   return (
