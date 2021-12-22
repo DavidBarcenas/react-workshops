@@ -4,11 +4,12 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import type { FormEvent } from 'react';
 
-import { validateEmail, validatePassword } from '../../utils/validations';
 import {
   INVALID_EMAIL_MESSAGE,
   INVALID_PASSWORD_MESSAGE,
 } from '../../consts/messages';
+import { validateEmail, validatePassword } from '../../utils/validations';
+import { loginService } from '../../services/authentication';
 
 export default function LoginPage() {
   const controller = new AbortController();
@@ -26,21 +27,12 @@ export default function LoginPage() {
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    if (!formValues.email) {
-      setEmailValidationMessage('The email is required');
-    }
-
-    if (!formValues.email) {
-      setPasswordValidationMessage('The password is required');
-    }
-
-    if (!formValues.email || !formValues.password) {
+    if (validateForm()) {
       return;
     }
 
     setIsFetching(true);
-
-    await fetch('/login', { method: 'POST', signal: controller.signal });
+    await loginService(controller);
     setIsFetching(false);
   }
 
@@ -65,6 +57,18 @@ export default function LoginPage() {
     }
 
     setPasswordValidationMessage('');
+  }
+
+  function validateForm() {
+    if (!formValues.email) {
+      setEmailValidationMessage('The email is required');
+    }
+
+    if (!formValues.email) {
+      setPasswordValidationMessage('The password is required');
+    }
+
+    return !formValues.email || !formValues.password;
   }
 
   return (
