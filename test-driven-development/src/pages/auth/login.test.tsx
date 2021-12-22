@@ -9,18 +9,15 @@ import { setupServer } from 'msw/node';
 import { rest } from 'msw';
 
 import LoginPage from './login';
-import { handlerLogin } from '../../__fixtures__/handler';
+import {
+  handlerInvalidCredentials,
+  handlerLogin,
+} from '../../__fixtures__/handler';
 import {
   INVALID_EMAIL_MESSAGE,
   INVALID_PASSWORD_MESSAGE,
 } from '../../consts/messages';
-import {
-  OK_STATUS,
-  ERROR_SERVER_STATUS,
-  UNAUTHORIZED_STATUS,
-} from '../../consts/httpStatus';
-
-type Login = { email: string; password: string };
+import { ERROR_SERVER_STATUS } from '../../consts/httpStatus';
 
 const server = setupServer(...handlerLogin);
 const submitBtn = () => screen.getByRole('button', { name: /send/i });
@@ -183,17 +180,9 @@ describe('when the login form is valid and submitted, but the credentials are no
     const fakeEmail = 'wrong@mail.com';
     const fakePassword = 'Secret12*';
 
-    server.use(
-      rest.post<Login>('/login', (req, res, ctx) => {
-        const { email, password } = req.body;
+    server.use(handlerInvalidCredentials(fakeEmail, fakePassword, message));
 
-        if (email === fakeEmail && password === fakePassword) {
-          return res(ctx.status(UNAUTHORIZED_STATUS), ctx.json({ message }));
-        }
-
-        res(ctx.status(OK_STATUS));
-      }),
-    );
+    expect(await screen.queryByText(message)).not.toBeInTheDocument();
 
     fillInputValues(fakeEmail, fakePassword);
     fireEvent.click(submitBtn());

@@ -5,8 +5,10 @@ import type {
 } from 'msw/lib/types/handlers/RestHandler';
 import type { ResponseComposition } from 'msw/lib/types/response';
 import { rest } from 'msw';
-import { OK_STATUS } from '../consts/httpStatus';
+import { OK_STATUS, UNAUTHORIZED_STATUS } from '../consts/httpStatus';
 import { getReposPerPage, makeFakeResponse } from './repos';
+
+type Login = { email: string; password: string };
 
 export const handlerPaginated = (
   req: RestRequest<never>,
@@ -31,3 +33,15 @@ export const handlerLogin = [
     return res(ctx.status(200));
   }),
 ];
+
+export const handlerInvalidCredentials = (emailParam: string, passwordParam: string, message: string) => {
+  return rest.post<Login>('/login', (req, res, ctx) => {
+    const { email, password } = req.body;
+
+    if (email === emailParam && password === passwordParam) {
+      return res(ctx.status(UNAUTHORIZED_STATUS), ctx.json({ message }));
+    }
+
+    res(ctx.status(OK_STATUS));
+  })
+}
