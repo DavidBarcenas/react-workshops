@@ -42,7 +42,7 @@ afterAll(() => server.close());
 
 describe('login page is mounted', () => {
   it('must display the login title', () => {
-    expect(screen.getByText(/login page/i)).toBeInTheDocument();
+    expect(screen.getByText(/sign in/i)).toBeInTheDocument();
   });
 
   it('must have a form with the following fields: email, password and a submit button', () => {
