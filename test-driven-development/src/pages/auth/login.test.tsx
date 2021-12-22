@@ -6,13 +6,14 @@ import {
   waitForElementToBeRemoved,
 } from '@testing-library/react';
 import { setupServer } from 'msw/node';
+import { rest } from 'msw';
 
 import LoginPage from './login';
+import { handlerLogin } from '../../__fixtures__/handler';
 import {
   INVALID_EMAIL_MESSAGE,
   INVALID_PASSWORD_MESSAGE,
 } from '../../consts/messages';
-import { handlerLogin } from '../../__fixtures__/handler';
 
 const server = setupServer(...handlerLogin);
 const submitBtn = () => screen.getByRole('button', { name: /send/i });
@@ -148,4 +149,28 @@ describe('when the form is submitted with valid data', () => {
       screen.queryByTestId('loading-indicator'),
     );
   });
+});
+
+describe('when login form is submitted and there is an unexpected error', () => {
+  it('should show the error message that the API sends', async () => {
+    server.use(
+      rest.post('/login', (req, res, ctx) =>
+        res(
+          ctx.status(500),
+          ctx.json({ message: 'Unexpected error, please try again' }),
+        ),
+      ),
+    );
+
+    fillInputValues();
+    fireEvent.click(submitBtn());
+
+    expect(
+      await screen.findByText(/unexpected error, please try again/i),
+    ).toBeInTheDocument();
+  });
+});
+
+describe('when the login form is valid and submitted, but the credentials are not valid', () => {
+  it('should show the error message: "The email or password are not correct"', () => {});
 });
