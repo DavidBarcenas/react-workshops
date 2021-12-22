@@ -17,6 +17,16 @@ import { handlerLogin } from '../../__fixtures__/handler';
 const server = setupServer(...handlerLogin);
 const submitBtn = () => screen.getByRole('button', { name: /send/i });
 
+function fillInputValues() {
+  fireEvent.change(screen.getByLabelText(/email/i), {
+    target: { value: 'invalid.email' },
+  });
+
+  fireEvent.change(screen.getByLabelText(/password/i), {
+    target: { value: 'john.doe@test.com' },
+  });
+}
+
 beforeEach(() => render(<LoginPage />));
 
 beforeAll(() => server.listen());
@@ -54,14 +64,7 @@ describe('check the required validations of the fields when submitting the form'
   });
 
   it('if the fields are filled, it should not show the required message', () => {
-    fireEvent.change(screen.getByLabelText(/email/i), {
-      target: { value: 'john.doe@test.com' },
-    });
-
-    fireEvent.change(screen.getByLabelText(/password/i), {
-      target: { value: 'secret123' },
-    });
-
+    fillInputValues();
     fireEvent.click(screen.getByRole('button', { name: /send/i }));
 
     expect(screen.queryByText(emailRequired)).not.toBeInTheDocument();
@@ -126,19 +129,21 @@ describe('the password input should contain at least: 8 characters, one upper ca
 
 describe('when the form is submitted with valid data', () => {
   it('must disable submit button while fetching data', async () => {
-    fireEvent.click(submitBtn());
+    fillInputValues();
 
+    fireEvent.click(submitBtn());
     expect(submitBtn()).toBeDisabled();
+
     await waitFor(() => expect(submitBtn()).not.toBeDisabled());
   });
 
   it('must be a loading indicator while it is fetching', async () => {
     expect(screen.queryByTestId('loading-indicator')).not.toBeInTheDocument();
 
+    fillInputValues();
     fireEvent.click(submitBtn());
 
     expect(screen.getByTestId('loading-indicator')).toBeInTheDocument();
-
     await waitForElementToBeRemoved(() =>
       screen.queryByTestId('loading-indicator'),
     );

@@ -26,10 +26,17 @@ export default function LoginPage() {
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    setEmailValidationMessage(!formValues.email ? 'The email is required' : '');
-    setPasswordValidationMessage(
-      !formValues.password ? 'The password is required' : '',
-    );
+    if (!formValues.email) {
+      setEmailValidationMessage('The email is required');
+    }
+
+    if (!formValues.email) {
+      setPasswordValidationMessage('The password is required');
+    }
+
+    if (!formValues.email || !formValues.password) {
+      return;
+    }
 
     setIsFetching(true);
 
