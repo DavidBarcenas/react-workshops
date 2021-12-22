@@ -35,7 +35,12 @@ export default function LoginPage() {
 
     try {
       setIsFetching(true);
-      const response = await loginService(controller);
+
+      const response = await loginService(
+        formValues.email,
+        formValues.password,
+        controller,
+      );
 
       if (!response.ok) {
         handleError(response);

@@ -14,17 +14,24 @@ import {
   INVALID_EMAIL_MESSAGE,
   INVALID_PASSWORD_MESSAGE,
 } from '../../consts/messages';
+import {
+  OK_STATUS,
+  ERROR_SERVER_STATUS,
+  UNAUTHORIZED_STATUS,
+} from '../../consts/httpStatus';
+
+type Login = { email: string; password: string };
 
 const server = setupServer(...handlerLogin);
 const submitBtn = () => screen.getByRole('button', { name: /send/i });
 
-function fillInputValues() {
+function fillInputValues(email = 'john.doe@test.com', password = 'Secret12*') {
   fireEvent.change(screen.getByLabelText(/email/i), {
-    target: { value: 'invalid.email' },
+    target: { value: email },
   });
 
   fireEvent.change(screen.getByLabelText(/password/i), {
-    target: { value: 'john.doe@test.com' },
+    target: { value: password },
   });
 }
 
@@ -153,24 +160,44 @@ describe('when the form is submitted with valid data', () => {
 
 describe('when login form is submitted and there is an unexpected error', () => {
   it('should show the error message that the API sends', async () => {
+    const message = 'Unexpected error, please try again';
+
     server.use(
       rest.post('/login', (req, res, ctx) =>
-        res(
-          ctx.status(500),
-          ctx.json({ message: 'Unexpected error, please try again' }),
-        ),
+        res(ctx.status(ERROR_SERVER_STATUS), ctx.json({ message })),
       ),
     );
+
+    expect(screen.queryByText(message)).not.toBeInTheDocument();
 
     fillInputValues();
     fireEvent.click(submitBtn());
 
-    expect(
-      await screen.findByText(/unexpected error, please try again/i),
-    ).toBeInTheDocument();
+    expect(await screen.findByText(message)).toBeInTheDocument();
   });
 });
 
 describe('when the login form is valid and submitted, but the credentials are not valid', () => {
-  it('should show the error message: "The email or password are not correct"', () => {});
+  it('should show the error message: "The email or password are not correct"', async () => {
+    const message = 'The email or password are not correct';
+    const fakeEmail = 'wrong@mail.com';
+    const fakePassword = 'Secret12*';
+
+    server.use(
+      rest.post<Login>('/login', (req, res, ctx) => {
+        const { email, password } = req.body;
+
+        if (email === fakeEmail && password === fakePassword) {
+          return res(ctx.status(UNAUTHORIZED_STATUS), ctx.json({ message }));
+        }
+
+        res(ctx.status(OK_STATUS));
+      }),
+    );
+
+    fillInputValues(fakeEmail, fakePassword);
+    fireEvent.click(submitBtn());
+
+    expect(await screen.findByText(message)).toBeInTheDocument();
+  });
 });
