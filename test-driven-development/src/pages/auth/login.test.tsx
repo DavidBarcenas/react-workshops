@@ -1,17 +1,23 @@
-import {fireEvent, render, screen, waitFor} from '@testing-library/react';
-import {setupServer} from 'msw/node';
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  waitForElementToBeRemoved,
+} from '@testing-library/react';
+import { setupServer } from 'msw/node';
 
 import LoginPage from './login';
 import {
   INVALID_EMAIL_MESSAGE,
   INVALID_PASSWORD_MESSAGE,
 } from '../../consts/messages';
-import {handlerLogin} from '../../__fixtures__/handler';
+import { handlerLogin } from '../../__fixtures__/handler';
 
 const server = setupServer(...handlerLogin);
-const submitBtn = () => screen.getByRole('button', {name: /send/i})
+const submitBtn = () => screen.getByRole('button', { name: /send/i });
 
-beforeEach(() => render(<LoginPage/>));
+beforeEach(() => render(<LoginPage />));
 
 beforeAll(() => server.listen());
 
@@ -27,7 +33,7 @@ describe('login page is mounted', () => {
   it('must have a form with the following fields: email, password and a submit button', () => {
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', {name: /send/i})).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /send/i })).toBeInTheDocument();
   });
 });
 
@@ -49,14 +55,14 @@ describe('check the required validations of the fields when submitting the form'
 
   it('if the fields are filled, it should not show the required message', () => {
     fireEvent.change(screen.getByLabelText(/email/i), {
-      target: {value: 'john.doe@test.com'},
+      target: { value: 'john.doe@test.com' },
     });
 
     fireEvent.change(screen.getByLabelText(/password/i), {
-      target: {value: 'secret123'},
+      target: { value: 'secret123' },
     });
 
-    fireEvent.click(screen.getByRole('button', {name: /send/i}));
+    fireEvent.click(screen.getByRole('button', { name: /send/i }));
 
     expect(screen.queryByText(emailRequired)).not.toBeInTheDocument();
     expect(screen.queryByText(passwordRequired)).not.toBeInTheDocument();
@@ -68,12 +74,12 @@ describe('an invalid email was entered and it leaves the input', () => {
     const emailField = screen.getByLabelText(/email/i);
     const inputBlur = () => fireEvent.blur(emailField);
 
-    fireEvent.change(emailField, {target: {value: 'invalid.email'}});
+    fireEvent.change(emailField, { target: { value: 'invalid.email' } });
     inputBlur();
 
     expect(screen.getByText(INVALID_EMAIL_MESSAGE)).toBeInTheDocument();
 
-    fireEvent.change(emailField, {target: {value: 'john.doe@test.com'}});
+    fireEvent.change(emailField, { target: { value: 'john.doe@test.com' } });
     inputBlur();
 
     expect(screen.queryByText(INVALID_EMAIL_MESSAGE)).not.toBeInTheDocument();
@@ -113,7 +119,7 @@ describe('the password input should contain at least: 8 characters, one upper ca
   function fillPassword(value: string) {
     const passwordField = screen.getByLabelText(/password/i);
 
-    fireEvent.change(passwordField, {target: {value}});
+    fireEvent.change(passwordField, { target: { value } });
     fireEvent.blur(passwordField);
   }
 });
@@ -121,11 +127,20 @@ describe('the password input should contain at least: 8 characters, one upper ca
 describe('when the form is submitted with valid data', () => {
   it('must disable submit button while fetching data', async () => {
     fireEvent.click(submitBtn());
-    expect(submitBtn()).toBeDisabled();
 
+    expect(submitBtn()).toBeDisabled();
     await waitFor(() => expect(submitBtn()).not.toBeDisabled());
   });
 
-  it('must be a loading indicator while it is fetching', () => {
+  it('must be a loading indicator while it is fetching', async () => {
+    expect(screen.queryByTestId('loading-indicator')).not.toBeInTheDocument();
+
+    fireEvent.click(submitBtn());
+
+    expect(screen.getByTestId('loading-indicator')).toBeInTheDocument();
+
+    await waitForElementToBeRemoved(() =>
+      screen.queryByTestId('loading-indicator'),
+    );
   });
 });

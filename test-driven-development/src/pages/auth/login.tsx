@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { CircularProgress } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import type { FormEvent } from 'react';
@@ -62,7 +63,7 @@ export default function LoginPage() {
   return (
     <div>
       <h1>Login Page</h1>
-
+      {isFetching && <CircularProgress data-testid="loading-indicator" />}
       <form onSubmit={handleSubmit} onChange={handleChange}>
         <TextField
           label="email"
