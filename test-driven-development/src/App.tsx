@@ -1,14 +1,14 @@
-import { Routes, Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import ErrorBoundary from './components/error-boundary';
-import LoginPage from './pages/auth/login';
+import AppRouter from './routes/router';
 
 function App(): JSX.Element {
   return (
-    <ErrorBoundary>
-      <Routes>
-        <Route path="/" element={<LoginPage />} />
-      </Routes>
-    </ErrorBoundary>
+    <BrowserRouter>
+      <ErrorBoundary>
+        <AppRouter />
+      </ErrorBoundary>
+    </BrowserRouter>
   );
 }
 
