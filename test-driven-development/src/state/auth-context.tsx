@@ -28,8 +28,8 @@ export default function AuthProvider({
   const [userData, setUserData] = useState<User>(user);
 
   function handleSuccessLogin(user: User) {
-    setIsUserAuth(true);
     setUserData(user);
+    setIsUserAuth(true);
   }
 
   return (

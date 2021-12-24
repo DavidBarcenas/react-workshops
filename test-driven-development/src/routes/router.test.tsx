@@ -48,5 +48,6 @@ describe('when the admin is atuhenticated in login page', () => {
     fillInputValues('admin@mail.com');
     submitForm();
     expect(await screen.findByText(/admin page/i)).toBeInTheDocument();
+    expect(await screen.findByText(/daveepro/i)).toBeInTheDocument();
   });
 });

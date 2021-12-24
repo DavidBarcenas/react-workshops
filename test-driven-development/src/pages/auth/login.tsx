@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import {
   Avatar,
@@ -29,7 +29,7 @@ const theme = createTheme();
 
 export default function LoginPage() {
   const controller = new AbortController();
-  const { handleSuccessLogin, user } = useContext(AuthContext);
+  const { user, handleSuccessLogin } = useContext(AuthContext);
 
   const [emailValidationMessage, setEmailValidationMessage] = useState('');
   const [passwordValidationMessage, setPasswordValidationMessage] =
@@ -38,9 +38,14 @@ export default function LoginPage() {
   const [isFetching, setIsFetching] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const isMounted = useRef(false);
 
   useEffect(() => {
-    return () => controller?.abort();
+    isMounted.current = true;
+    return () => {
+      controller?.abort();
+      isMounted.current = false;
+    };
   }, []);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -71,7 +76,9 @@ export default function LoginPage() {
         handleError(error);
       }
     } finally {
-      setIsFetching(false);
+      if (isMounted.current) {
+        setIsFetching(false);
+      }
     }
   }
 
@@ -120,7 +127,7 @@ export default function LoginPage() {
     setIsOpen(false);
   }
 
-  if (!isFetching && user.role === ADMIN_ROLE) {
+  if (!isFetching && user?.role === ADMIN_ROLE) {
     return <Navigate to="/admin" />;
   }
 
