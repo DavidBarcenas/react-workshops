@@ -26,7 +26,11 @@ import { loginService } from '../../services/authentication';
 
 const theme = createTheme();
 
-export default function LoginPage() {
+type LoginPageProps = {
+  onSuccessLogin?: () => void;
+};
+
+export default function LoginPage({ onSuccessLogin }: LoginPageProps) {
   const controller = new AbortController();
 
   const [emailValidationMessage, setEmailValidationMessage] = useState('');
@@ -65,6 +69,10 @@ export default function LoginPage() {
 
       const data = await response.json();
       setUser({ role: data.user.role });
+
+      if (onSuccessLogin) {
+        onSuccessLogin();
+      }
     } catch (error) {
       if (error instanceof Response) {
         handleError(error);

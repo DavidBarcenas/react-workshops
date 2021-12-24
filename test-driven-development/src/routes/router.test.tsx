@@ -40,7 +40,7 @@ describe('if the user is authenticated and to enter the admin page', () => {
 describe('when the admin is atuhenticated in login page', () => {
   it('should be redirected to admin page', async () => {
     renderWithRouter(<AppRouter />);
-    fillInputValues();
+    fillInputValues('admin@mail.com');
     submitForm();
     expect(await screen.findByText(/admin page/i)).toBeInTheDocument();
   });
