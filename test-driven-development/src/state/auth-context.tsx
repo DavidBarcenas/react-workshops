@@ -7,12 +7,16 @@ type AuthContextProps = {
 
 type AuthProviderProps = {
   children: JSX.Element;
+  isAuth?: boolean;
 };
 
 export const AuthContext = createContext({} as AuthContextProps);
 
-export default function AuthProvider({ children }: AuthProviderProps) {
-  const [isUserAuth, setIsUserAuth] = useState(false);
+export default function AuthProvider({
+  children,
+  isAuth = false,
+}: AuthProviderProps) {
+  const [isUserAuth, setIsUserAuth] = useState(isAuth);
 
   function handleSuccessLogin() {
     setIsUserAuth(true);
