@@ -17,21 +17,11 @@ import {
   INVALID_PASSWORD_MESSAGE,
 } from '../../consts/messages';
 import { ERROR_SERVER_STATUS } from '../../consts/httpStatus';
-import { renderWithRouter } from '../../__fixtures__/utils';
+import { fillInputValues, renderWithRouter } from '../../__fixtures__/utils';
 import AuthProvider from '../../state/auth-context';
 
 const server = setupServer(...handlerLogin);
 const submitBtn = () => screen.getByRole('button', { name: /send/i });
-
-function fillInputValues(email = 'john.doe@test.com', password = 'Secret12*') {
-  fireEvent.change(screen.getByLabelText(/email/i), {
-    target: { value: email },
-  });
-
-  fireEvent.change(screen.getByLabelText(/password/i), {
-    target: { value: password },
-  });
-}
 
 beforeEach(() =>
   renderWithRouter(

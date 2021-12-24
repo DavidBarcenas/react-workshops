@@ -29,7 +29,7 @@ const theme = createTheme();
 
 export default function LoginPage() {
   const controller = new AbortController();
-  const { handleSuccessLogin } = useContext(AuthContext);
+  const { handleSuccessLogin, user } = useContext(AuthContext);
 
   const [emailValidationMessage, setEmailValidationMessage] = useState('');
   const [passwordValidationMessage, setPasswordValidationMessage] =
@@ -38,7 +38,6 @@ export default function LoginPage() {
   const [isFetching, setIsFetching] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [user, setUser] = useState({ role: '' });
 
   useEffect(() => {
     return () => controller?.abort();
@@ -66,9 +65,7 @@ export default function LoginPage() {
       }
 
       const data = await response.json();
-      setUser({ role: data.user.role });
-
-      handleSuccessLogin();
+      handleSuccessLogin(data.user);
     } catch (error) {
       if (error instanceof Response) {
         handleError(error);
