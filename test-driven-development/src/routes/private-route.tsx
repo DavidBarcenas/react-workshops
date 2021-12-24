@@ -1,11 +1,13 @@
+import { useContext } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
+import { AuthContext } from '../state/auth-context';
 
 type PrivateRouteProps = {
   children: JSX.Element;
-  isAuth: boolean;
 };
 
-export default function PrivateRoute({ children, isAuth }: PrivateRouteProps) {
+export default function PrivateRoute({ children }: PrivateRouteProps) {
+  const { isAuth } = useContext(AuthContext);
   const location = useLocation();
 
   if (!isAuth) {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import {
   Avatar,
@@ -23,15 +23,13 @@ import {
 } from '../../consts/messages';
 import { validateEmail, validatePassword } from '../../utils/validations';
 import { loginService } from '../../services/authentication';
+import { AuthContext } from '../../state/auth-context';
 
 const theme = createTheme();
 
-type LoginPageProps = {
-  onSuccessLogin?: () => void;
-};
-
-export default function LoginPage({ onSuccessLogin }: LoginPageProps) {
+export default function LoginPage() {
   const controller = new AbortController();
+  const { handleSuccessLogin } = useContext(AuthContext);
 
   const [emailValidationMessage, setEmailValidationMessage] = useState('');
   const [passwordValidationMessage, setPasswordValidationMessage] =
@@ -70,9 +68,7 @@ export default function LoginPage({ onSuccessLogin }: LoginPageProps) {
       const data = await response.json();
       setUser({ role: data.user.role });
 
-      if (onSuccessLogin) {
-        onSuccessLogin();
-      }
+      handleSuccessLogin();
     } catch (error) {
       if (error instanceof Response) {
         handleError(error);
