@@ -9,10 +9,11 @@ type AuthContextProps = {
 type AuthProviderProps = {
   children: JSX.Element;
   isAuth?: boolean;
+  user?: User;
 };
 
 type User = {
-  role: string;
+  role?: string;
   username: string;
 };
 
@@ -21,13 +22,14 @@ export const AuthContext = createContext({} as AuthContextProps);
 export default function AuthProvider({
   children,
   isAuth = false,
+  user = { role: '', username: '' },
 }: AuthProviderProps) {
   const [isUserAuth, setIsUserAuth] = useState(isAuth);
-  const [user, setUser] = useState<User>({ role: '', username: '' });
+  const [userData, setUserData] = useState<User>(user);
 
   function handleSuccessLogin(user: User) {
     setIsUserAuth(true);
-    setUser(user);
+    setUserData(user);
   }
 
   return (
@@ -35,7 +37,7 @@ export default function AuthProvider({
       value={{
         isAuth: isUserAuth,
         handleSuccessLogin,
-        user,
+        user: userData,
       }}
     >
       {children}

@@ -39,7 +39,7 @@ export const handlerLogin = [
       role = ADMIN_ROLE
     }
 
-    return res(ctx.status(200), ctx.json({user: {role}}));
+    return res(ctx.status(200), ctx.json({user: {role, username: 'daveepro'}}));
   }),
 ];
 
