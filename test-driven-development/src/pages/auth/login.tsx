@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import {
   Avatar,
   Box,
@@ -16,6 +17,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import type { FormEvent } from 'react';
 
 import {
+  ADMIN_ROLE,
   INVALID_EMAIL_MESSAGE,
   INVALID_PASSWORD_MESSAGE,
 } from '../../consts/messages';
@@ -34,6 +36,7 @@ export default function LoginPage() {
   const [isFetching, setIsFetching] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [user, setUser] = useState({ role: '' });
 
   useEffect(() => {
     return () => controller?.abort();
@@ -59,6 +62,9 @@ export default function LoginPage() {
         handleError(response);
         return;
       }
+
+      const data = await response.json();
+      setUser({ role: data.user.role });
     } catch (error) {
       if (error instanceof Response) {
         handleError(error);
@@ -111,6 +117,10 @@ export default function LoginPage() {
 
   function handleClose() {
     setIsOpen(false);
+  }
+
+  if (!isFetching && user.role === ADMIN_ROLE) {
+    return <Navigate to="/admin" />;
   }
 
   return (

@@ -7,6 +7,7 @@ import type { ResponseComposition } from 'msw/lib/types/response';
 import { rest } from 'msw';
 import { OK_STATUS, UNAUTHORIZED_STATUS } from '../consts/httpStatus';
 import { getReposPerPage, makeFakeResponse } from './repos';
+import { ADMIN_ROLE } from '../consts/messages';
 
 type Login = { email: string; password: string };
 
@@ -28,9 +29,17 @@ export const handlerPaginated = (
 };
 
 export const handlerLogin = [
-  rest.post('/login', (req, res, ctx) => {
+  rest.post<Login>('/login', (req, res, ctx) => {
     sessionStorage.setItem('is-authenticated', 'true');
-    return res(ctx.status(200));
+
+    let role = ''
+    const {email} = req.body
+
+    if(email === 'admin@mail.com') {
+      role = ADMIN_ROLE
+    }
+
+    return res(ctx.status(200), ctx.json({user: {role}}));
   }),
 ];
 
