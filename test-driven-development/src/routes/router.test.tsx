@@ -54,6 +54,7 @@ describe('when the admin is atuhenticated in login page', () => {
 
 describe('if the admin navigates to the employee page', () => {
   it('should render employee page', () => {
+    goTo('/admin');
     renderWithAuthProvider(<AppRouter />, true);
     fireEvent.click(screen.getByText(/employee/i));
     expect(screen.getByText(/employee page/i)).toBeInTheDocument();
