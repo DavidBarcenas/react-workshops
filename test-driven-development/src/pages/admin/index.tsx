@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -27,6 +28,9 @@ export default function AdminPage() {
           <Typography variant="h6" component="h1" sx={{ flexGrow: 1 }}>
             Admin Page
           </Typography>
+          <Button component={Link} to="/employee" color="inherit">
+            Employee
+          </Button>
           <Button color="inherit">{user.username}</Button>
         </Toolbar>
       </AppBar>

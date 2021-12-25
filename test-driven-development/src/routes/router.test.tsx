@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import { setupServer } from 'msw/node';
 import AppRouter from './router';
 import { handlerLogin } from '../__fixtures__/handler';
@@ -49,5 +49,13 @@ describe('when the admin is atuhenticated in login page', () => {
     submitForm();
     expect(await screen.findByText(/admin page/i)).toBeInTheDocument();
     expect(await screen.findByText(/daveepro/i)).toBeInTheDocument();
+  });
+});
+
+describe('if the admin navigates to the employee page', () => {
+  it('should render employee page', () => {
+    renderWithAuthProvider(<AppRouter />, true);
+    fireEvent.click(screen.getByText(/employee/i));
+    expect(screen.getByText(/employee page/i)).toBeInTheDocument();
   });
 });
