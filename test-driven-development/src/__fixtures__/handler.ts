@@ -7,7 +7,7 @@ import type { ResponseComposition } from 'msw/lib/types/response';
 import { rest } from 'msw';
 import { OK_STATUS, UNAUTHORIZED_STATUS } from '../consts/httpStatus';
 import { getReposPerPage, makeFakeResponse } from './repos';
-import { ADMIN_ROLE } from '../consts/messages';
+import { ADMIN_ROLE, EMPLOYEE_ROLE } from '../consts/messages';
 
 type Login = { email: string; password: string };
 
@@ -37,6 +37,10 @@ export const handlerLogin = [
 
     if(email === 'admin@mail.com') {
       role = ADMIN_ROLE
+    }
+   
+    if(email === 'employee@mail.com') {
+      role = EMPLOYEE_ROLE
     }
 
     return res(ctx.status(200), ctx.json({user: {role, username: 'daveepro'}}));

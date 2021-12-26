@@ -41,7 +41,7 @@ describe('if the user is authenticated and to enter the admin page', () => {
   });
 });
 
-describe('when the admin is atuhenticated in login page', () => {
+describe('when the admin is authenticated in login page', () => {
   it('should be redirected to admin page', async () => {
     goTo('/admin');
     renderWithAuthProvider(<AppRouter />);
@@ -58,5 +58,15 @@ describe('if the admin navigates to the employee page', () => {
     renderWithAuthProvider(<AppRouter />, true);
     fireEvent.click(screen.getByText(/employee/i));
     expect(screen.getByText(/employee page/i)).toBeInTheDocument();
+  });
+});
+
+describe('when the employee is authenticated in login page', () => {
+  it('should be redirected to admin page', async () => {
+    goTo('/employee');
+    renderWithAuthProvider(<AppRouter />);
+    fillInputValues('employee@mail.com');
+    submitForm();
+    expect(await screen.findByText(/employee page/i)).toBeInTheDocument();
   });
 });

@@ -18,6 +18,7 @@ import type { FormEvent } from 'react';
 
 import {
   ADMIN_ROLE,
+  EMPLOYEE_ROLE,
   INVALID_EMAIL_MESSAGE,
   INVALID_PASSWORD_MESSAGE,
 } from '../../consts/messages';
@@ -129,6 +130,10 @@ export default function LoginPage() {
 
   if (!isFetching && user?.role === ADMIN_ROLE) {
     return <Navigate to="/admin" />;
+  }
+
+  if (!isFetching && user?.role === EMPLOYEE_ROLE) {
+    return <Navigate to="/employee" />;
   }
 
   return (
