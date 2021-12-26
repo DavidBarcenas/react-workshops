@@ -4,11 +4,11 @@ import { AuthContext } from '../../state/auth-context';
 
 export default function EmployeePage() {
   const { user } = useContext(AuthContext);
-
   return (
     <>
       <h1>Employee Page</h1>
       {user.role === ADMIN_ROLE && <button>Delete</button>}
+      <p>{user.username}</p>
     </>
   );
 }
