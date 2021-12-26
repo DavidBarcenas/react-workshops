@@ -1,9 +1,11 @@
-import { render, screen } from '@testing-library/react';
-import AuthProvider from '../../state/auth-context';
+import { screen } from '@testing-library/react';
+
 import AdminPage from './index';
+import AuthProvider from '../../state/auth-context';
+import { renderWithAuthProvider } from '../../__fixtures__/utils';
 
 describe('when the admin page is mounted', () => {
-  render(
+  renderWithAuthProvider(
     <AuthProvider user={{ username: 'daveepro' }}>
       <AdminPage />
     </AuthProvider>,
