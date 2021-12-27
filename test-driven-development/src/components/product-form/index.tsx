@@ -5,7 +5,7 @@ import {
   ERROR_SERVER_STATUS,
   INVALID_REQUEST_STATUS,
 } from '../../consts/httpStatus';
-import styles from './style.module.css';
+import styles from './product-form.module.css';
 import type { Product } from '../../types/Product';
 
 function ProductForm(): JSX.Element {

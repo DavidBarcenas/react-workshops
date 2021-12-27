@@ -1,13 +1,17 @@
-import GithubSearchPage from './pages/github-search';
+import { BrowserRouter } from 'react-router-dom';
 import ErrorBoundary from './components/error-boundary';
+import AppRouter from './routes/router';
+import AuthProvider from './state/auth-context';
 
 function App(): JSX.Element {
   return (
-    <div className="container">
-      <ErrorBoundary>
-        <GithubSearchPage />
-      </ErrorBoundary>
-    </div>
+    <AuthProvider>
+      <BrowserRouter>
+        <ErrorBoundary>
+          <AppRouter />
+        </ErrorBoundary>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 
