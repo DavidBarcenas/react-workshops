@@ -17,9 +17,12 @@ The objective is to know the best practices for programming with react and javas
 - **Advanced Patterns**
   - Creating reusable, scalable and maintainable components by implementing advanced patterns in React JS, as well as the SOLID principles behind them.
 
-  ![Forms App screenshot](./custom-forms/.readme-static/app.jpg)
-  ![Store App screenshot](./game-store/.readme-static/app.png)
-  ![TDD App screenshot](./test-driven-development/.readme-static/app2.jpg)
+
+![Forms App screenshot](./custom-forms/.readme-static/app.jpg)
+
+![Store App screenshot](./game-store/.readme-static/app.png)
+
+![TDD App screenshot](./test-driven-development/.readme-static/app2.jpg)
 
 
 # License
