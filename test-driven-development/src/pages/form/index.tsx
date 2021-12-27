@@ -2,7 +2,7 @@ import ProductForm from '../../components/product-form';
 import MSWLogo from '../../assets/msw.png';
 import JestLogo from '../../assets/jest.png';
 import TestLibLogo from '../../assets/testing-lib.png';
-import styles from './product-form.module.css';
+import styles from './form.module.css';
 
 function FormPage(): JSX.Element {
   return (

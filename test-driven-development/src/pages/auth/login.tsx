@@ -3,6 +3,8 @@ import { Navigate } from 'react-router-dom';
 import {
   Avatar,
   Box,
+  Card,
+  CardContent,
   CircularProgress,
   Container,
   createTheme,
@@ -139,70 +141,76 @@ export default function LoginPage() {
   return (
     <ThemeProvider theme={theme}>
       <Container component="div" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-          {isFetching && <CircularProgress data-testid="loading-indicator" />}
-
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            onChange={handleChange}
-            noValidate
-            sx={{ mt: 1 }}
-          >
-            <TextField
-              label="Email"
-              id="email"
-              name="email"
-              margin="normal"
-              helperText={emailValidationMessage}
-              error={!!emailValidationMessage}
-              onBlur={handleBlurEmail}
-              fullWidth
-            />
-            <TextField
-              label="Password"
-              id="password"
-              name="password"
-              type="password"
-              margin="normal"
-              helperText={passwordValidationMessage}
-              error={!!passwordValidationMessage}
-              onBlur={handleBlurPassword}
-              fullWidth
-            />
-            <Button
-              type="submit"
-              disabled={isFetching}
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+        {/* <CssBaseline /> */}
+        <Card>
+          <CardContent>
+            <Box
+              sx={{
+                marginTop: 8,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+              }}
             >
-              Send
-            </Button>
-          </Box>
+              <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                <LockOutlinedIcon />
+              </Avatar>
+              <Typography component="h1" variant="h5">
+                Sign in
+              </Typography>
+              {isFetching && (
+                <CircularProgress data-testid="loading-indicator" />
+              )}
 
-          <Snackbar
-            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-            open={isOpen}
-            autoHideDuration={6000}
-            onClose={handleClose}
-            message={errorMessage}
-          />
-        </Box>
+              <Box
+                component="form"
+                onSubmit={handleSubmit}
+                onChange={handleChange}
+                noValidate
+                sx={{ mt: 1 }}
+              >
+                <TextField
+                  label="Email"
+                  id="email"
+                  name="email"
+                  margin="normal"
+                  helperText={emailValidationMessage}
+                  error={!!emailValidationMessage}
+                  onBlur={handleBlurEmail}
+                  fullWidth
+                />
+                <TextField
+                  label="Password"
+                  id="password"
+                  name="password"
+                  type="password"
+                  margin="normal"
+                  helperText={passwordValidationMessage}
+                  error={!!passwordValidationMessage}
+                  onBlur={handleBlurPassword}
+                  fullWidth
+                />
+                <Button
+                  type="submit"
+                  disabled={isFetching}
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  Send
+                </Button>
+              </Box>
+
+              <Snackbar
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                open={isOpen}
+                autoHideDuration={6000}
+                onClose={handleClose}
+                message={errorMessage}
+              />
+            </Box>
+          </CardContent>
+        </Card>
       </Container>
     </ThemeProvider>
   );

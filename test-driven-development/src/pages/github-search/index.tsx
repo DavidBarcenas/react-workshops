@@ -86,9 +86,9 @@ function GithubSearchPage(): JSX.Element {
   }
 
   return (
-    <>
-      <Typography variant="h3" component="h1" mb={5}>
-        Github repositories list
+    <div className="container">
+      <Typography variant="h4" component="h1" mb={2} mt={1}>
+        Github repositories
       </Typography>
 
       <Snackbar
@@ -136,7 +136,7 @@ function GithubSearchPage(): JSX.Element {
         setCurrentPage={setCurrentPage}
         totalCount={totalCount}
       />
-    </>
+    </div>
   );
 }
 
