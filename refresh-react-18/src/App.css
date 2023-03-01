@@ -1,42 +1,75 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.tw-follow-card {
+  display: flex;
+  align-items: center;
+  background: #222;
+  color: #fff;
+  font-size: .8rem;
+  justify-content: space-between;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.tw-follow-header {
+  display: flex;
+  align-items: center;
+  gap: 4px
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.tw-follow-info {
+  display: flex;
+  flex-direction: column;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.tw-follow-username {
+  opacity: .6;
 }
 
-.card {
-  padding: 2em;
+.tw-follow-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 1000px;
 }
 
-.read-the-docs {
-  color: #888;
+.tw-follow-btn {
+  cursor: pointer;
+  margin-left: 16px;
+  border: 0;
+  border-radius: 999px;
+  padding: 6px 16px;
+  font-weight: bold;
+  border: 1px solid #000;
+  transition: .3s ease background-color;
+}
+
+.tw-follow-btn:hover {
+  opacity: .8;
+}
+
+.tw-follow-text {
+  display: block;
+}
+
+.tw-follow-btn.is-following {
+  border: 1px solid #bbb;
+  background: transparent;
+  color: #fff;
+  width: 140px;
+}
+
+.tw-follow-btn.is-following:hover {
+  background-color: rgba(255, 0, 0, 0.178);
+  color: red;
+  border: 1px solid red;
+  transition: .3s ease all;
+  opacity: 1;
+}
+
+.tw-follow-btn.is-following:hover .tw-follow-text {
+  display: none;
+}
+
+.tw-follow-button.is-following:hover .tw-stop-following {
+  display: block;
+}
+
+.tw-stop-following {
+  display: none;
 }
