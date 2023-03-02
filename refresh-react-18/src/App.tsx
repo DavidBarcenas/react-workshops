@@ -1,22 +1,11 @@
-import './app.css'
+import { TwitterFollowCard } from './components/twitter-follow-card';
 
 export function App() {
   return (
-    <article className='tw-follow-card'>
-      <header className='tw-follow-header'>
-        <img
-          className='tw-follow-avatar'
-          src='https://unavatar.io/sindresorhus@gmail.com'
-          alt='Avatar'
-        />
-        <div className='tw-follow-info'>
-          <strong>David Bárcenas</strong>
-          <span className='tw-follow-username'>@daveeb</span>
-        </div>
-      </header>
-      <aside>
-        <button className='tw-follow-btn'>Seguir</button>
-      </aside>
-    </article>
-  )
+    <div style={{ width: '60%', margin: '3rem auto' }}>
+      <TwitterFollowCard userName='Daveepro' name='David Barcenas' initialIsFollowing />
+      <TwitterFollowCard userName='AltoNivel' name='Alto Nivel' />
+      <TwitterFollowCard userName='ElonMusk' name='Elon Musk' />
+    </div>
+  );
 }
