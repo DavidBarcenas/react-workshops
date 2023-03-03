@@ -18,10 +18,10 @@ export function TwitterFollowItem({ userName, name, initialIsFollowing = false }
     <div className='tw-follow-item'>
       <header className='tw-follow-header'>
         <div className='tw-follow-wrap'>
-          <img className='tw-follow-avatar' src='https://unavatar.io/daveepro' alt={name} />
+          <img className='tw-follow-avatar' src={`https://unavatar.io/${userName}`} alt={name} />
           <div className='tw-follow-info'>
-            <strong>David Barcenas con mucho texto</strong>
-            <span className='tw-follow-username'>@daveepro</span>
+            <strong title={name}>{name}</strong>
+            <span className='tw-follow-username'>@{userName}</span>
           </div>
         </div>
       </header>
