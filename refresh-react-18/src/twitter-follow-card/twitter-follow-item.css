@@ -1,0 +1,125 @@
+.tw-follow-item,
+.tw-follow-item-dark {
+  display: flex;
+  align-items: center;
+  max-width: 340px;
+  padding: .8rem 1rem;
+  transition: 0.2s ease all;
+}
+
+.tw-follow-item:hover {
+  background: rgba(0,0,0,.03);
+}
+
+.tw-follow-header {
+  flex: 1 1 100%;
+  min-width: 0;
+}
+
+.tw-follow-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.tw-follow-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin-right: .75rem;
+}
+
+.tw-follow-info {
+  color: #0f1419;
+  font-size: .95rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.3rem;
+}
+
+.tw-follow-username {
+  color: #536471;
+  display: block;
+}
+
+.tw-follow-aside {
+  margin-left: 1rem;
+}
+
+.tw-follow-btn-wrap {
+  min-width: 78px;
+  text-align: right;
+}
+
+.tw-follow-btn {
+  background: #0f1419;
+  color: #fff;
+  font-weight: bold;
+  border: 1px solid #000;
+  border-radius: 3rem;
+  min-height: 2rem;
+  outline-style: none;
+  padding: 0 1rem;
+  cursor: pointer;
+  transition: 0.2s ease all;
+}
+
+.tw-follow-btn:hover {
+  opacity: .85;
+}
+
+.tw-follow-btn.is-following {
+  border: 1px solid #cfd9de;
+  background: transparent;
+  color: #0f1419;
+  min-width: 135px;
+}
+
+.tw-follow-btn.is-following:hover {
+  background-color: #ff00002d;
+  color: red;
+  border: 1px solid red;
+  opacity: 1;
+}
+
+.tw-follow-btn.is-following:hover .tw-follow-text {
+  display: none;
+}
+
+.tw-follow-btn.is-following:hover .tw-stop-following {
+  display: block;
+}
+
+.tw-stop-following {
+  display: none;
+}
+
+/* Darkmode */
+.tw-follow-item-dark:hover {
+  background: rgba(255, 255, 255, .03);
+}
+
+.tw-follow-item-dark .tw-follow-info {
+  color: #fff;
+}
+
+.tw-follow-item-dark .tw-follow-username {
+  color: #8b98a5;;
+}
+
+.tw-follow-item-dark .tw-follow-btn:not(.is-following) {
+  background: #eff3f4;
+  border-color: #fff;
+  color: #0f1419;
+}
+
+.tw-follow-item-dark .tw-follow-btn.is-following {
+  border-color: #536471;
+  color: #fff;
+}
+
+.tw-follow-item-dark .tw-follow-btn.is-following:hover {
+  border-color: #68070f;
+  background: rgba(244, 33, 46, 0.1);
+  color: #f4212e;
+}
