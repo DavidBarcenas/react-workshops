@@ -1,47 +1,31 @@
-.wrapper {
+.tw-follow-item {
   display: flex;
   max-width: 340px;
 }
 
-.fluid {
+.tw-follow-header {
   flex: 1 1 100%;
   min-width: 0;
 }
 
-.env {
+.tw-follow-wrap {
   display: flex;
 }
 
-.fluid-content header {
+.tw-follow-avatar {
+  width: 48px;
+  height: 48px;
+}
+
+.tw-follow-info {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.static-content {
+.tw-follow-btn-wrap {
   min-width: 78px;
-}
-
-/* not required styles */
-.wrapper {
-  border: 1px solid black;
-}
-
-.fluid-content {
-  background-color: pink;
-}
-
-.static-content {
-  background-color: yellow;
-}
-
-span {
-  display: block;
-}
-
-img {
-  width: 48px;
-  height: 48px;
+  text-align: right;
 }
 
 .tw-follow-btn.is-following {
