@@ -5,9 +5,15 @@ interface Props {
   userName: string;
   name: string;
   initialIsFollowing?: boolean;
+  isDarkMode?: boolean;
 }
 
-export function TwitterFollowItem({ userName, name, initialIsFollowing = false }: Props) {
+export function TwitterFollowItem({
+  userName,
+  name,
+  initialIsFollowing = false,
+  isDarkMode = false,
+}: Props) {
   const [isFollowing, setIsFollowing] = useState(initialIsFollowing);
 
   const handleFollowing = () => {
@@ -15,7 +21,7 @@ export function TwitterFollowItem({ userName, name, initialIsFollowing = false }
   };
 
   return (
-    <div className='tw-follow-item'>
+    <div className={`${isDarkMode ? 'tw-follow-item-dark' : 'tw-follow-item'}`}>
       <header className='tw-follow-header'>
         <div className='tw-follow-wrap'>
           <img className='tw-follow-avatar' src={`https://unavatar.io/${userName}`} alt={name} />

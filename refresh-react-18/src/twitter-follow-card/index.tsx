@@ -32,8 +32,8 @@ export function TwitterFollowCard() {
 
   return (
     <main className='tw-follow-card'>
-      <div className='tw-follow-light'>
-        <section className='tw-follow-card-wrap'>
+      <section className='tw-follow-light'>
+        <div className='tw-follow-card-wrap'>
           <h2 className='tw-follow-title'>A quién seguir</h2>
           {accounts.map(({ name, username, isFollowing }) => (
             <TwitterFollowItem
@@ -43,9 +43,22 @@ export function TwitterFollowCard() {
               initialIsFollowing={isFollowing}
             />
           ))}
-        </section>
-      </div>
-      <section className='tw-follow-dark'></section>
+        </div>
+      </section>
+      <section className='tw-follow-dark'>
+        <div className='tw-follow-card-wrap'>
+          <h2 className='tw-follow-title'>A quién seguir</h2>
+          {accounts.map(({ name, username, isFollowing }) => (
+            <TwitterFollowItem
+              key={username}
+              userName={username}
+              name={name}
+              initialIsFollowing={isFollowing}
+              isDarkMode
+            />
+          ))}
+        </div>
+      </section>
     </main>
   );
 }

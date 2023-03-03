@@ -32,3 +32,16 @@
   padding: .8rem 1.2rem;
   font-size: 1.25rem;
 }
+
+/* Clear night theme */
+.tw-follow-dark {
+  background: #15202b;
+}
+
+.tw-follow-dark .tw-follow-card-wrap {
+  background: #1e2732;
+}
+
+.tw-follow-dark .tw-follow-title {
+  color: #fff;
+}
