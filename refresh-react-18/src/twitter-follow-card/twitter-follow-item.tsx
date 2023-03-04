@@ -21,7 +21,7 @@ export function TwitterFollowItem({
   };
 
   return (
-    <div className={`${isDarkMode ? 'tw-follow-item-dark' : 'tw-follow-item'}`}>
+    <article className={`${isDarkMode ? 'tw-follow-item-dark' : 'tw-follow-item'}`}>
       <header className='tw-follow-header'>
         <div className='tw-follow-wrap'>
           <img className='tw-follow-avatar' src={`https://unavatar.io/${userName}`} alt={name} />
@@ -42,6 +42,6 @@ export function TwitterFollowItem({
           </button>
         </div>
       </aside>
-    </div>
+    </article>
   );
 }
