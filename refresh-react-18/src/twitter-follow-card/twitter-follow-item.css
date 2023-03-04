@@ -2,13 +2,14 @@
 .tw-follow-item-dark {
   display: flex;
   align-items: center;
+  background: inherit;
   max-width: 340px;
   padding: .8rem 1rem;
   transition: 0.2s ease all;
 }
 
 .tw-follow-item:hover {
-  background: rgba(0,0,0,.03);
+  background: #f2f2f2;
 }
 
 .tw-follow-header {
@@ -96,7 +97,7 @@
 
 /* Darkmode */
 .tw-follow-item-dark:hover {
-  background: rgba(255, 255, 255, .03);
+  background: #232d38;
 }
 
 .tw-follow-item-dark .tw-follow-info {
