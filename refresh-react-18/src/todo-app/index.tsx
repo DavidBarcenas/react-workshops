@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { Footer } from './footer';
-import { Header } from './header';
-import { Todos } from './todos';
-import { TodoFilters, type TodoId, type TodoItem } from './types.d';
+import { Footer } from './components/footer';
+import { Header } from './components/header';
+import { Todos } from './components/todos';
+import { TodoFilters, type TodoId, type TodoItem } from './models/todo.d';
 
 const mockTodos: TodoItem[] = [
   {
