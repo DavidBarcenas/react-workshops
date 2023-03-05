@@ -24,6 +24,7 @@
   box-shadow: 1px 2px 5px 0 rgba(0,0,0,0.1);
   position: relative;
   z-index: 1;
+  animation: float 5s ease-in-out infinite;
 }
 
 .tw-follow-card-wrap::before {
@@ -61,6 +62,7 @@
   color: #000;
   padding: .8rem 1.2rem;
   font-size: 1.25rem;
+  font-weight: 800;
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
 }
@@ -96,5 +98,19 @@
 
   100% {
     background-position: 0% 50%;
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translatey(0px);
+  }
+
+  50% {
+    transform: translatey(-20px);
+  }
+
+  100% {
+    transform: translatey(0px);
   }
 }
