@@ -1,4 +1,4 @@
-import { TodoFilters } from '../models/todo.d';
+import { TodoFilters } from '../models/todo';
 
 interface Props {
   filterSelected: (typeof TodoFilters)[keyof typeof TodoFilters];

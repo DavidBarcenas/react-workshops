@@ -1,5 +1,5 @@
 import { Filters } from './filters';
-import { type TodoFilters } from '../models/todo.d';
+import { type TodoFilters } from '../models/todo';
 
 interface Props {
   activeCount: number;

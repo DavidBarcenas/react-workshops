@@ -1,5 +1,5 @@
 import { Todo } from './todo';
-import { type TodoItem, type TodoId } from '../models/todo.d';
+import { type TodoItem, type TodoId } from '../models/todo';
 
 export interface Props {
   list: TodoItem[];
