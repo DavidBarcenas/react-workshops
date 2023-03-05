@@ -1,5 +1,5 @@
-import { TwitterFollowCard } from './twitter-follow-card';
+import { ToDoApp } from './todo-app';
 
 export function App() {
-  return <TwitterFollowCard />;
+  return <ToDoApp />;
 }
