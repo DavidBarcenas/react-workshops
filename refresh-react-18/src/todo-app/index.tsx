@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Footer } from './components/footer';
 import { Header } from './components/header';
 import { Todos } from './components/todos';
-import { TodoFilters, type TodoId, type TodoItem } from './models/todo.d';
+import { TodoFilters, type TodoId, type TodoItem } from './models/todo';
 
 const mockTodos: TodoItem[] = [
   {
@@ -78,16 +78,18 @@ export function ToDoApp() {
   };
 
   return (
-    <div>
-      <Header onAddTodo={handleAddTodo} />
-      <Todos list={filteredTodos} onRemove={handleRemove} onCompleted={handleCompleted} />
-      <Footer
-        handleFilterChange={handleFilterChange}
-        filterSelected={filter}
-        activeCount={activeCount}
-        completedCount={completedCount}
-        onClearCompleted={handleRemoveAllCompleted}
-      />
+    <div className='bg-[#0093E9] bg-todo-app w-full h-screen flex flex-col items-center box-border'>
+      <div className='min-w-[600px]'>
+        <Header onAddTodo={handleAddTodo} />
+        <Todos list={filteredTodos} onRemove={handleRemove} onCompleted={handleCompleted} />
+        <Footer
+          handleFilterChange={handleFilterChange}
+          filterSelected={filter}
+          activeCount={activeCount}
+          completedCount={completedCount}
+          onClearCompleted={handleRemoveAllCompleted}
+        />
+      </div>
     </div>
   );
 }
