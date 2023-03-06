@@ -17,10 +17,9 @@ export function Footer({
   onClearCompleted,
 }: Props) {
   return (
-    <footer>
+    <footer className='flex items-center justify-between text-gray-500 text-sm bg-white py-3 px-5 rounded-b-md rounded-br-md'>
       <span>
-        <strong>{activeCount}</strong>
-        tareas pendiendtes
+        <strong>{activeCount}</strong> Pendientes
       </span>
 
       <Filters filterSelected={filterSelected} onFilterChange={handleFilterChange} />
