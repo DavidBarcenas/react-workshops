@@ -9,9 +9,9 @@ export interface Props {
 
 export function Todos({ list, onRemove, onCompleted }: Props) {
   return (
-    <ul>
+    <ul className='w-full bg-white rounded-t-md rounded-tr-md overflow-hidden'>
       {list.map((todo) => (
-        <li key={todo.id} className={`${todo.completed ? 'completed' : ''}`}>
+        <li key={todo.id} className='py-3 px-5 border-b border-gray-200 hover:bg-gray-50'>
           <Todo
             id={todo.id}
             title={todo.title}
