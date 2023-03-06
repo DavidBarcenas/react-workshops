@@ -1,5 +1,5 @@
-import { ToDoApp } from './todo-app';
+import { TicTacToe } from './tic-tac-toe';
 
 export function App() {
-  return <ToDoApp />;
+  return <TicTacToe />;
 }
