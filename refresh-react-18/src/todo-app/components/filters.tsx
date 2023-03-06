@@ -7,11 +7,11 @@ interface Props {
 
 export function Filters({ filterSelected, onFilterChange }: Props) {
   return (
-    <ul>
+    <ul className='flex items-center'>
       <li>
         <a
           href={`/?filter=${TodoFilters.ALL}`}
-          className={`${filterSelected === TodoFilters.ALL ? 'selected' : ''}`}
+          className={`${filterSelected === TodoFilters.ALL ? 'text-blue-400' : ''}`}
           onClick={(e) => {
             e.preventDefault();
             onFilterChange(TodoFilters.ALL);
@@ -20,7 +20,7 @@ export function Filters({ filterSelected, onFilterChange }: Props) {
           Todos
         </a>
       </li>
-      <li>
+      <li className='mx-3'>
         <a
           href={`/?filter=${TodoFilters.COMPLETED}`}
           className={`${filterSelected === TodoFilters.COMPLETED ? 'completed' : ''}`}
