@@ -33,9 +33,15 @@ const Square = ({ children, updateBoard, index, isSelected }: any) => {
 };
 
 export function TicTacToe() {
-  const [board, setBoard] = useState(Array(9).fill(null));
-  const [turn, setTurn] = useState(turns.x);
-  const [winner, setWinner] = useState(null);
+  const [board, setBoard] = useState(() => {
+    const boardFromStorage = window.localStorage.getItem('board');
+    return boardFromStorage ? JSON.parse(boardFromStorage) : Array(9).fill(null);
+  });
+  const [turn, setTurn] = useState<any>(() => {
+    const turnFromStorage = window.localStorage.getItem('turn');
+    return turnFromStorage ? JSON.parse(turnFromStorage) : turns.x;
+  });
+  const [winner, setWinner] = useState<boolean | null>(null);
 
   const checkWinner = (board: any) => {
     for (const combo of winnerCombos) {
@@ -57,16 +63,28 @@ export function TicTacToe() {
     newBoard[index] = turn;
     setBoard(newBoard);
 
+    window.localStorage.setItem('board', JSON.stringify(newBoard));
+    window.localStorage.setItem('turn', JSON.stringify(newTurn));
+
     const newWinner = checkWinner(newBoard);
     if (newWinner) {
       setWinner(() => newWinner);
+    } else if (checkEndGame(newBoard)) {
+      setWinner(() => false);
     }
   };
 
-  const gameAgain = () => {
+  const checkEndGame = (board: any) => {
+    return board.every((square: any) => square !== null);
+  };
+
+  const resetGame = () => {
     setWinner(null);
     setBoard(Array(9).fill(null));
     setTurn(turns.x);
+
+    window.localStorage.remoItem('board');
+    window.localStorage.remoItem('turn');
   };
 
   return (
@@ -105,13 +123,13 @@ export function TicTacToe() {
           </span>
         </section>
         {winner !== null && (
-          <section className='fixed top-0 left-0 w-full h-full bg-black/70 grid place-content-center'>
+          <section className='fixed top-0 left-0 w-full h-full bg-black/70 grid place-content-center animate-zoom'>
             <div className='bg-orange-300 min-w-[600px] py-10'>
               <h2 className='text-5xl font-bold mb-4'>
                 {winner === false ? 'Empate' : 'Ganó: ' + winner}
               </h2>
               <footer>
-                <button onClick={gameAgain}>Volver a jugar</button>
+                <button onClick={resetGame}>Volver a jugar</button>
               </footer>
             </div>
           </section>
