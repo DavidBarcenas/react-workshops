@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
 const turns = {
-  x: 'X',
-  o: 'O',
+  x: '✗',
+  o: '○',
 };
 
 const winnerCombos = [
@@ -22,7 +22,7 @@ const Square = ({ children, updateBoard, index, isSelected }: any) => {
   };
   return (
     <div
-      className={`border w-28 h-28 flex items-center justify-center ${
+      className={`w-full min-h-[140px] flex items-center justify-center font-bold text-6xl text-white ${
         isSelected ? 'bg-orange-500' : ''
       }`}
       onClick={handleClick}
@@ -63,21 +63,59 @@ export function TicTacToe() {
     }
   };
 
+  const gameAgain = () => {
+    setWinner(null);
+    setBoard(Array(9).fill(null));
+    setTurn(turns.x);
+  };
+
   return (
-    <main>
-      <div className='max-w-sm m-auto'>
-        <h1>Tic Tac Toe</h1>
-        <section className='grid grid-cols-3 gap-2'>
+    <main className='bg-tic-tac-toe w-full h-screen'>
+      <div className='max-w-md m-auto text-center'>
+        <h1 className='text-white text-5xl py-10 mb-5'>Tic Tac Toe</h1>
+        <section
+          className='
+          grid grid-cols-3 mb-16 animate-zoom
+          [&>*]:border-b
+          [&>*:nth-child(2)]:border-l 
+          [&>*:nth-child(2)]:border-r
+          [&>*:nth-child(5)]:border-l 
+          [&>*:nth-child(5)]:border-r
+          [&>*:nth-child(8)]:border-l 
+          [&>*:nth-child(8)]:border-r
+          [&>*:nth-child(7)]:border-b-0
+          [&>*:nth-child(8)]:border-b-0
+          [&>*:nth-child(9)]:border-b-0
+          '
+        >
           {board.map((_, index) => (
             <Square key={index} index={index} updateBoard={handleUpdate}>
-              <span>{board[index]}</span>
+              <span key={board[index]} className='animate-zoom'>
+                {board[index]}
+              </span>
             </Square>
           ))}
         </section>
         <section>
-          <Square isSelected={turn === turns.x}>{turns.x}</Square>
-          <Square isSelected={turn === turns.o}>{turns.o}</Square>
+          <span className={`text-5xl inline-block w-24 ${turn === turns.x ? 'bg-orange-300' : ''}`}>
+            {turns.x}
+          </span>
+          <span className={`text-5xl inline-block w-24 ${turn === turns.o ? 'bg-orange-300' : ''}`}>
+            {turns.o}
+          </span>
         </section>
+        {winner !== null && (
+          <section className='fixed top-0 left-0 w-full h-full bg-black/70 grid place-content-center'>
+            <div className='bg-orange-300 min-w-[600px] py-10'>
+              <h2 className='text-5xl font-bold mb-4'>
+                {winner === false ? 'Empate' : 'Ganó: ' + winner}
+              </h2>
+              <footer>
+                <button onClick={gameAgain}>Volver a jugar</button>
+              </footer>
+            </div>
+          </section>
+        )}
       </div>
     </main>
   );
