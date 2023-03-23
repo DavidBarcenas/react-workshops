@@ -21,9 +21,7 @@ export function Footer({
       <span>
         <strong>{activeCount}</strong> Pendientes
       </span>
-
       <Filters filterSelected={filterSelected} onFilterChange={handleFilterChange} />
-
       {completedCount > 0 && <button onClick={onClearCompleted}>Limpiar completados</button>}
     </footer>
   );
