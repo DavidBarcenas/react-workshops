@@ -4,6 +4,7 @@ import { ResetButton } from './components/reset-button';
 import { Score } from './components/score';
 import { WinnerModal } from './components/winner-modal';
 import { turns, winnerCombos } from './utils/constants';
+import { resetGameStorage, saveGame } from "./storage";
 
 export function TicTacToe() {
   const [board, setBoard] = useState(() => {
@@ -35,9 +36,7 @@ export function TicTacToe() {
     const newBoard = [...board];
     newBoard[index] = turn;
     setBoard(newBoard);
-
-    window.localStorage.setItem('board', JSON.stringify(newBoard));
-    window.localStorage.setItem('turn', JSON.stringify(newTurn));
+    saveGame(newBoard, newTurn)
 
     const newWinner = checkWinner(newBoard);
     if (newWinner) {
@@ -55,9 +54,7 @@ export function TicTacToe() {
     setWinner(null);
     setBoard(Array(9).fill(null));
     setTurn(turns.x);
-
-    window.localStorage.remoItem('board');
-    window.localStorage.remoItem('turn');
+resetGameStorage()
   };
 
   return (
@@ -65,9 +62,11 @@ export function TicTacToe() {
       <div className='max-w-md m-auto text-center'>
         <h1 className='text-white text-5xl py-10 mb-5'>Tic Tac Toe</h1>
         <Board board={board} handleUpdate={handleUpdate} />
-        <Score turn={turn} />
-        <ResetButton resetGame={resetGame} />
-        <WinnerModal winner={winner} />
+        <div className='flex justify-between items-center'>
+          <Score turn={turn} />
+          <ResetButton resetGame={resetGame} />
+        </div>
+        <WinnerModal winner={winner} resetGame={resetGame} />
       </div>
     </main>
   );
