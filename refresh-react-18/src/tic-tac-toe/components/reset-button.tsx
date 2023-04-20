@@ -4,8 +4,6 @@ interface Props {
 
 export function ResetButton({ resetGame }: Props) {
   return (
-    <footer>
-      <button onClick={resetGame}>Volver a jugar</button>
-    </footer>
+      <button className='bg-red-400 text-white py-2 px-4 rounded-md' onClick={resetGame}>Volver a jugar</button>
   );
 }
