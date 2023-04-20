@@ -4,7 +4,7 @@ import { ResetButton } from './components/reset-button';
 import { Score } from './components/score';
 import { WinnerModal } from './components/winner-modal';
 import { turns, winnerCombos } from './utils/constants';
-import { resetGameStorage, saveGame } from "./storage";
+import { resetGameStorage, saveGame } from './storage';
 
 export function TicTacToe() {
   const [board, setBoard] = useState(() => {
@@ -36,7 +36,7 @@ export function TicTacToe() {
     const newBoard = [...board];
     newBoard[index] = turn;
     setBoard(newBoard);
-    saveGame(newBoard, newTurn)
+    saveGame(newBoard, newTurn);
 
     const newWinner = checkWinner(newBoard);
     if (newWinner) {
@@ -54,7 +54,7 @@ export function TicTacToe() {
     setWinner(null);
     setBoard(Array(9).fill(null));
     setTurn(turns.x);
-resetGameStorage()
+    resetGameStorage();
   };
 
   return (

@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   background: inherit;
-  padding: .8rem 1rem;
+  padding: 0.8rem 1rem;
   transition: 0.2s ease all;
 }
 
@@ -25,12 +25,12 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  margin-right: .75rem;
+  margin-right: 0.75rem;
 }
 
 .tw-follow-info {
   color: #0f1419;
-  font-size: .95rem;
+  font-size: 0.95rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -54,7 +54,7 @@
 .tw-follow-btn {
   background: #0f1419;
   color: #fff;
-  font-size: .87rem;
+  font-size: 0.87rem;
   font-weight: 700;
   border: 1px solid #000;
   border-radius: 3rem;
@@ -66,7 +66,7 @@
 }
 
 .tw-follow-btn:hover {
-  opacity: .85;
+  opacity: 0.85;
 }
 
 .tw-follow-btn.is-following {
@@ -105,7 +105,7 @@
 }
 
 .tw-follow-item-dark .tw-follow-username {
-  color: #8b98a5;;
+  color: #8b98a5;
 }
 
 .tw-follow-item-dark .tw-follow-btn:not(.is-following) {

@@ -14,21 +14,21 @@
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
 }
 
 .tw-follow-card-wrap {
   width: 350px;
   box-sizing: border-box;
   border-radius: 1rem;
-  box-shadow: 1px 2px 5px 0 rgba(0,0,0,0.1);
+  box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.1);
   position: relative;
   z-index: 1;
   animation: float 5s ease-in-out infinite;
 }
 
 .tw-follow-card-wrap::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 3vw;
   left: 0;
@@ -51,7 +51,7 @@
   background-color: #f7f9f9;
 }
 
-.tw-follow-card-wrap article[class^="tw-follow-item"]:last-child {
+.tw-follow-card-wrap article[class^='tw-follow-item']:last-child {
   border-bottom-left-radius: 1rem;
   border-bottom-right-radius: 1rem;
 }
@@ -60,7 +60,7 @@
   background: inherit;
   margin: 0;
   color: #000;
-  padding: .8rem 1.2rem;
+  padding: 0.8rem 1.2rem;
   font-size: 1.25rem;
   font-weight: 800;
   border-top-left-radius: 1rem;
@@ -69,7 +69,7 @@
 
 /* Clear night theme */
 .tw-follow-dark {
-  background-color: #15202B;
+  background-color: #15202b;
 }
 
 .tw-follow-dark .tw-follow-card-wrap {
