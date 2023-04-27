@@ -1,5 +1,5 @@
-import { TicTacToe } from './tic-tac-toe';
+import MouseFollower from "./mouse-follower";
 
 export function App() {
-  return <TicTacToe />;
+  return <MouseFollower />;
 }
