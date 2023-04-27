@@ -1,5 +1,5 @@
-import MouseFollower from "./mouse-follower";
+import Fetching from "./custom-hooks-fetching/fetching";
 
 export function App() {
-  return <MouseFollower />;
+  return <Fetching />;
 }
