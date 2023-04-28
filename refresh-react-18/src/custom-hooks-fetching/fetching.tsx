@@ -1,26 +1,21 @@
 import { useEffect, useState } from 'react';
-import { CatFact, CatImage } from './models/ResponseAPI';
+import { CatImage } from './models/ResponseAPI';
+import { getRandomFact } from './services/facts';
 
-const CAT_FACT_ENDPOINT = 'https://catfact.ninja/fact';
 const CAT_PICTURE_API = `https://cataas.com`;
 
 function Fetching() {
   const [fact, setFact] = useState<undefined | string>();
   const [catPicture, setCatPicture] = useState<undefined | string>();
 
-  useEffect(() => {
-    fetch(CAT_FACT_ENDPOINT)
-      .then((res) => {
-        if(!res.ok) throw new Error('Error fetching cat fact');
-        return res.json()
-      })
-      .then((data: CatFact) => {
-        setFact(data.fact);
-      });
-  }, []);
+  const getCatFact = () => {
+    getRandomFact().then(setFact);
+  };
+
+  useEffect(getCatFact, []);
 
   useEffect(() => {
-    if(!fact) return;
+    if (!fact) return;
 
     const threeFirstWords = fact.split(' ', 3).join(' ');
     fetch(`https://cataas.com/cat/says/${threeFirstWords}?size=300&json=true`)
@@ -29,7 +24,6 @@ function Fetching() {
         setCatPicture(data.url);
       });
   }, [fact]);
-
 
   return (
     <main>
@@ -40,6 +34,7 @@ function Fetching() {
           alt={`Image extracted using three first words of the fact: ${fact}`}
         />
       )}
+      <button onClick={getCatFact}>Get cat fact</button>
     </main>
   );
 }
