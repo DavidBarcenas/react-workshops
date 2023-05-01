@@ -1,5 +1,5 @@
-import Fetching from "./custom-hooks-fetching/fetching";
+import SearchMovies from './movie-search';
 
 export function App() {
-  return <Fetching />;
+  return <SearchMovies />;
 }
