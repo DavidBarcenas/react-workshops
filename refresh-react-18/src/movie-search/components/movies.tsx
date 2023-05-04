@@ -21,6 +21,6 @@ export function Movies({ list }: Props) {
       ))}
     </ul>
   ) : (
-    <p>No se encontraron películas para tu bÚsqueda</p>
+    <p>No se encontraron películas para tu búsqueda</p>
   );
 }

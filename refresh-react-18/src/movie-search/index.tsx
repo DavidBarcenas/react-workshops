@@ -4,11 +4,12 @@ import { FormEvent } from 'react';
 import { useSearch } from './hooks/search.hook';
 
 function SearchMovies() {
-  const { movies } = useMovies();
   const { search, setSearch } = useSearch();
+  const { movies, getMovies } = useMovies(search);
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    getMovies();
     //const fields = Object.fromEntries(new window.FormData(e.currentTarget));
   };
 
