@@ -1,29 +1,28 @@
 import { Movie } from '../models/movie';
-import { useState } from 'react';
-import { SearchResult } from '../models/search-result';
+import { useRef, useState } from 'react';
+import { searchMovies } from '../services/search-movies.service';
 
 export function useMovies(searchTerm: string) {
-  const [responseMovies, setResponseMovies] = useState<Movie[]>([]);
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<unknown | null>(null);
+  const previouseSearch = useRef(searchTerm);
 
-  const getMovies = () => {
-    if (searchTerm) {
-      fetch(`https://www.omdbapi.com/?apikey=4287ad07&s=${searchTerm}`)
-        .then((response) => response.json())
-        .then((data: SearchResult) =>
-          setResponseMovies(
-            data.Search.map((movie) => ({
-              id: movie.imdbID,
-              title: movie.Title,
-              year: movie.Year,
-              type: movie.Type,
-              poster: movie.Poster,
-            })),
-          ),
-        );
-    } else {
-      setResponseMovies([]);
+  const getMovies = async () => {
+    if (previouseSearch.current === searchTerm) return;
+
+    try {
+      setLoading(true);
+      setError(null);
+      const newMovies = await searchMovies(searchTerm);
+      setMovies(newMovies);
+      previouseSearch.current = searchTerm;
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  return { movies: responseMovies, getMovies };
+  return { movies, loading, error, getMovies };
 }
