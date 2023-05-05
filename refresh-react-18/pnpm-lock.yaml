@@ -12,6 +12,7 @@ specifiers:
   eslint-config-prettier: ^8.6.0
   eslint-plugin-prettier: ^4.2.1
   eslint-plugin-react: ^7.32.2
+  just-debounce-it: 3.2.0
   postcss: ^8.4.21
   prettier: ^2.8.4
   react: ^18.2.0
@@ -21,6 +22,7 @@ specifiers:
   vite: ^4.1.0
 
 dependencies:
+  just-debounce-it: 3.2.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
 
@@ -1602,6 +1604,10 @@ packages:
       array-includes: 3.1.6
       object.assign: 4.1.4
     dev: true
+
+  /just-debounce-it/3.2.0:
+    resolution: {integrity: sha512-WXzwLL0745uNuedrCsCs3rpmfD6DBaf7uuVwaq98/8dafURfgQaBsSpjiPp5+CW6Vjltwy9cOGI6qE71b3T8iQ==}
+    dev: false
 
   /levn/0.4.1:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}

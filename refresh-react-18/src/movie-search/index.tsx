@@ -1,28 +1,41 @@
 import { Movies } from './components/movies';
 import { useMovies } from './hooks/movies.hook';
-import { FormEvent } from 'react';
+import { FormEvent, useCallback, useState } from 'react';
 import { useSearch } from './hooks/search.hook';
+import debounce from 'just-debounce-it';
 
 function SearchMovies() {
   const { search, setSearch } = useSearch();
-  const { movies, getMovies } = useMovies(search);
+  const [sort, setSort] = useState(false);
+  const { movies, getMovies } = useMovies(search, sort);
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    getMovies();
+    getMovies(search).then();
     //const fields = Object.fromEntries(new window.FormData(e.currentTarget));
+  };
+
+  const onSort = () => {
+    setSort(!sort);
   };
 
   const onChange = (e: FormEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget as HTMLInputElement;
     setSearch(value);
+    debounceGetMovies(value);
   };
+
+  const debounceGetMovies = useCallback(
+    debounce((search: string) => getMovies(search), 500),
+    [],
+  );
 
   return (
     <div className='w-full min-h-screen bg-gray-900 text-white px-10 py-6'>
       <header className='flex items-center justify-between mb-10'>
         <h1 className='text-2xl font-bold'>Buscar películas</h1>
         <form onSubmit={onSubmit}>
+          <input type='checkbox' onChange={onSort} className='mr-3' />
           <input
             onInput={onChange}
             value={search}
