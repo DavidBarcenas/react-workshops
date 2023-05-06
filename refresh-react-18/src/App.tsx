@@ -1,5 +1,5 @@
-import SearchMovies from './movie-search';
+import { ShoppingCart } from './shopping-cart';
 
 export function App() {
-  return <SearchMovies />;
+  return <ShoppingCart />;
 }
