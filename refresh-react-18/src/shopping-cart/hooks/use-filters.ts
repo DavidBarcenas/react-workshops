@@ -1,11 +1,9 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import { Product } from '../interfaces/product';
+import { FiltersContext } from '../context/filters-provider';
 
 export function useFilters() {
-  const [filters, setFilters] = useState({
-    category: 'all',
-    minPrice: 0,
-  });
+  const { filters } = useContext(FiltersContext);
 
   const filterProducts = (products: Product[]) => {
     return products.filter((product) => {
@@ -16,5 +14,5 @@ export function useFilters() {
     });
   };
 
-  return { filterProducts, setFilters };
+  return { filterProducts };
 }

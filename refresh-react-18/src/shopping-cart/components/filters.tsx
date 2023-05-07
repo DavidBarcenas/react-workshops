@@ -1,6 +1,8 @@
-import { FormEvent, useId, useState } from 'react';
+import { FormEvent, useContext, useId, useState } from 'react';
+import { FiltersContext } from '../context/filters-provider';
 
 export function Filters() {
+  const { setFilters } = useContext(FiltersContext);
   const [range, setRange] = useState(0);
   const priceId = useId();
   const categoryId = useId();
@@ -8,6 +10,7 @@ export function Filters() {
   const handlePriceRange = (e: FormEvent<HTMLInputElement>) => {
     const value = (e?.target as HTMLInputElement).valueAsNumber;
     setRange(value);
+    setFilters((prev) => ({ ...prev, minPrice: value }));
   };
 
   return (
