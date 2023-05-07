@@ -1,11 +1,19 @@
 import { Products } from './components/products';
-import { products } from './mocks/products.json';
+import { products as productsMock } from './mocks/products.json';
+import { useState } from 'react';
+import { Header } from './components/header';
+import { useFilters } from './hooks/use-filters';
 
 export function ShoppingCart() {
+  const [products] = useState(productsMock);
+  const { filterProducts } = useFilters();
+
+  const filteredProducts = filterProducts(products);
+
   return (
     <div className='bg-gray-100 p-4'>
-      <h1 className='my-4 text-2xl font-bold'>Carrito de compras</h1>
-      <Products list={products} />
+      <Header />
+      <Products list={filteredProducts} />
     </div>
   );
 }
