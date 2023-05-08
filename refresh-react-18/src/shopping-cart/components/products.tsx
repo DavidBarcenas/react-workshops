@@ -1,15 +1,18 @@
-import { Product } from '../interfaces/product';
 import { AddToCartIcon } from './icons';
+import { useState } from 'react';
+import { useFilters } from '../hooks/use-filters';
+import { products as productsMock } from '../mocks/products.json';
 
-interface Props {
-  list: Product[];
-}
+export function Products() {
+  const [products] = useState(productsMock);
+  const { filterProducts } = useFilters();
 
-export function Products({ list }: Props) {
+  const filteredProducts = filterProducts(products);
+
   return (
     <main>
       <ul className='grid grid-cols-5 gap-5 auto-rows-max'>
-        {list.map((product) => (
+        {filteredProducts.map((product) => (
           <li key={product.id} className='bg-white rounded-sm pb-4'>
             <img
               src={product.thumbnail}
