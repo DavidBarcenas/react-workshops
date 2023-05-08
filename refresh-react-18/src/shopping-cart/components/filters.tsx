@@ -1,15 +1,13 @@
-import { FormEvent, useContext, useId, useState } from 'react';
-import { FiltersContext } from '../context/filters-provider';
+import { FormEvent, useId } from 'react';
+import { useFilters } from '../hooks/use-filters';
 
 export function Filters() {
-  const { setFilters } = useContext(FiltersContext);
-  const [range, setRange] = useState(0);
+  const { filters, setFilters } = useFilters();
   const priceId = useId();
   const categoryId = useId();
 
   const handlePriceRange = (e: FormEvent<HTMLInputElement>) => {
     const value = (e?.target as HTMLInputElement).valueAsNumber;
-    setRange(value);
     setFilters((prev) => ({ ...prev, minPrice: value }));
   };
 
@@ -24,10 +22,10 @@ export function Filters() {
           id={priceId}
           min={0}
           max={1000}
-          value={range}
+          value={filters.minPrice}
           onChange={handlePriceRange}
         />
-        <span className='inline-block min-w-[50px] ml-2'>${range}</span>
+        <span className='inline-block min-w-[50px] ml-2'>${filters.minPrice}</span>
       </div>
       <div>
         <label htmlFor={categoryId} className='mr-2'>

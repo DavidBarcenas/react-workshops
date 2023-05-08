@@ -3,7 +3,7 @@ import { Product } from '../interfaces/product';
 import { FiltersContext } from '../context/filters-provider';
 
 export function useFilters() {
-  const { filters } = useContext(FiltersContext);
+  const { filters, setFilters } = useContext(FiltersContext);
 
   const filterProducts = (products: Product[]) => {
     return products.filter((product) => {
@@ -14,5 +14,5 @@ export function useFilters() {
     });
   };
 
-  return { filterProducts };
+  return { filterProducts, filters, setFilters };
 }
