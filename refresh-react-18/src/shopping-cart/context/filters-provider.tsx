@@ -1,28 +1,20 @@
 import { createContext, Dispatch, ReactNode, SetStateAction, useState } from 'react';
 
-export type FiltersType = {
-  category: string;
-  minPrice: number;
-};
-
-interface ProviderProps {
-  filters: FiltersType;
-  setFilters: Dispatch<SetStateAction<FiltersType>>;
+interface FiltersContextProps {
+  filters: {
+    category: string;
+    minPrice: number;
+  };
+  setFilters: Dispatch<SetStateAction<{ category: string; minPrice: number }>>;
 }
 
-const initialValue: FiltersType = {
-  category: 'all',
-  minPrice: 0,
-};
-
-export const FiltersContext = createContext<ProviderProps>({
-  filters: initialValue,
-
-  setFilters: () => null,
-});
+export const FiltersContext = createContext<FiltersContextProps>({} as FiltersContextProps);
 
 export function FiltersProvider({ children }: { children: ReactNode }) {
-  const [filters, setFilters] = useState<FiltersType>(initialValue);
+  const [filters, setFilters] = useState({
+    category: 'all',
+    minPrice: 0,
+  });
   return (
     <FiltersContext.Provider value={{ filters, setFilters }}>{children}</FiltersContext.Provider>
   );
