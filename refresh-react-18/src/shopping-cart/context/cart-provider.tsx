@@ -1,41 +1,54 @@
-import { createContext, ReactNode, useState } from 'react';
+import { createContext, ReactNode, useReducer } from 'react';
 import { Product, ProductCart } from '../interfaces/product';
+import { ActionType, CartActionType, CartContextProps } from '../interfaces/context-props';
 
-interface CartContextProps {
-  cart: ProductCart[];
-  addToCart: (product: Product) => void;
-  clearCart: () => void;
-  removeFromCart: (product: Product) => void;
-}
+const initialState: ProductCart[] = [];
+const reducer = (state: ProductCart[], action: ActionType) => {
+  switch (action.type) {
+    case CartActionType.ADD_TO_CART: {
+      const productIndex = state.findIndex((p) => p.id === action.payload?.id);
+
+      if (productIndex >= 0) {
+        const newState = [...state];
+        newState[productIndex].quantity += 1;
+        return newState;
+      }
+
+      return [...state, { ...action.payload, quantity: 1 }];
+    }
+    case CartActionType.REMOVE_FROM_CART:
+      return state.filter((product) => product.id !== action.payload?.id);
+    case CartActionType.CLEAR_CART:
+      return [];
+    default:
+      return state;
+  }
+};
 
 export const CartContext = createContext<CartContextProps | null>(null);
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [cart, setCart] = useState<ProductCart[]>([]);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  const addToCart = (product: Product) => {
-    const productIndex = cart.findIndex((p) => p.id === product.id);
+  const addToCart = (product: Product) =>
+    dispatch({
+      type: CartActionType.ADD_TO_CART,
+      payload: product,
+    });
 
-    if (productIndex >= 0) {
-      const newCart = [...cart];
-      newCart[productIndex].quantity += 1;
-      setCart(newCart);
-      return;
-    }
+  const removeFromCart = (product: Product) =>
+    dispatch({
+      type: CartActionType.REMOVE_FROM_CART,
+      payload: product,
+    });
 
-    setCart((prev) => [...prev, { ...product, quantity: 1 }]);
-  };
-
-  const removeFromCart = (product: Product) => {
-    setCart((prev) => prev.filter((p) => p.id !== product.id));
-  };
-
-  const clearCart = () => {
-    setCart([]);
-  };
+  const clearCart = () =>
+    dispatch({
+      type: CartActionType.CLEAR_CART,
+    });
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, clearCart, removeFromCart }}>
+    <CartContext.Provider value={{ cart: state, addToCart, clearCart, removeFromCart }}>
       {children}
     </CartContext.Provider>
   );
