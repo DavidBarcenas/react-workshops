@@ -4,14 +4,14 @@ export interface CatFact {
 }
 
 export interface CatImage {
-  tags:      string[];
+  tags: string[];
   createdAt: Date;
   updatedAt: Date;
   validated: boolean;
-  owner:     string;
-  file:      string;
-  mimetype:  string;
-  size:      number;
-  _id:       string;
-  url:       string;
+  owner: string;
+  file: string;
+  mimetype: string;
+  size: number;
+  _id: string;
+  url: string;
 }
